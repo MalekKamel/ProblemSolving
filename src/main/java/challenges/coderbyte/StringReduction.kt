@@ -28,7 +28,7 @@ object StringReduction {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        println(stringReduction("abcabc"))
-        println(stringReduction("cccc"))
+        println(stringReduction("abcabc")) // 2
+        println(stringReduction("cccc")) // 4
     }
 }
