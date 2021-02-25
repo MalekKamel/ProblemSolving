@@ -1,5 +1,8 @@
 package challenges.coderbyte
 
+import java.util.*
+
+
 /*
 Have the function FindIntersection(strArr) read the array of strings stored in strArr which will contain 2
 elements: the first element will represent a list of comma-separated numbers sorted in ascending order,
@@ -14,10 +17,32 @@ the array will be of numbers sorted in ascending order and may contain negative 
 object FindIntersection {
 
     private fun challenge(strArr: Array<String>): String {
-        val firstArr = strArr[0].split(", ").toHashSet()
-        val secondArr = strArr[1].split(", ").toHashSet()
-        firstArr.retainAll(secondArr)
-        return if (firstArr.isEmpty()) "false" else firstArr.joinToString(",")
+        val firstSet = strArr[0].split(", ").map { it.toInt() }
+        val secondSet = strArr[1].split(", ").map { it.toInt() }
+        val result = intersection(firstSet, secondSet)
+        return if (result.isEmpty()) "false" else result.joinToString(",")
+    }
+
+    private fun intersection(a: List<Int>, b: List<Int>): ArrayList<Int> {
+        val result = ArrayList<Int>()
+        var i = 0
+        var j = 0
+        while (i < a.size && j < b.size) {
+            when {
+                a[i] == b[j] -> {
+                    result.add(a[i])
+                    ++i
+                    ++j
+                }
+                a[i] < b[j] -> {
+                    ++i
+                }
+                a[i] > b[j] -> {
+                    ++j
+                }
+            }
+        }
+        return result
     }
 
     @JvmStatic
@@ -26,4 +51,5 @@ object FindIntersection {
         println(challenge(arrayOf("1, 3, 9, 10, 17, 18", "1, 4, 9, 10"))) // 1,9,10
         println(challenge(arrayOf("1, 2, 3", "4, 5, 6"))) // false
     }
+
 }
