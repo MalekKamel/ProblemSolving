@@ -2,7 +2,7 @@ package challenges.coderbyte
 
 object StringReduction {
 
-    fun stringReductionEN(str: String): String {
+    fun stringReduction(str: String): String {
         val sum = ('a'.toInt() + 'b'.toInt() + 'c'.toInt())
         return reduce(str, sum).length.toString()
     }
@@ -28,7 +28,7 @@ object StringReduction {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        println(stringReductionEN("abcabc"))
-        println(stringReductionEN("cccc"))
+        println(stringReduction("abcabc"))
+        println(stringReduction("cccc"))
     }
 }
