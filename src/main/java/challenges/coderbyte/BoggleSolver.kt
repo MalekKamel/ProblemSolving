@@ -31,35 +31,41 @@ Use the Parameter Testing feature in the box below to test your code with differ
 Solution: https://www.geeksforgeeks.org/boggle-set-2-using-trie/
  */
 
+/*
+Solution Steps:
+1- Put all words in a Trie.
+2- Iterate over each char in boggle.
+3- Get the char node in Trie if found.
+4- Depth-First Search each trie node to see if we can get a word
+ */
 object BoggleSolver {
     private var dirX = intArrayOf(-1, -1, -1, 0, 1, 0, 1, 1)
     private var dirY = intArrayOf(-1, 1, 0, -1, -1, 1, 0, 1)
 
     private fun findWords(strArr: Array<String>): String {
         val boggle = strArr[0]
-                .split(",")
-                .map { it.trim().toCharArray() }
+                .split(", ")
+                .map { it.toCharArray() }
                 .toTypedArray()
         val words = strArr[1]
-                .split(",")
-                .map { it.trim() }
+                .split(", ")
                 .toTypedArray()
 
         val trie = Trie()
         trie.insert(words)
+
         val result = findWords(boggle, trie)
         if (result.size == words.size) {
             return "true"
         }
         return words.filter { !result.contains(it) }
-                .joinToString(",") { it }
+                .joinToString(",")
     }
 
     // Prints all words present in dictionary.
     private fun findWords(boggle: Array<CharArray>, trie: Trie): MutableSet<String> {
         // Mark all characters as not visited
         val visited = Array(boggle.size) { BooleanArray(boggle[0].size) }
-        var str = ""
 
         val result: MutableSet<String> = HashSet()
         // traverse all matrix elements
@@ -68,11 +74,10 @@ object BoggleSolver {
                 // we start searching for word in dictionary
                 // if we found a character which is child
                 // of Trie root
-                val index = indexOf(boggle[i][j])
+                val ch = boggle[i][j]
+                val index = indexOf(ch)
                 val node = trie.root.child[index] ?: continue
-                str += boggle[i][j]
-                searchWord(node, boggle, i, j, visited, str, result)
-                str = ""
+                searchWord(node, boggle, i, j, visited, ch.toString(), result)
             }
         }
         return result
@@ -85,29 +90,23 @@ object BoggleSolver {
                            i: Int,
                            j: Int,
                            visited: Array<BooleanArray>,
-                           str: String,
+                           word: String,
                            result: MutableSet<String>) {
-        // If both I and j in range and we visited
-        // that element of matrix first time
-        if (!isSafe(i, j, boggle, visited)) return
-
-        // if we found word in trie / dictionary
-        if (root.isWord) {
-            result.add(str)
-        }
+        if (root.isWord) result.add(word)
 
         // make it visited
         visited[i][j] = true
 
         for (k in 0..25) {
             val child = root.child[k] ?: continue
-            val ch = (k + 'a'.toInt()).toChar()
+            val ch = toChar(k)
             // skip if a cell is invalid, or it is already visited
             for (n in 0..7) {
                 val x = i + dirX[n]
                 val y = j + dirY[n]
-                if (!(isSafe(x, y, boggle, visited) && boggle[x][y] == ch)) continue
-                searchWord(child, boggle, x, y, visited, str + ch, result)
+                if (!(isSafe(x, y, boggle, visited))) continue
+                if (boggle[x][y] != ch) continue
+                searchWord(child, boggle, x, y, visited, word + ch, result)
             }
         }
         // make current element unvisited
@@ -117,10 +116,10 @@ object BoggleSolver {
 
     // function to check that current location
     // (i and j) is in matrix range
-    fun isSafe(i: Int,
-               j: Int,
-               board: Array<CharArray>,
-               visited: Array<BooleanArray>): Boolean {
+    private fun isSafe(i: Int,
+                       j: Int,
+                       board: Array<CharArray>,
+                       visited: Array<BooleanArray>): Boolean {
         return i in board.indices && j in board[0].indices && !visited[i][j]
     }
 
@@ -134,11 +133,11 @@ object BoggleSolver {
             for (element in words) insert(element)
         }
 
-        fun insert(Key: String) {
-            val n = Key.length
+        fun insert(key: String) {
+            val n = key.length
             var pChild = root
             for (i in 0 until n) {
-                val index = indexOf(Key[i])
+                val index = indexOf(key[i])
                 if (pChild.child[index] == null) pChild.child[index] = TrieNode()
                 pChild = pChild.child[index]!!
             }
@@ -156,7 +155,12 @@ object BoggleSolver {
         var isWord = false
     }
 
+    fun toChar(c: Int): Char {
+        return (c + 'a'.toInt()).toChar()
+    }
+
     fun indexOf(c: Char): Int {
+        // subtract from a to convert unicode number to a number from 0 to 26.
         return c - 'a'
     }
 
@@ -170,6 +174,7 @@ object BoggleSolver {
                 "aaey, rrum, tgmn, ball",
                 "all, ball, mur, raeymnl, rumk, tall, true, trum, yes"
         )
+        println(findWords(input))
         println(findWords(input2))
     }
 }
