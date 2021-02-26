@@ -155,11 +155,11 @@ object BoggleSolver {
         var isWord = false
     }
 
-    fun toChar(c: Int): Char {
+    private fun toChar(c: Int): Char {
         return (c + 'a'.toInt()).toChar()
     }
 
-    fun indexOf(c: Char): Int {
+    private fun indexOf(c: Char): Int {
         // subtract from a to convert unicode number to a number from 0 to 26.
         return c - 'a'
     }
