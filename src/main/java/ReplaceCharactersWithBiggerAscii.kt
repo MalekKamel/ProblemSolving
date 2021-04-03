@@ -1,4 +1,3 @@
-
 /*
 Given a string str consisting of lowercase letters only and an integer k,
 the task is to replace every character of the given string by character whose ASCII value is k times more than it.
@@ -27,10 +26,8 @@ object ReplaceCharactersWithBiggerAscii {
 
         for (element in input) {
             val ascii = element.toInt()
-            // store the duplicate
             val duplicate = k
 
-            // if k-th ahead character exceed 'z'
             if (ascii + k > 122) {
                 k -= 122 - ascii
                 k %= 26
@@ -41,7 +38,6 @@ object ReplaceCharactersWithBiggerAscii {
             k = duplicate
         }
 
-        // print the new string
         println(result)
     }
 
