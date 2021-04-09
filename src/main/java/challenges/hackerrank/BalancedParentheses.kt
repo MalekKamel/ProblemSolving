@@ -9,10 +9,9 @@ and the orders of “{“, “}”, “(“, “)”, “[“, “]” are corre
 object BalancedParentheses {
 
     fun isValid(s: String): Boolean {
-        val chars = s.toCharArray()
         val stack = Stack<Char>()
 
-        for (ch in chars) {
+        for (ch in s.toCharArray()) {
             if (!stack.isEmpty() && ch == '}' && stack.peek() == '{') {
                 stack.pop()
                 continue
