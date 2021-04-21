@@ -52,14 +52,8 @@ object Urlify {
     }
 
     private fun trueLength(arr: CharArray): Int {
-        return lastCharIndex(arr) + 1
-    }
-
-    private fun lastCharIndex(arr: CharArray): Int {
-        for (i in arr.indices.reversed()) {
-            if (arr[i] != ' ') return i
-        }
-        return -1
+        val lastCharIndex = arr.indexOfLast { it != ' ' }
+        return lastCharIndex + 1
     }
 
     @JvmStatic
