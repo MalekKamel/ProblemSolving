@@ -1,7 +1,5 @@
 package challenges.coderbyte
 
-import java.util.*
-
 
 /*
 Have the function FindIntersection(strArr) read the array of strings stored in strArr which will contain 2
@@ -16,40 +14,44 @@ the array will be of numbers sorted in ascending order and may contain negative 
  */
 object FindIntersection {
 
-    private fun challenge(strArr: Array<String>): String {
-        val firstSet = strArr[0].split(", ").map { it.toInt() }
-        val secondSet = strArr[1].split(", ").map { it.toInt() }
-        val result = intersection(firstSet, secondSet)
-        return if (result.isEmpty()) "false" else result.joinToString(",")
+    private fun solve(strArr: Array<String>): String {
+        val a = strArr[0].split(", ").map { it.toInt() }
+        val b = strArr[1].split(", ").map { it.toInt() }
+        val result = intersection(a, b)
+        return if (result.isEmpty()) false.toString() else result.joinToString(",")
     }
 
-    private fun intersection(a: List<Int>, b: List<Int>): ArrayList<Int> {
-        val result = ArrayList<Int>()
+    private fun intersection(a: List<Int>, b: List<Int>): List<Int> {
+        val result = mutableListOf<Int>()
         var i = 0
         var j = 0
-        while (i < a.size && j < b.size) {
+        val aSize = a.size
+        val bSize = b.size
+        while (i < aSize && j < bSize) {
             when {
                 a[i] == b[j] -> {
                     result.add(a[i])
-                    ++i
-                    ++j
+                    i++
+                    j++
                 }
                 a[i] < b[j] -> {
-                    ++i
+                    i++
                 }
                 a[i] > b[j] -> {
-                    ++j
+                    j++
                 }
             }
         }
         return result
     }
 
+    // "1, 3, 4, 7, 13"
+    // "1, 2, 4, 13, 15"
     @JvmStatic
     fun main(args: Array<String>) {
-        println(challenge(arrayOf("1, 3, 4, 7, 13", "1, 2, 4, 13, 15"))) // 1,4,13
-        println(challenge(arrayOf("1, 3, 9, 10, 17, 18", "1, 4, 9, 10"))) // 1,9,10
-        println(challenge(arrayOf("1, 2, 3", "4, 5, 6"))) // false
+        println(solve(arrayOf("1, 3, 4, 7, 13", "1, 2, 4, 13, 15"))) // 1,4,13
+        println(solve(arrayOf("1, 3, 9, 10, 17, 18", "1, 4, 9, 10"))) // 1,9,10
+        println(solve(arrayOf("1, 2, 3", "4, 5, 6"))) // false
     }
 
 }
