@@ -1,6 +1,5 @@
 package challenges.coderbyte
 
-import java.util.regex.Pattern
 /*
 Have the function CommandLine(str) take the str parameter being passed
 which represents the parameters given to a command in an old PDP system.
@@ -21,20 +20,19 @@ the string "12=4 8=12 7=10 8=4" because "SampleNumber" is a 12 character
 token with a 4 character value ("3234") followed by "provider" which is
 an 8 character token followed by a 12 character value ("Dr. M. Welby"), etc.
 
-Use the Parameter Testing feature in the box below to
-test your code with different arguments.
  */
 object CommandLine {
 
-    fun commandLine(str: String): String {
+    private fun solve(str: String): String {
         /*
         match the strings before and after = and concatenate them
         */
-        val beforePattern = Pattern.compile("\\w+(?==)")
-        val beforeMatcher = beforePattern.matcher(str)
+        val beforeMatcher = "\\w+(?==)".toPattern().matcher(str)
 
-        val afterPattern = Pattern.compile("(?<=(=))(.*?)(?=(( \\w*)=)|$)")
-        val afterMatcher = afterPattern.matcher(str)
+        // (?<==)  must be preceded with =
+        // (.*?) one or more character, must be few(?)
+        // (?=(( \w*)=)|$) followed by another expression ( characters=) or the end of string (|$)
+        val afterMatcher = "(?<==)(.*?)(?=(( \\w*)=)|$)".toPattern().matcher(str)
 
         var answer = ""
         while (beforeMatcher.find() && afterMatcher.find()) {
@@ -48,6 +46,8 @@ object CommandLine {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        print(commandLine("letters=A B Z T numbers=1 2 26 20 combine=true"))
+        print(solve("letters=A B Z T numbers=1 2 26 20 combine=true")) // 7=7 7=9 7=4
     }
+
 }
+
