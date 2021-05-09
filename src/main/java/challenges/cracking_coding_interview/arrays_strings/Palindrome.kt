@@ -1,4 +1,4 @@
-package challenges.cracking_coding_interview
+package challenges.cracking_coding_interview.arrays_strings
 
 import java.util.*
 

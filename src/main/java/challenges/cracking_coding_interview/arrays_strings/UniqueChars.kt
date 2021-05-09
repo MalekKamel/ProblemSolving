@@ -1,4 +1,4 @@
-package challenges.cracking_coding_interview
+package challenges.cracking_coding_interview.arrays_strings
 
 /*
 Implement an algorithm to determine if a string has all unique characters. What if you cannot

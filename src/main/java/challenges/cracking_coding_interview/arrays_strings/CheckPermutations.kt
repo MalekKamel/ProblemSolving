@@ -1,4 +1,4 @@
-package challenges.cracking_coding_interview
+package challenges.cracking_coding_interview.arrays_strings
 
 /*
 Given two strings, write a method to decide if one is a permutation of the other.
