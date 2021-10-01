@@ -1,7 +1,7 @@
 package challenges.data_structure
 
 
-class MyHashTable {
+class MyHashMap {
     private val entries = arrayOfNulls<Entry<String, String>?>(INITIAL_SIZE)
 
     class Entry<K, V>(var key: K, var value: V) {
@@ -123,7 +123,7 @@ class MyHashTable {
 
         @JvmStatic
         fun main(args: Array<String>) {
-            val hashTable = MyHashTable()
+            val hashTable = MyHashMap()
             // Put some key values.
             for (i in 0..29) {
                 val key = i.toString()
