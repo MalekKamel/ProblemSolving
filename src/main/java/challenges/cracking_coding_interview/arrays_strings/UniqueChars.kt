@@ -22,8 +22,9 @@ object UniqueChars {
     }
 
     /*
-   Optimized solution
-   Complexity: O(N)
+     Optimized solution
+     We assume the string is an ASCII which will have numbers up to 128
+     Complexity: O(N)
     */
     private fun solve(s: String): Boolean {
         if (s.length > 128) return false
