@@ -44,12 +44,12 @@ For example,
  * Complexity Analysis
  * Time complexity : O(n).
  * We traverse over the given string s with n characters once.
- * We also traverse over the map which can grow upto a size of n in case all characters in s are distinct.
- * Space complexity : O(n). The hashmap can grow upto a size of n, in case all the characters in s are distinct.
+ * We also traverse over the map which can grow up to a size of n in case all characters in s are distinct.
+ * Space complexity : O(n). The hashmap can grow up to a size of n, in case all the characters in s are distinct.
  */
 private object Solution1 {
     fun solve(s: String): Boolean {
-        val map = HashMap<Char, Int>()
+        val map = hashMapOf<Char, Int>()
         for (i in s.indices) {
             map[s[i]] = map.getOrDefault(s[i], 0) + 1
         }
