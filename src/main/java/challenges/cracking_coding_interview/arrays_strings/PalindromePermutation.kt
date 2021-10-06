@@ -48,6 +48,7 @@ For example,
  * Space complexity : O(n). The hashmap can grow up to a size of n, in case all the characters in s are distinct.
  */
 private object Solution1 {
+
     fun solve(s: String): Boolean {
         val map = hashMapOf<Char, Int>()
         for (i in s.indices) {
@@ -99,9 +100,7 @@ private object Solution2 {
     fun solve(s: String): Boolean {
         val set: MutableSet<Char> = HashSet()
         for (i in s.indices) {
-            if (!set.add(s[i])) {
-                set.remove(s[i])
-            }
+            if (!set.add(s[i])) set.remove(s[i])
         }
         return set.size <= 1
     }
@@ -136,7 +135,7 @@ private object Solution2 {
  *
  * Complexity Analysis
  * Time complexity : O(n). We traverse over the string s of length n once only.
- * Space complexity : O(1). A array of constant size(128) is used.
+ * Space complexity : O(1). An array of constant size(128) is used.
  */
 private object Solution3 {
     fun solve(s: String): Boolean {
@@ -146,9 +145,9 @@ private object Solution3 {
             map[s[i].toInt()]++
             if (map[s[i].toInt()] % 2 == 0) {
                 count--
-            } else {
-                count++
+                continue
             }
+            count++
         }
         return count <= 1
     }
