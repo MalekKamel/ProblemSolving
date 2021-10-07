@@ -139,11 +139,11 @@ private object Solution2 {
  */
 private object Solution3 {
     fun solve(s: String): Boolean {
-        val map = IntArray(128)
+        val array = IntArray(128)
         var count = 0
         for (i in s.indices) {
-            map[s[i].toInt()]++
-            if (map[s[i].toInt()] % 2 == 0) {
+            array[s[i].toInt()]++
+            if (array[s[i].toInt()] % 2 == 0) {
                 count--
                 continue
             }
