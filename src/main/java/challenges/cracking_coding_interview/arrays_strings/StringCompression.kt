@@ -26,8 +26,8 @@ object StringCompression {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        val str = "aa"
-        println(str)
+        val str = "aabcccccaaa"
+        println(str) // a2b1c5a3
         println(compress(str))
     }
 }
@@ -73,8 +73,8 @@ object StringCompression2 {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        val str = "aa"
-        println(str)
+        val str = "aabcccccaaa"
+        println(str) // a2b1c5a3
         println(compress(str))
     }
 }
