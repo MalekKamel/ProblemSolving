@@ -15,6 +15,12 @@ object RotateMatrix {
             val last = n - 1 - layer
             for (i in layer until last) {
                 val offset = i - layer
+
+                // Top    -> matrix[layer][i]
+                // Bottom -> matrix[last][last - offset]
+                // Left   -> matrix[last - offset][layer]
+                // Right  -> matrix[i][last]
+
                 val top = matrix[layer][i] // save top
 
                 // left -> top
