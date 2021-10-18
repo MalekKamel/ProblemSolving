@@ -23,13 +23,13 @@ object StringRotation {
     fun main(args: Array<String>) {
         val pairs =
             arrayOf(
-                arrayOf("apple", "pleap"),
-                arrayOf("waterbottle", "erbottlewat"),
-                arrayOf("camera", "macera")
+                Pair("apple", "pleap"),
+                Pair("waterbottle", "erbottlewat"),
+                Pair("camera", "macera")
             )
         for (pair in pairs) {
-            val word1 = pair[0]
-            val word2 = pair[1]
+            val word1 = pair.first
+            val word2 = pair.second
             val isRotation = isRotation(word1, word2)
             println("$word1, $word2: $isRotation")
         }
