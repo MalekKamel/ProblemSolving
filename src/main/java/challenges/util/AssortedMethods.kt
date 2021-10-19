@@ -1,8 +1,7 @@
 package challenges.util
 
+import challenges.data_structure.LinkedListNode
 import java.awt.Point
-import java.util.*
-import javax.swing.tree.TreeNode
 
 
 internal object AssortedMethods {
@@ -12,6 +11,21 @@ internal object AssortedMethods {
 
     fun randomIntInRange(min: Int, max: Int): Int {
         return randomInt(max + 1 - min) + min
+    }
+
+    fun randomLinkedList(N: Int, min: Int, max: Int): LinkedListNode {
+        val root = LinkedListNode(
+            randomIntInRange(min, max),
+            null, null
+        )
+        var prev = root
+        for (i in 1 until N) {
+            val data = randomIntInRange(min, max)
+            val next = LinkedListNode(data, null, null)
+            prev.next = next
+            prev = next
+        }
+        return root
     }
 
     fun randomBoolean(): Boolean {
