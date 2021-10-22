@@ -5,11 +5,12 @@ import challenges.util.AssortedMethods
 
 
 /*
-Given two strings, write a method to decide if one is a permutation of the other.
-
+Write code to remove duplicates from an unsorted linked list.
+FOLLOW UP
+How would you solve this problem if a temporary buffer is not allowed?
  */
 object RemoveDupA {
-    private fun deleteDups(n: LinkedListNode?) {
+    private fun deleteDup(n: LinkedListNode?) {
         var n: LinkedListNode? = n
         val set = HashSet<Int>()
         var previous: LinkedListNode? = null
@@ -18,6 +19,7 @@ object RemoveDupA {
                 set.add(n.data)
                 previous = n
             } else {
+                // Remove item
                 previous?.next = n.next
             }
             n = n.next
@@ -37,7 +39,7 @@ object RemoveDupA {
             first = second
         }
         println(head.printForward())
-        deleteDups(head)
+        deleteDup(head)
         println(head.printForward())
     }
 }
