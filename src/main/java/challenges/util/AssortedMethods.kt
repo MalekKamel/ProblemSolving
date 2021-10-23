@@ -46,6 +46,15 @@ internal object AssortedMethods {
         return matrix
     }
 
+    fun createLinkedListFromArray(values: IntArray): LinkedListNode {
+        val head = LinkedListNode(values[0], null, null)
+        var current = head
+        for (i in 1 until values.size) {
+            current = LinkedListNode(values[i], null, current)
+        }
+        return head
+    }
+
     fun randomMatrix(M: Int, N: Int, min: Int, max: Int): Array<IntArray> {
         val matrix = Array(M) { IntArray(N) }
         for (i in 0 until M) {
