@@ -12,13 +12,15 @@ object KthToLastC {
         var p1 = head
         var p2 = head
 
-        /* Move p1 k nodes into the list.*/for (i in 0 until k) {
+        /* Move p1 k nodes into the list.*/
+        for (i in 0 until k) {
             if (p1 == null) return null // Out of bounds
             p1 = p1.next
         }
 
         /* Move them at the same pace. When p1 hits the end,
-		 * p2 will be at the right element. */while (p1 != null) {
+		 * p2 will be at the right element. */
+        while (p1 != null) {
             p1 = p1.next
             p2 = p2!!.next
         }
@@ -29,10 +31,13 @@ object KthToLastC {
     fun main(args: Array<String>) {
         val array = intArrayOf(0, 1, 2, 3)
         val head: LinkedListNode = AssortedMethods.createLinkedListFromArray(array)
-        for (i in 0..array.size + 1) {
-            val node = nthToLast(head, i)
-            val nodeValue = if (node == null) "null" else "" + node.data
-            println("$i: $nodeValue")
-        }
+//        for (i in 0..array.size + 1) {
+//            val node = nthToLast(head, i)
+//            val nodeValue = if (node == null) "null" else "" + node.data
+//            println("$i: $nodeValue")
+//        }
+        val node = nthToLast(head, 2)
+        val nodeValue = if (node == null) "null" else "" + node.data
+        println("$2: $nodeValue")
     }
 }

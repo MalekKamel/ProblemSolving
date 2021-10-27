@@ -18,9 +18,8 @@ object KthToLastB {
     }
 
     private fun kthToLast(head: LinkedListNode?, k: Int, idx: Index): LinkedListNode? {
-        if (head == null) {
+        if (head == null)
             return null
-        }
         val node = kthToLast(head.next, k, idx)
         idx.value = idx.value + 1
         return if (idx.value == k) {
