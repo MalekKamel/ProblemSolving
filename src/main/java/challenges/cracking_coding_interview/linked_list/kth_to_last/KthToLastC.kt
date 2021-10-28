@@ -29,15 +29,12 @@ object KthToLastC {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        val array = intArrayOf(0, 1, 2, 3)
+        val array = intArrayOf(0, 1, 2, 3, 4, 5, 6)
         val head: LinkedListNode = AssortedMethods.createLinkedListFromArray(array)
-//        for (i in 0..array.size + 1) {
-//            val node = nthToLast(head, i)
-//            val nodeValue = if (node == null) "null" else "" + node.data
-//            println("$i: $nodeValue")
-//        }
-        val node = nthToLast(head, 2)
-        val nodeValue = if (node == null) "null" else "" + node.data
-        println("$2: $nodeValue")
+        for (i in 0..array.size + 1) {
+            val node = nthToLast(head, i)
+            val nodeValue = if (node == null) "null" else "" + node.data
+            println("$i: $nodeValue")
+        }
     }
 }
