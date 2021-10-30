@@ -34,7 +34,7 @@ class LinkedListNode {
 
     constructor() {}
 
-    fun printForward(): String {
+    fun printForward    (): String {
         return if (next != null) {
             data.toString() + "->" + next!!.printForward()
         } else {
