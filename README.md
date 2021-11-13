@@ -8,6 +8,8 @@ I use [IntelliJ IDEA CE](https://www.jetbrains.com/idea/). Of course you're free
  or others.
  
 ## Credit
+
+- [ ] [Cracking The Coding Interview](https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/0984782850)
 - [ ] [CoderByte](https://coderbyte.com/)
 - [ ] [LeetCode](https://leetcode.com/)
 
