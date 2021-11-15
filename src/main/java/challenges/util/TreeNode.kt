@@ -1,5 +1,7 @@
 package challenges.util
 
+import java.lang.StringBuilder
+
 /* One node of a binary tree. The data element stored is a single
  * character.
  */
@@ -8,6 +10,7 @@ class TreeNode(var data: Int) {
     var right: TreeNode? = null
     var parent: TreeNode? = null
     private var size = 0
+
     private fun setLeftChild(left: TreeNode?) {
         this.left = left
         if (left != null) {
@@ -81,13 +84,12 @@ class TreeNode(var data: Int) {
 
     companion object {
         private fun createMinimalBST(arr: IntArray, start: Int, end: Int): TreeNode? {
-            if (end < start) {
-                return null
-            }
+            if (end < start) return null
             val mid = (start + end) / 2
             val n = TreeNode(arr[mid])
             n.setLeftChild(createMinimalBST(arr, start, mid - 1))
             n.setRightChild(createMinimalBST(arr, mid + 1, end))
+            println(n)
             return n
         }
 
@@ -98,5 +100,19 @@ class TreeNode(var data: Int) {
 
     init {
         size = 1
+    }
+
+    override fun toString(): String {
+        return StringBuilder()
+            .append("Data: ")
+            .append(data)
+            .append(", ")
+            .append("Left: ")
+            .append(left?.data)
+            .append(", ")
+            .append("Right: ")
+            .append(right?.data)
+            .append(", ")
+            .toString()
     }
 }

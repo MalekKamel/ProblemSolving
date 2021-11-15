@@ -9,7 +9,7 @@ object Traversals {
         println(node.data)
     }
 
-    private fun inOrderTraversal(node: TreeNode?) {
+    fun inOrderTraversal(node: TreeNode?) {
         if (node == null) return
         inOrderTraversal(node.left)
         visit(node)
