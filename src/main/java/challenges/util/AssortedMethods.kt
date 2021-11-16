@@ -2,6 +2,7 @@ package challenges.util
 
 import challenges.data_structure.LinkedListNode
 import java.awt.Point
+import java.util.*
 
 
 internal object AssortedMethods {
@@ -53,6 +54,35 @@ internal object AssortedMethods {
             current = LinkedListNode(values[i], null, current)
         }
         return head
+    }
+
+    /* Creates tree by mapping the array left to right, top to bottom. */
+    fun createTreeFromArray(array: IntArray): TreeNode? {
+        if (array.isEmpty()) return null
+
+        val root = TreeNode(array[0])
+        val queue: Queue<TreeNode?> = LinkedList()
+        queue.add(root)
+        var done = false
+        var i = 1
+        while (!done) {
+            val r = queue.element()
+            if (r!!.left == null) {
+                r.left = TreeNode(array[i])
+                i++
+                queue.add(r.left)
+            } else if (r.right == null) {
+                r.right = TreeNode(array[i])
+                i++
+                queue.add(r.right)
+            } else {
+                queue.remove()
+            }
+            if (i == array.size) {
+                done = true
+            }
+        }
+        return root
     }
 
     fun randomMatrix(M: Int, N: Int, min: Int, max: Int): Array<IntArray> {
