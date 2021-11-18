@@ -38,15 +38,13 @@ object ListOfDepthBfs {
     }
 
     private fun printResult(result: ArrayList<LinkedList<TreeNode>>) {
-        var depth = 0
-        for (entry in result) {
+        for ((depth, entry) in result.withIndex()) {
             val i: Iterator<TreeNode> = entry.listIterator()
             print("Link list at depth $depth:")
             while (i.hasNext()) {
-                System.out.print(" " + (i.next() as TreeNode).data)
+                print(" " + i.next().data)
             }
             println()
-            depth++
         }
     }
 
