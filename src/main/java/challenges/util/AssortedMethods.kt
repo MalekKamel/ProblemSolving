@@ -29,6 +29,15 @@ internal object AssortedMethods {
         return root
     }
 
+    fun randomBST(N: Int, min: Int, max: Int): TreeNode {
+        val d = randomIntInRange(min, max)
+        val root = TreeNode(d)
+        for (i in 1 until N) {
+            root.insertInOrder(randomIntInRange(min, max))
+        }
+        return root
+    }
+
     fun randomBoolean(): Boolean {
         return randomIntInRange(0, 1) == 0
     }
