@@ -1,4 +1,4 @@
-package challenges.cracking_coding_interview.bst_sequences
+package challenges.cracking_coding_interview.trees_graphs.bst_sequences
 
 import challenges.util.TreeNode
 import java.util.*

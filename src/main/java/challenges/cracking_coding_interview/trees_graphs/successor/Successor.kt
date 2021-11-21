@@ -1,4 +1,4 @@
-package challenges.cracking_coding_interview.trees_graphs
+package challenges.cracking_coding_interview.trees_graphs.successor
 
 import challenges.util.TreeNode
 

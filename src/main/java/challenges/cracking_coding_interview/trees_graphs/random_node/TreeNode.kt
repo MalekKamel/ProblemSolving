@@ -1,4 +1,4 @@
-package challenges.cracking_coding_interview.random_node
+package challenges.cracking_coding_interview.trees_graphs.random_node
 
 import java.util.*
 

@@ -1,4 +1,4 @@
-package challenges.cracking_coding_interview.random_node
+package challenges.cracking_coding_interview.trees_graphs.random_node
 
 /**
  * You are implementing a binary tree class from scratch which, in addition to insert, find,

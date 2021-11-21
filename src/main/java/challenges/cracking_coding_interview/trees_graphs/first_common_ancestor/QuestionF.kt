@@ -1,4 +1,4 @@
-package challenges.cracking_coding_interview.first_common_ancestor
+package challenges.cracking_coding_interview.trees_graphs.first_common_ancestor
 
 import challenges.util.TreeNode
 

@@ -1,7 +1,7 @@
-package challenges.cracking_coding_interview.first_common_ancestor
+package challenges.cracking_coding_interview.trees_graphs.first_common_ancestor
 
-import challenges.cracking_coding_interview.first_common_ancestor.QuestionA.commonAncestor
-import challenges.cracking_coding_interview.first_common_ancestor.QuestionC.commonAncestor
+import challenges.cracking_coding_interview.trees_graphs.first_common_ancestor.QuestionA.commonAncestor
+import challenges.cracking_coding_interview.trees_graphs.first_common_ancestor.QuestionC.commonAncestor
 import challenges.util.TreeNode
 
 
