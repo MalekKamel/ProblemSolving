@@ -38,7 +38,7 @@ object Tester {
                 val s3 = resultToString("C", x, y, r3)
                 val s4 = resultToString("D", x, y, r4)
                 val s5 = resultToString("D", x, y, r5)
-                if (r1 === r2 && r2 === r3 && r3 === r4 && r4 === r5) {
+                if (r1 == r2 && r2 == r3 && r3 == r4 && r4 == r5) {
                     println("SUCCESS: $s1")
                 } else {
                     println("ERROR")

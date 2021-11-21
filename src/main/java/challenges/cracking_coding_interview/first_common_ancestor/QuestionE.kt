@@ -22,7 +22,7 @@ object QuestionE {
         if (root == null) {
             return Result(null, false)
         }
-        if (root === p && root === q) {
+        if (root == p && root == q) {
             return Result(root, true)
         }
         val rx = commonAncestorHelper(root.left, p, q)
@@ -35,7 +35,7 @@ object QuestionE {
         }
         return if (rx.node != null && ry.node != null) {
             Result(root, true) // This is the common ancestor
-        } else if (root === p || root === q) {
+        } else if (root == p || root == q) {
             /* If we�re currently at p or q, and we also found one of those
                   * nodes in a subtree, then this is truly an ancestor and the
                   * flag should be true. */

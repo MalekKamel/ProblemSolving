@@ -16,7 +16,7 @@ object QuestionF {
         while (ap != null) {
             var aq: TreeNode? = q.parent
             while (aq != null) {
-                if (aq === ap) {
+                if (aq == ap) {
                     return aq
                 }
                 aq = aq.parent

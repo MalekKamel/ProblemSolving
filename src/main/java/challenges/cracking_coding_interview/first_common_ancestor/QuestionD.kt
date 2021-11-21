@@ -16,7 +16,7 @@ object QuestionD {
     }
 
     private fun ancestorHelper(root: TreeNode?, p: TreeNode, q: TreeNode): TreeNode? {
-        if (root == null || root === p || root === q) {
+        if (root == null || root == p || root == q) {
             return root
         }
         val pIsOnLeft = covers(root.left, p)
@@ -30,7 +30,7 @@ object QuestionD {
 
     private fun covers(root: TreeNode?, p: TreeNode): Boolean {
         if (root == null) return false
-        return if (root === p) true else covers(root.left, p) || covers(root.right, p)
+        return if (root == p) true else covers(root.left, p) || covers(root.right, p)
     }
 
 

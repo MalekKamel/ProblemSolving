@@ -13,7 +13,7 @@ object QuestionEBad {
         if (root == null) {
             return null
         }
-        if (root === p && root === q) {
+        if (root == p && root == q) {
             return root
         }
         val x: TreeNode? = commonAncestorBad(root.left, p, q)
@@ -26,7 +26,7 @@ object QuestionEBad {
         }
         return if (x != null && y != null) {
             root // This is the common ancestor
-        } else if (root === p || root === q) {
+        } else if (root == p || root == q) {
             root
         } else {
             x ?: y

@@ -9,7 +9,7 @@ import challenges.util.TreeNode
  */
 object QuestionA {
     fun commonAncestor(p: TreeNode, q: TreeNode): TreeNode? {
-        if (p === q) return p
+        if (p == q) return p
         var ancestor: TreeNode? = p
         while (ancestor != null) {
             if (isOnPath(ancestor, q)) {
@@ -25,7 +25,7 @@ object QuestionA {
         while (node !== ancestor && node != null) {
             node = node.parent
         }
-        return node === ancestor
+        return node == ancestor
     }
 
     @JvmStatic

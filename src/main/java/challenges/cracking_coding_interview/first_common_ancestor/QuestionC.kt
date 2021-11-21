@@ -28,7 +28,7 @@ object QuestionC {
 
     fun covers(root: TreeNode?, p: TreeNode): Boolean {
         if (root == null) return false
-        return if (root === p) true else covers(root.left, p) || covers(root.right, p)
+        return if (root == p) true else covers(root.left, p) || covers(root.right, p)
     }
 
     fun getSibling(node: TreeNode?): TreeNode? {
@@ -36,7 +36,7 @@ object QuestionC {
             return null
         }
         val parent: TreeNode = node.parent!!
-        return if (parent.left === node) parent.right else parent.left
+        return if (parent.left == node) parent.right else parent.left
     }
 
     @JvmStatic
