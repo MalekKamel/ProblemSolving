@@ -8,7 +8,7 @@ the original string. You can assume the string has only uppercase and lowercase 
  */
 
 object StringCompression {
-    fun compress(str: String): String {
+    private fun compress(str: String): String {
         val compressed = StringBuilder()
         var countConsecutive = 0
         for (i in str.indices) {
@@ -40,7 +40,7 @@ object StringCompression {
 object StringCompression2 {
     private fun compress(str: String): String {
         val finalLength = countCompression(str)
-        if (finalLength >= str.length) return str
+
         val compressed = StringBuffer(finalLength) // initialize capacity
         var countConsecutive = 0
         for (i in str.indices) {
@@ -73,8 +73,11 @@ object StringCompression2 {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        val str = "aabcccccaaa"
+        var str = "aabcccccaaa"
         println(str) // a2b1c5a3
+        println(compress(str))
+        str = "abbaaaac"
+        println(str) // a1b2a4c1
         println(compress(str))
     }
 }
