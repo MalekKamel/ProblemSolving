@@ -1,0 +1,7 @@
+package challenges.cracking_coding_interview.object_oriented_design.deck_of_cards.call_center
+
+enum class Rank(val value: Int) {
+    Responder(0),
+    Manager(1),
+    Director(2);
+}
