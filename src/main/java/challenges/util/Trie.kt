@@ -1,7 +1,6 @@
 package challenges.util
 
 
-
 /* Implements a trie. We store the input list of words in tries so
  * that we can efficiently find words with a given prefix.
  */

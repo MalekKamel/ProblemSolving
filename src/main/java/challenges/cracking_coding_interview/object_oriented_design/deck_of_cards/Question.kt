@@ -1,7 +1,9 @@
 package challenges.cracking_coding_interview.object_oriented_design.deck_of_cards
 
-import kotlin.jvm.JvmStatic
-
+/**
+ * Deck of Cards: Design the data structures for a generic deck of cards.
+ * Explain how you would subclass the data structures to implement blackjack.
+ */
 object Question {
     @JvmStatic
     fun main(args: Array<String>) {

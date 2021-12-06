@@ -44,12 +44,12 @@ object BoggleSolver {
 
     private fun findWords(strArr: Array<String>): String {
         val boggle = strArr[0]
-                .split(", ")
-                .map { it.toCharArray() }
-                .toTypedArray()
+            .split(", ")
+            .map { it.toCharArray() }
+            .toTypedArray()
         val words = strArr[1]
-                .split(", ")
-                .toTypedArray()
+            .split(", ")
+            .toTypedArray()
 
         val trie = Trie()
         trie.insert(words)
@@ -59,7 +59,7 @@ object BoggleSolver {
             return "true"
         }
         return words.filter { !result.contains(it) }
-                .joinToString(",")
+            .joinToString(",")
     }
 
     // Prints all words present in dictionary.
@@ -85,13 +85,15 @@ object BoggleSolver {
 
     // A recursive function to print
     // all words present on boggle
-    private fun searchWord(root: TrieNode,
-                           boggle: Array<CharArray>,
-                           i: Int,
-                           j: Int,
-                           visited: Array<BooleanArray>,
-                           word: String,
-                           result: MutableSet<String>) {
+    private fun searchWord(
+        root: TrieNode,
+        boggle: Array<CharArray>,
+        i: Int,
+        j: Int,
+        visited: Array<BooleanArray>,
+        word: String,
+        result: MutableSet<String>
+    ) {
         if (root.isWord) result.add(word)
 
         // make it visited
@@ -116,10 +118,12 @@ object BoggleSolver {
 
     // function to check that current location
     // (i and j) is in matrix range
-    private fun isSafe(i: Int,
-                       j: Int,
-                       board: Array<CharArray>,
-                       visited: Array<BooleanArray>): Boolean {
+    private fun isSafe(
+        i: Int,
+        j: Int,
+        board: Array<CharArray>,
+        visited: Array<BooleanArray>
+    ): Boolean {
         return i in board.indices && j in board[0].indices && !visited[i][j]
     }
 
@@ -167,12 +171,12 @@ object BoggleSolver {
     @JvmStatic
     fun main(args: Array<String>) {
         val input = arrayOf(
-                "aaey, rrum, tgmn, ball",
-                "all, ball, mur, raeymnl, tall, true, trum"
+            "aaey, rrum, tgmn, ball",
+            "all, ball, mur, raeymnl, tall, true, trum"
         )
         val input2 = arrayOf(
-                "aaey, rrum, tgmn, ball",
-                "all, ball, mur, raeymnl, rumk, tall, true, trum, yes"
+            "aaey, rrum, tgmn, ball",
+            "all, ball, mur, raeymnl, rumk, tall, true, trum, yes"
         )
         println(findWords(input))
         println(findWords(input2))

@@ -1,8 +1,5 @@
 package challenges.cracking_coding_interview.object_oriented_design.call_center
 
-import java.util.ArrayList
-import kotlin.jvm.JvmStatic
-
 /* CallHandler represents the body of the program,
  * and all calls are funneled first through it. 
  */

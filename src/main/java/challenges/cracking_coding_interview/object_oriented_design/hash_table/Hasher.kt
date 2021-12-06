@@ -1,10 +1,5 @@
 package challenges.cracking_coding_interview.object_oriented_design.hash_table
 
-import kotlin.jvm.JvmStatic
-import challenges.cracking_coding_interview.object_oriented_design.hash_table.Dummy
-import challenges.cracking_coding_interview.object_oriented_design.hash_table.Hasher
-import java.util.ArrayList
-
 class Hasher<K, V>(capacity: Int) {
     private class LinkedListNode<K, V>(var key: K, var value: V) {
         var next: LinkedListNode<K, V>? = null

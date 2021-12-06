@@ -1,11 +1,5 @@
 package challenges.cracking_coding_interview.object_oriented_design.othello
 
-import challenges.util.AssortedMethods.randomIntInRange
-import challenges.cracking_coding_interview.object_oriented_design.othello.Player
-import challenges.util.AssortedMethods
-import challenges.cracking_coding_interview.object_oriented_design.othello.Automator
-import kotlin.jvm.JvmStatic
-
 class Board(rows: Int, columns: Int) {
     private var blackCount = 0
     private var whiteCount = 0

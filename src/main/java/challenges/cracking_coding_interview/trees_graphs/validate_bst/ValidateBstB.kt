@@ -89,23 +89,23 @@ object ValidateBstB {
 
         // More elaborate test -- creates 100 trees (some BST, some not)
         // and compares the outputs of various methods.
-      /*
-        for (i in 0..99) {
-            val head = createTestTree()
+        /*
+          for (i in 0..99) {
+              val head = createTestTree()
 
-            // Compare results
-            val isBst1 = checkBST(head)
-            val isBst2 = checkBSTAlternate(head)
-            if (isBst1 != isBst2) {
-                println("*********************** ERROR *******************")
-                head.print()
-                break
-            } else {
-                println("$isBst1 | $isBst2")
-                head.print()
-            }
-        }
-       */
+              // Compare results
+              val isBst1 = checkBST(head)
+              val isBst2 = checkBSTAlternate(head)
+              if (isBst1 != isBst2) {
+                  println("*********************** ERROR *******************")
+                  head.print()
+                  break
+              } else {
+                  println("$isBst1 | $isBst2")
+                  head.print()
+              }
+          }
+         */
     }
 
 }

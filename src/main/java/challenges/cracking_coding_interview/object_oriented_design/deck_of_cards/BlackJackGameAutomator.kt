@@ -1,7 +1,5 @@
 package challenges.cracking_coding_interview.object_oriented_design.deck_of_cards
 
-import java.util.ArrayList
-
 class BlackJackGameAutomator(numPlayers: Int) {
     private var deck: Deck<BlackJackCard>? = null
     private val hands: Array<BlackJackHand?>

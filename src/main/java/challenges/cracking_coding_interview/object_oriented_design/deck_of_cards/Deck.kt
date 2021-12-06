@@ -1,7 +1,6 @@
 package challenges.cracking_coding_interview.object_oriented_design.deck_of_cards
 
 import challenges.util.AssortedMethods.randomIntInRange
-import java.util.ArrayList
 
 class Deck<T : Card> {
     private var cards: ArrayList<T>? = null

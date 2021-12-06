@@ -1,7 +1,5 @@
 package challenges.util
 
-import java.lang.StringBuilder
-
 /* One node of a binary tree. The data element stored is a single
  * character.
  */

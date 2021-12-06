@@ -1,11 +1,5 @@
 package challenges.cracking_coding_interview.object_oriented_design.jigsaw
 
-import java.util.HashMap
-import java.util.LinkedList
-import challenges.cracking_coding_interview.object_oriented_design.jigsaw.Puzzle
-import java.lang.StringBuilder
-import kotlin.jvm.JvmStatic
-
 class Piece(edgeList: Array<Edge?>) {
     private var edges: HashMap<Orientation, Edge> = HashMap<Orientation, Edge>()
 

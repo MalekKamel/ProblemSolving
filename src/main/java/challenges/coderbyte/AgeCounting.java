@@ -1,9 +1,15 @@
 package challenges.coderbyte;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
-import java.io.*;
-import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -75,7 +81,7 @@ public class AgeCounting {
         return result;
     }
 
-   static class Person {
+    static class Person {
         String name;
         int age;
 

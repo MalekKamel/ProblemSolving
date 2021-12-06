@@ -8,7 +8,7 @@ class Project(val name: String) {
 
     val children = ArrayList<Project>()
     private val map = HashMap<String, Project>()
-     var state = State.BLANK
+    var state = State.BLANK
 
     fun addNeighbor(node: Project) {
         if (!map.containsKey(node.name)) {

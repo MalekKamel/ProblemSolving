@@ -1,7 +1,5 @@
 package challenges.cracking_coding_interview.arrays_strings
 
-import java.util.*
-
 
 /*
 Palindrome Permutation: Given a string, write a function to check if it is a permutation of a palindrome.

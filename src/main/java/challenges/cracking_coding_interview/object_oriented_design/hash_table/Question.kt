@@ -1,9 +1,8 @@
 package challenges.cracking_coding_interview.object_oriented_design.hash_table
 
-import kotlin.jvm.JvmStatic
-import challenges.cracking_coding_interview.object_oriented_design.hash_table.Dummy
-import challenges.cracking_coding_interview.object_oriented_design.hash_table.Hasher
-
+/**
+ * Hash Table: Design and implement a hash table which uses chaining (linked lists) to handle collosions.
+ */
 object Question {
     /**
      * @param args

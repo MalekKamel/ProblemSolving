@@ -1,8 +1,6 @@
 package challenges.cracking_coding_interview.object_oriented_design.deck_of_cards
 
 
-import java.util.ArrayList
-
 class BlackJackHand : Hand<BlackJackCard>() {
     override fun score(): Int {
         val scores = possibleScores()

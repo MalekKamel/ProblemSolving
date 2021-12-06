@@ -1,8 +1,9 @@
 package challenges.cracking_coding_interview.object_oriented_design.file_system
 
-import challenges.cracking_coding_interview.object_oriented_design.file_system.Directory
-import kotlin.jvm.JvmStatic
-
+/**
+ * File System: Explain the data structures and algorithms that you would use to design an in-memory
+ * file system. Illustrate with an example in code where possible.
+ */
 object Question {
     @JvmStatic
     fun main(args: Array<String>) {

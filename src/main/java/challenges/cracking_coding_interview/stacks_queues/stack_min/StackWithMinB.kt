@@ -10,7 +10,7 @@ class StackWithMinB : Stack<Int>() {
         if (value <= min()) {
             s2.push(value)
         }
-       return super.push(value)
+        return super.push(value)
     }
 
     override fun pop(): Int {

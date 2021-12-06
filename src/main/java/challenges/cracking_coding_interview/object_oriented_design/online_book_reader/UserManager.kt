@@ -1,9 +1,5 @@
 package challenges.cracking_coding_interview.object_oriented_design.online_book_reader
 
-import java.util.HashMap
-import challenges.cracking_coding_interview.object_oriented_design.online_book_reader.Library
-import challenges.cracking_coding_interview.object_oriented_design.online_book_reader.Display
-
 class UserManager {
     private val users: HashMap<Int, User>? = null
     fun addUser(id: Int, details: String, accountType: Int): User? {

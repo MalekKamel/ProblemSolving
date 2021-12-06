@@ -1,7 +1,5 @@
 package challenges.cracking_coding_interview.object_oriented_design.call_center
 
-import kotlin.jvm.JvmStatic
-
 /* Employee is a super class for the Director, Manager, and Respondent classes. It is implemented as an
  * abstract class, since there should be no reason to instantiated an Employee type directly.
  */

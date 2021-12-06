@@ -1,7 +1,5 @@
 package challenges.cracking_coding_interview.object_oriented_design.deck_of_cards
 
-import java.util.ArrayList
-
 open class Hand<T : Card> {
     protected var cards = ArrayList<T>()
     open fun score(): Int {

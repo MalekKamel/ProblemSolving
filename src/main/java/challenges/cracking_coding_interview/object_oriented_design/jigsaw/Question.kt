@@ -1,10 +1,12 @@
 package challenges.cracking_coding_interview.object_oriented_design.jigsaw
 
-import challenges.cracking_coding_interview.object_oriented_design.jigsaw.Puzzle
-import java.lang.StringBuilder
 import java.util.*
-import kotlin.jvm.JvmStatic
 
+/**
+ * Jigsaw: Implement an NxN jigsaw puzzle. Design the data structures and explain an algorithm to solve the puzzle.
+ * You can assume that you have a fitsWith method which, when passed two puzzle edges,
+ * returns true if the two edges belong together.
+ */
 object Question {
     fun createRandomEdge(code: String): Edge {
         val random = Random()
