@@ -187,6 +187,14 @@ internal object AssortedMethods {
         }
     }
 
+//    fun arrayToString(array: IntArray): String {
+//        val sb = StringBuilder()
+//        for (i in array.indices) {
+//            sb.append(array[i].toString())
+//        }
+//        return sb.toString()
+//    }
+
     fun printIntArray(array: IntArray) {
         for (i in array.indices) {
             print(array[i].toString() + " ")
