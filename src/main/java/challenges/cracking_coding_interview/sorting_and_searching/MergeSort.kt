@@ -1,4 +1,4 @@
-package challenges.sorting_and_searching
+package challenges.cracking_coding_interview.sorting_and_searching
 
 import challenges.util.AssortedMethods.printIntArray
 import challenges.util.AssortedMethods.randomArray
