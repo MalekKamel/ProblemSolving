@@ -40,7 +40,7 @@ object PathsWithSumA {
 		root.left.right = new TreeNode(8);
 		root.right.left = new TreeNode(2);
 		root.right.right = new TreeNode(6);
-		System.out.println(countPathsWithSum(root, 0));*/
+		println(countPathsWithSum(root, 0));*/
 
         /*TreeNode root = new TreeNode(-7);
 		root.left = new TreeNode(-7);
@@ -53,7 +53,7 @@ object PathsWithSumA {
 		root.right.right.left.left = new TreeNode(-3);
 		root.right.right.left.left.right = new TreeNode(2);
 		root.right.right.left.left.right.left = new TreeNode(1);
-		System.out.println(countPathsWithSum(root, -14));*/
+		println(countPathsWithSum(root, -14));*/
         val root = TreeNode(0)
         root.left = TreeNode(0)
         root.right = TreeNode(0)

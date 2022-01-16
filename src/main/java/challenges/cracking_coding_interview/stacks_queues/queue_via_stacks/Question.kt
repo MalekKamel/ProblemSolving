@@ -37,7 +37,7 @@ object Question {
             }
             if (test_queue.size == myQueue.size()) {
                 if (test_queue.size > 0 && test_queue.peek() != myQueue.peek()) {
-                    System.out.println(
+                    println(
                         "******* FAILURE - DIFFERENT TOPS: " + test_queue.peek().toString() + ", " + myQueue.peek()
                             .toString() + " ******"
                     )
