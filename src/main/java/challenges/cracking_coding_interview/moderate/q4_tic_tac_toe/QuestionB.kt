@@ -3,7 +3,7 @@ package challenges.cracking_coding_interview.moderate.q4_tic_tac_toe
 import challenges.util.AssortedMethods
 
 object QuestionB {
-    fun hasWon(board: Array<Array<Piece?>>, row: Int, column: Int): Piece? {
+    fun hasWon(board: Array<Array<Piece>>, row: Int, column: Int): Piece {
         if (board.size != board[0].size) return Piece.Empty
         val piece = board[row][column]
         if (piece == Piece.Empty) return Piece.Empty
@@ -22,7 +22,7 @@ object QuestionB {
         } else Piece.Empty
     }
 
-    fun hasWonRow(board: Array<Array<Piece?>>, row: Int): Boolean {
+    fun hasWonRow(board: Array<Array<Piece>>, row: Int): Boolean {
         for (c in 1 until board[row].size) {
             if (board[row][c] != board[row][0]) {
                 return false
@@ -31,7 +31,7 @@ object QuestionB {
         return true
     }
 
-    fun hasWonColumn(board: Array<Array<Piece?>>, column: Int): Boolean {
+    fun hasWonColumn(board: Array<Array<Piece>>, column: Int): Boolean {
         for (r in 1 until board.size) {
             if (board[r][column] != board[0][column]) {
                 return false
@@ -40,7 +40,7 @@ object QuestionB {
         return true
     }
 
-    fun hasWonDiagonal(board: Array<Array<Piece?>>, direction: Int): Boolean {
+    fun hasWonDiagonal(board: Array<Array<Piece>>, direction: Int): Boolean {
         var row = 0
         var column = if (direction == 1) 0 else board.size - 1
         val first = board[0][column]
@@ -60,11 +60,15 @@ object QuestionB {
         val boardT: Array<IntArray> = AssortedMethods.randomMatrix(N, N, 0, 2)
         boardT[1][1] = boardT[0][2]
         boardT[2][0] = boardT[0][2]
-        val board = Array(N) { arrayOfNulls<Piece>(N) }
+        val board = Array(N) {
+            Array(N) {
+                Piece.Empty
+            }
+        }
         for (i in 0 until N) {
             for (j in 0 until N) {
                 val x = boardT[i][j]
-                board[i][j] = Tester.convertIntToPiece(x)
+                board[i][j] = Piece.from(x)
             }
         }
         val p1 = hasWon(board, 0, 2)

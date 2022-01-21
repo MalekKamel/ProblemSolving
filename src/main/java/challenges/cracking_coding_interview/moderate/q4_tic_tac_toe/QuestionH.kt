@@ -3,7 +3,7 @@ package challenges.cracking_coding_interview.moderate.q4_tic_tac_toe
 import challenges.util.AssortedMethods
 
 object QuestionH {
-    fun hasWon(board: Array<Array<Piece?>>): Piece? {
+    fun hasWon(board: Array<Array<Piece>>): Piece {
         if (board.size != board[0].size) return Piece.Empty
         val size = board.size
         val instructions = ArrayList<PositionIterator>()
@@ -22,7 +22,7 @@ object QuestionH {
         return Piece.Empty
     }
 
-    fun hasWon(board: Array<Array<Piece?>>, iterator: PositionIterator): Piece? {
+    fun hasWon(board: Array<Array<Piece>>, iterator: PositionIterator): Piece {
         val firstPosition = iterator.next()
         val first = board[firstPosition.row][firstPosition.column]
         while (iterator.hasNext()) {
@@ -38,11 +38,15 @@ object QuestionH {
     fun main(args: Array<String>) {
         val N = 3
         val boardT: Array<IntArray> = AssortedMethods.randomMatrix(N, N, 0, 2)
-        val board = Array(N) { arrayOfNulls<Piece>(N) }
+        val board = Array(N) {
+            Array(N) {
+                Piece.Empty
+            }
+        }
         for (i in 0 until N) {
             for (j in 0 until N) {
                 val x = boardT[i][j]
-                board[i][j] = Tester.convertIntToPiece(x)
+                board[i][j] = Piece.from(x)
             }
         }
         val p1 = hasWon(board)

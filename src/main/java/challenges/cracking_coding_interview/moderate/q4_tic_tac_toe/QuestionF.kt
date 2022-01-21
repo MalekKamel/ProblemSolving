@@ -3,24 +3,27 @@ package challenges.cracking_coding_interview.moderate.q4_tic_tac_toe
 import challenges.util.AssortedMethods
 
 object QuestionF {
-    fun hasWon(board: Array<Array<Piece?>>): Piece? {
-        var winner: Piece? = Piece.Empty
+    fun hasWon(board: Array<Array<Piece>>): Piece {
+        var winner: Piece
 
-        /* Check rows. */for (i in board.indices) {
+        /* Check rows. */
+        for (i in board.indices) {
             winner = hasWon(board, i, 0, 0, 1)
             if (winner != Piece.Empty) {
                 return winner
             }
         }
 
-        /* Check columns. */for (i in board[0].indices) {
+        /* Check columns. */
+        for (i in board[0].indices) {
             winner = hasWon(board, 0, i, 1, 0)
             if (winner != Piece.Empty) {
                 return winner
             }
         }
 
-        /* Check top/left -> bottom/right diagonal. */winner = hasWon(board, 0, 0, 1, 1)
+        /* Check top/left -> bottom/right diagonal. */
+        winner = hasWon(board, 0, 0, 1, 1)
         return if (winner != Piece.Empty) {
             winner
         } else hasWon(
@@ -34,9 +37,15 @@ object QuestionF {
         /* Check top/right -> bottom/left diagonal. */
     }
 
-    fun hasWon(board: Array<Array<Piece?>>, row: Int, col: Int, incrementRow: Int, incrementCol: Int): Piece? {
-        var row = row
-        var col = col
+    private fun hasWon(
+        board: Array<Array<Piece>>,
+        _row: Int,
+        _col: Int,
+        incrementRow: Int,
+        incrementCol: Int
+    ): Piece {
+        var row = _row
+        var col = _col
         val first = board[row][col]
         while (row < board.size && col < board[row].size) {
             if (board[row][col] != first) {
@@ -52,11 +61,15 @@ object QuestionF {
     fun main(args: Array<String>) {
         val N = 3
         val boardT: Array<IntArray> = AssortedMethods.randomMatrix(N, N, 0, 2)
-        val board = Array(N) { arrayOfNulls<Piece>(N) }
+        val board = Array(N) {
+            Array(N) {
+                Piece.Empty
+            }
+        }
         for (i in 0 until N) {
             for (j in 0 until N) {
                 val x = boardT[i][j]
-                board[i][j] = Tester.convertIntToPiece(x)
+                board[i][j] = Piece.from(x)
             }
         }
         val p1 = hasWon(board)
