@@ -5,7 +5,7 @@ import java.awt.Point
 import java.util.*
 
 
-internal object AssortedMethods {
+object AssortedMethods {
     fun randomInt(n: Int): Int {
         return (Math.random() * n).toInt()
     }
