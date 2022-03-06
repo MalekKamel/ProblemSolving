@@ -16,19 +16,17 @@ object PalindromeC {
             return Result(head.next, true)
         }
 
-        /* Recurse on sublist. */
+        // Recurse on sublist.
         val res = isPalindromeRecurse(head.next, length - 2)
 
-        /* If child calls are not a palindrome, pass back up
-		 * a failure. */
-        if (!res.result || res.node == null) {
-            return res
-        }
+        // If child calls are not a palindrome, pass back up
+        // a failure.
+        if (!res.result || res.node == null) return res
 
-        /* Check if matches corresponding node on other side. */
+        // Check if matches corresponding node on other side. 
         res.result = head.data == res.node!!.data
 
-        /* Return corresponding node. */
+        // Return corresponding node. 
         res.node = res.node!!.next
         return res
     }
@@ -64,7 +62,7 @@ object PalindromeC {
                 nodes[i]?.prev = nodes[i - 1]
             }
         }
-        //nodes[length - 2].data = 9; // Uncomment to ruin palindrome
+        // nodes[length - 2].data = 9; // Uncomment to ruin palindrome
         val head = nodes[0]
         println(head!!.printForward())
         println(isPalindrome(head))

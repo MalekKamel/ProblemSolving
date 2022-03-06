@@ -1,6 +1,7 @@
 package challenges.cracking_coding_interview.linked_list.palindrome
 
 import challenges.data_structure.LinkedListNode
+import java.util.*
 
 
 /**
@@ -8,33 +9,24 @@ import challenges.data_structure.LinkedListNode
  */
 object PalindromeB {
     private fun isPalindrome(head: LinkedListNode?): Boolean {
-        val reversed = reverseAndClone(head)
-        return isEqual(head, reversed)
-    }
-
-    private fun reverseAndClone(_node: LinkedListNode?): LinkedListNode? {
-        var node = _node
-        var head: LinkedListNode? = null
-        while (node != null) {
-            val n = LinkedListNode(node.data) // Clone
-            n.next = head
-            head = n
-            node = node.next
+        var fast = head
+        var slow = head
+        val stack = Stack<Int>()
+        while (fast?.next != null) {
+            stack.push(slow!!.data)
+            slow = slow.next
+            fast = fast.next!!.next
         }
-        return head
-    }
 
-    private fun isEqual(_one: LinkedListNode?, _two: LinkedListNode?): Boolean {
-        var one = _one
-        var two = _two
-        while (one != null && two != null) {
-            if (one.data != two.data) {
-                return false
-            }
-            one = one.next
-            two = two.next
+        // Has odd number of elements, so skip the middle
+        if (fast != null) slow = slow!!.next
+
+        while (slow != null) {
+            val top = stack.pop()
+            if (top != slow.data) return false
+            slow = slow.next
         }
-        return one == null && two == null
+        return true
     }
 
     @JvmStatic
@@ -52,9 +44,10 @@ object PalindromeB {
                 nodes[i]?.prev = nodes[i - 1]
             }
         }
-        // nodes[length - 2].data = 9; // Uncomment to ruin palindrome
+        //nodes[length - 2].data = 9; // Uncomment to ruin palindrome
         val head = nodes[0]
         println(head!!.printForward())
         println(isPalindrome(head))
     }
+
 }
