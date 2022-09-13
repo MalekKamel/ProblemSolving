@@ -1,6 +1,10 @@
 package challenges.grokking_coding_interview.sliding_window
 
-
+/**
+ * Given an array, find the average of each subarray of ‘K’ contiguous elements in it.
+ *
+ * https://www.educative.io/courses/grokking-the-coding-interview/7D5NNZWQ8Wr
+ */
 object AverageOfSubarrayOfSizeK {
     private fun findAverages(K: Int, arr: IntArray): DoubleArray {
         val result = DoubleArray(arr.size - K + 1)
