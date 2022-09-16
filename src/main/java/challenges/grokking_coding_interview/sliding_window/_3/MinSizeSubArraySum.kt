@@ -1,4 +1,4 @@
-package challenges.grokking_coding_interview.sliding_window
+package challenges.grokking_coding_interview.sliding_window._3
 
 /**
  * Given an array of positive integers and a number ‘S,’ find the length of the smallest contiguous

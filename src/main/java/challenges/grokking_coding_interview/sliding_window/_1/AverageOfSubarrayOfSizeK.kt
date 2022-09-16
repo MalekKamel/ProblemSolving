@@ -1,4 +1,4 @@
-package challenges.grokking_coding_interview.sliding_window
+package challenges.grokking_coding_interview.sliding_window._1
 
 /**
  * Given an array, find the average of each subarray of ‘K’ contiguous elements in it.
