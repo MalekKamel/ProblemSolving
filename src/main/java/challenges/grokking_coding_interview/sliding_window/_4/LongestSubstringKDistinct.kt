@@ -25,7 +25,7 @@ internal object LongestSubstringKDistinct {
                 windowStart++ // shrink the window
             }
             maxLength = maxLength.coerceAtLeast(windowEnd - windowStart + 1) // remember the maximum length so far
-            // Equlas
+            // Equals
 //            maxLength = Math.max(maxLength, windowEnd - windowStart + 1) // remember the maximum length so far
         }
         return maxLength
