@@ -9,11 +9,10 @@ package challenges.grokking_coding_interview.sliding_window._3
  */
 internal object MinSizeSubArraySum {
     private fun findMinSubArray(S: Int, a: IntArray): Int {
-        val n = a.size
         var lengthOfSmallestSubarray = Int.MAX_VALUE
         var windowSum = 0
         var windowStart = 0
-        for (windowEnd in 0 until n) {
+        for (windowEnd in a.indices) {
             windowSum += a[windowEnd] // Add the next element to the window
             while (windowSum >= S) { // Shrink the window as small as possible until the 'windowSum' is smaller than 'K'
                 lengthOfSmallestSubarray = Math.min(lengthOfSmallestSubarray, windowEnd - windowStart + 1)
