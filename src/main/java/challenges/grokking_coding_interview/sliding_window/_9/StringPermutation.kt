@@ -1,0 +1,75 @@
+package challenges.grokking_coding_interview.sliding_window._9
+
+
+object StringPermutation {
+    /**
+     *  This is a brute force solution by me
+     */
+    private fun findPermutation1(str: String, pattern: String): Boolean {
+        val patternLength = pattern.length
+        var windowStart = 0
+        val charsMap: MutableMap<Char, Int> = HashMap()
+
+        for (windowEnd in str.toCharArray().indices) {
+            val rightChar = str[windowEnd]
+            charsMap[rightChar] = charsMap.getOrDefault(rightChar, 0) + 1
+            if (windowEnd - windowStart + 1 == patternLength) {
+                var isPermutation = true
+                for (char in pattern) {
+                    if (!charsMap.containsKey(char)) {
+                        isPermutation = false
+                        break
+                    }
+                }
+                if (isPermutation) return true
+                val leftChar = str[windowStart]
+                charsMap[leftChar] = charsMap[leftChar]!! - 1
+                if (charsMap[leftChar]!! == 0) charsMap.remove(leftChar)
+                windowStart++
+            }
+        }
+        return false
+    }
+
+    private fun findPermutation(str: String, pattern: String): Boolean {
+        var windowStart = 0
+        var matched = 0
+        val charFrequencyMap: MutableMap<Char, Int> = HashMap()
+        for (chr in pattern.toCharArray()) charFrequencyMap[chr] = charFrequencyMap.getOrDefault(chr, 0) + 1
+
+        // our goal is to match all the characters from the 'charFrequencyMap' with the current window
+        // try to extend the range [windowStart, windowEnd]
+        for (windowEnd in str.indices) {
+            val rightChar = str[windowEnd]
+            if (charFrequencyMap.containsKey(rightChar)) {
+                // decrement the frequency of the matched character
+                charFrequencyMap[rightChar] = charFrequencyMap[rightChar]!! - 1
+                if (charFrequencyMap[rightChar] == 0) // character is completely matched
+                    matched++
+            }
+            if (matched == charFrequencyMap.size) return true
+            if (windowEnd >= pattern.length - 1) { // shrink the window by one character
+                val leftChar = str[windowStart++]
+                if (charFrequencyMap.containsKey(leftChar)) {
+                    if (charFrequencyMap[leftChar] == 0) matched-- // before putting the character back, decrement the matched count
+                    // put the character back for matching
+                    charFrequencyMap[leftChar] = charFrequencyMap[leftChar]!! + 1
+                }
+            }
+        }
+        return false
+    }
+
+    @JvmStatic
+    fun main(args: Array<String>) {
+        println(findPermutation1("oidbcaf", "abc"))
+        println(findPermutation1("odicf", "dc"))
+        println(findPermutation1("bcdxabcdy", "bcdxabcdy"))
+        println(findPermutation1("aaacb", "abc"))
+        println("=============")
+        println(findPermutation("oidbcaf", "abc"))
+        println(findPermutation("odicf", "dc"))
+        println(findPermutation("bcdxabcdy", "bcdxabcdy"))
+        println(findPermutation("aaacb", "abc"))
+    }
+}
