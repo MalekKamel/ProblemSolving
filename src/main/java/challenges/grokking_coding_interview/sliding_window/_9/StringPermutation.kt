@@ -16,7 +16,7 @@ object StringPermutation {
                 // decrement the frequency of the matched character
                 charFrequencyMap[rightChar] = charFrequencyMap[rightChar]!! - 1
                 if (charFrequencyMap[rightChar] == 0) // character is completely matched
-                    matched++
+                        matched++
             }
             if (matched == charFrequencyMap.size) return true
             if (windowEnd >= pattern.length - 1) { // shrink the window by one character
@@ -64,14 +64,14 @@ object StringPermutation {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        println(findPermutation2("oidbcaf", "abc"))
-        println(findPermutation2("odicf", "dc"))
-        println(findPermutation2("bcdxabcdy", "bcdxabcdy"))
-        println(findPermutation2("aaacb", "abc"))
-        println("=============")
         println(findPermutation("oidbcaf", "abc"))
         println(findPermutation("odicf", "dc"))
         println(findPermutation("bcdxabcdy", "bcdxabcdy"))
         println(findPermutation("aaacb", "abc"))
+        println("=============")
+        println(findPermutation2("oidbcaf", "abc"))
+        println(findPermutation2("odicf", "dc"))
+        println(findPermutation2("bcdxabcdy", "bcdxabcdy"))
+        println(findPermutation2("aaacb", "abc"))
     }
 }
