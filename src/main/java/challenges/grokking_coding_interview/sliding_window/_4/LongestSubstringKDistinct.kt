@@ -5,7 +5,7 @@ package challenges.grokking_coding_interview.sliding_window._4
  *
  * https://www.educative.io/courses/grokking-the-coding-interview/YQQwQMWLx80
  */
-internal object LongestSubstringKDistinct {
+object LongestSubstringKDistinct {
     private fun findLength(str: String?, k: Int): Int {
         require(!str.isNullOrEmpty())
         var windowStart = 0

@@ -1,6 +1,6 @@
 package challenges.cracking_coding_interview.sorting_and_searching.find_duplicates
 
-internal class BitSet(size: Int) {
+class BitSet(size: Int) {
     var bitset: IntArray
 
     init {

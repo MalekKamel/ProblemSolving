@@ -1,6 +1,6 @@
 package challenges.grokking_coding_interview.sliding_window._8
 
-internal object ReplacingOnes {
+object ReplacingOnes {
     private fun findLength(arr: IntArray, k: Int): Int {
         var windowStart = 0
         var maxLength = 0

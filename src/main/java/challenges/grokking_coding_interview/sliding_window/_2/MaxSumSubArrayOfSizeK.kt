@@ -6,7 +6,7 @@ package challenges.grokking_coding_interview.sliding_window._2
  *
  * https://www.educative.io/courses/grokking-the-coding-interview/JPKr0kqLGNP
  */
-internal object MaxSumSubArrayOfSizeK {
+object MaxSumSubArrayOfSizeK {
     private fun findMaxSumSubArray(k: Int, arr: IntArray): Int {
         var windowSum = 0
         var maxSum = 0

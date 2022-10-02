@@ -13,7 +13,7 @@ package challenges.grokking_coding_interview.sliding_window._5
  *
  * https://www.educative.io/courses/grokking-the-coding-interview/Bn2KLlOR0lQ
  */
-internal object MaxFruitCountOf2Types {
+object MaxFruitCountOf2Types {
     private fun findLength(arr: CharArray): Int {
         var windowStart = 0
         var maxLength = 0

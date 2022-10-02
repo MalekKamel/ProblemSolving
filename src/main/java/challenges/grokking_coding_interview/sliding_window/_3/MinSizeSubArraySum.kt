@@ -7,7 +7,7 @@ package challenges.grokking_coding_interview.sliding_window._3
  *
  * https://www.educative.io/courses/grokking-the-coding-interview/7XMlMEQPnnQ
  */
-internal object MinSizeSubArraySum {
+object MinSizeSubArraySum {
     private fun findMinSubArray(S: Int, a: IntArray): Int {
         var lengthOfSmallestSubarray = Int.MAX_VALUE
         var windowSum = 0
