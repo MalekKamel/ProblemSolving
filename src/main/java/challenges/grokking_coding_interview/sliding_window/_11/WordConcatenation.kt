@@ -1,6 +1,12 @@
 package challenges.grokking_coding_interview.sliding_window._11
 
-
+/**
+ * Given a string and a list of words, find all the starting indices of substrings in the given string that are
+ * a concatenation of all the given words exactly once without any overlapping of words.
+ * It is given that all words are of the same length.
+ *
+ * https://www.educative.io/courses/grokking-the-coding-interview/N8nMBvDQJ0m
+ */
 object WordConcatenation {
     private fun findWordConcatenation(str: String, words: Array<String>): List<Int> {
         val wordFrequencyMap: MutableMap<String, Int> = HashMap()
