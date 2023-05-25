@@ -1,4 +1,4 @@
-package challenges.grokking_coding_interview.sliding_window._5
+package challenges.educative_grokking_coding_interview.sliding_window._5
 
 /**
  * You are visiting a farm to collect fruits. The farm has a single row of fruit trees.

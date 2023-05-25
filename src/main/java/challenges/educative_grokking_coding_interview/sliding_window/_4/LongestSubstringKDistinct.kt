@@ -1,4 +1,4 @@
-package challenges.grokking_coding_interview.sliding_window._4
+package challenges.educative_grokking_coding_interview.sliding_window._4
 
 /**
  * Given a string, find the length of the longest substring in it with no more than K distinct characters.

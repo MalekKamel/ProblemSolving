@@ -1,4 +1,4 @@
-package challenges.grokking_coding_interview.sliding_window._9
+package challenges.educative_grokking_coding_interview.sliding_window._9
 
 /**
  * Given a string and a pattern, find out if the string contains any permutation of the pattern.

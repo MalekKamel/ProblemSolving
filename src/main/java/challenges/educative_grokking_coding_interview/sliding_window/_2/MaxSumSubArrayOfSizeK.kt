@@ -1,4 +1,4 @@
-package challenges.grokking_coding_interview.sliding_window._2
+package challenges.educative_grokking_coding_interview.sliding_window._2
 
 /**
  * Given an array of positive numbers and a positive number ‘k,’

@@ -1,4 +1,4 @@
-package challenges.grokking_coding_interview.sliding_window._8
+package challenges.educative_grokking_coding_interview.sliding_window._8
 
 object ReplacingOnes {
     private fun findLength(arr: IntArray, k: Int): Int {

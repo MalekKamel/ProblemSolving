@@ -1,4 +1,4 @@
-package challenges.grokking_coding_interview.sliding_window._7
+package challenges.educative_grokking_coding_interview.sliding_window._7
 
 /**
  * Given a string with lowercase letters only, if you are allowed to replace no more than k letters with

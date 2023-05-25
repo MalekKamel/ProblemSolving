@@ -1,4 +1,4 @@
-package challenges.grokking_coding_interview.sliding_window._10
+package challenges.educative_grokking_coding_interview.sliding_window._10
 
 /**
  * Given a string and a pattern, find all anagrams of the pattern in the given string.

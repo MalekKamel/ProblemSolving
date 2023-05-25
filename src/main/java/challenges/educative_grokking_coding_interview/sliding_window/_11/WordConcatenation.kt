@@ -1,4 +1,4 @@
-package challenges.grokking_coding_interview.sliding_window._11
+package challenges.educative_grokking_coding_interview.sliding_window._11
 
 /**
  * Given a string and a list of words, find all the starting indices of substrings in the given string that are
