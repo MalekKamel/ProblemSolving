@@ -2,7 +2,12 @@ package challenges.educative_grokking_coding_interview.twe_pointers._1
 
 import challenges.util.PrintHyphens
 
-
+/**
+Write a function that takes a string s as input and checks whether it’s a palindrome or not.
+The string won’t have any spaces and will only consist of ASCII characters.
+Note: A phrase, word or sequence is a palindrome that reads the same backwards as forwards.
+https://www.educative.io/courses/grokking-coding-interview-patterns-java/gk2JZw3nXm6
+ */
 object ValidPalindrome {
     private fun isPalindrome(s: String): Boolean {
         var left = 0
