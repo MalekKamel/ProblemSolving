@@ -1,4 +1,4 @@
-package challenges.educative_grokking_coding_interview.fast_slow_pointers
+package challenges.educative_grokking_coding_interview.fast_slow_pointers._1
 
 import challenges.util.PrintHyphens
 import kotlin.math.pow
