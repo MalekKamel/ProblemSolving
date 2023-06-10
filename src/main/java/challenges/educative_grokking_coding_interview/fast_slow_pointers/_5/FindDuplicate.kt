@@ -13,7 +13,7 @@ Note: You cannot modify the given array nums. You have to solve the problem usin
 https://www.educative.io/courses/grokking-coding-interview-patterns-java/g7Pq3G7NK06
  */
 
-internal object FindDuplicate {
+object FindDuplicate {
     fun findDuplicate(nums: IntArray): Int {
         // Intialize the fast and slow pointers and make them point the first
         // element of the array

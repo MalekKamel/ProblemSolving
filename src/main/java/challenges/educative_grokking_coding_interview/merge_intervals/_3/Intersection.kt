@@ -4,7 +4,7 @@ import challenges.educative_grokking_coding_interview.merge_intervals.Interval
 import java.util.*
 
 
-internal object Intersection {
+object Intersection {
     private fun display(l1: List<Interval>): String {
         var resultStr = "["
         for (i in 0 until l1.size - 1) {

@@ -1,8 +1,8 @@
 package challenges.educative_grokking_coding_interview.fast_slow_pointers._2
 
-import challenges.educative_grokking_coding_interview.fast_slow_pointers.LinkedList
-import challenges.educative_grokking_coding_interview.fast_slow_pointers.LinkedListNode
-import challenges.educative_grokking_coding_interview.fast_slow_pointers.PrintList
+import challenges.educative_grokking_coding_interview.LinkedList
+import challenges.educative_grokking_coding_interview.LinkedListNode
+import challenges.educative_grokking_coding_interview.PrintList
 
 /**
 Check whether or not a linked list contains a cycle. If a cycle exists, return TRUE.
@@ -47,7 +47,7 @@ object CycleDetection {
         )
         val pos = intArrayOf(0, -1, 1, -1, 2)
         for (i in input.indices) {
-            val list = LinkedList<Int>()
+            val list = LinkedList()
             list.createLinkedList(input[i])
             print("${i + 1}" + ".\tInput:")
             print("\t")

@@ -13,7 +13,7 @@ Note: A valid triplet consists of elements with distinct indexes.
 https://www.educative.io/courses/grokking-coding-interview-patterns-java/qAW3LvvJrQy
  */
 
-internal object SumOfThree {
+object SumOfThree {
     private fun findSumOfThree(nums: IntArray, target: Int): Boolean {
         // Sort the input list
         Arrays.sort(nums)

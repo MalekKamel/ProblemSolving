@@ -1,8 +1,8 @@
 package challenges.educative_grokking_coding_interview.fast_slow_pointers._6
 
-import challenges.educative_grokking_coding_interview.fast_slow_pointers.LinkedList
-import challenges.educative_grokking_coding_interview.fast_slow_pointers.LinkedListNode
-import challenges.educative_grokking_coding_interview.fast_slow_pointers.PrintList.printListWithForwardArrow
+import challenges.educative_grokking_coding_interview.LinkedList
+import challenges.educative_grokking_coding_interview.LinkedListNode
+import challenges.educative_grokking_coding_interview.PrintList.printListWithForwardArrow
 
 /**
 Given the head of a linked list, your task is to check whether the linked list is a palindrome or not.
@@ -12,7 +12,7 @@ https://www.educative.io/courses/grokking-coding-interview-patterns-java/B1kqL0G
  */
 
 
-internal object PalindromeList {
+object PalindromeList {
     fun palindrome(head: LinkedListNode?): Boolean {
         // Initialize slow and fast pointers to the head of the linked list
         var slow: LinkedListNode? = head
@@ -63,7 +63,7 @@ internal object PalindromeList {
         )
         for (i in input.indices) {
             print(i + 1)
-            val list = LinkedList<Int>()
+            val list = LinkedList()
             list.createLinkedList(input[i])
             print(".\tLinked list:  ")
             printListWithForwardArrow(list.head)
@@ -79,10 +79,10 @@ internal object PalindromeList {
     }
 }
 
-internal object LinkedListReversal {
+object LinkedListReversal {
     fun reverseLinkedList(slowPtr: LinkedListNode?): LinkedListNode? {
         var prev: LinkedListNode? = null
-        var next: LinkedListNode? = null
+        var next: LinkedListNode?
         var curr = slowPtr
         while (curr != null) {
             next = curr.next
@@ -91,6 +91,19 @@ internal object LinkedListReversal {
             curr = next
         }
         return prev
+    }
+
+    fun reverseLinkedList(node: LinkedListNode?, k: Int): Array<LinkedListNode?> {
+        var previous: LinkedListNode? = null
+        var current = node
+        var next: LinkedListNode? = null
+        for (i in 0 until k) {
+            next = current!!.next
+            current.next = previous
+            previous = current
+            current = next
+        }
+        return arrayOf(previous, current)
     }
 }
 

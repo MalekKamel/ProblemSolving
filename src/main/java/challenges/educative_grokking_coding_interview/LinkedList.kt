@@ -1,4 +1,4 @@
-package challenges.educative_grokking_coding_interview.fast_slow_pointers
+package challenges.educative_grokking_coding_interview
 
 // Template for linked list node class
 
@@ -9,7 +9,7 @@ class LinkedListNode     // Constructor will be used to make a LinkedListNode ty
 
 
 // Template for the linked list
-class LinkedList<T> {
+class LinkedList {
     var head: LinkedListNode? =
         null
 

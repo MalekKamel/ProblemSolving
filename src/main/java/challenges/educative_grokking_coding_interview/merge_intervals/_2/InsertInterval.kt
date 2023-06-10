@@ -5,7 +5,7 @@ import challenges.util.PrintHyphens
 import java.util.*
 
 
-internal object InsertInterval {
+object InsertInterval {
     private fun insertInterval(existingIntervals: List<Interval>, newInterval: Interval) {
         // Read the starting and ending time of the new interval, into separate variables
         val newStart: Int = newInterval.start

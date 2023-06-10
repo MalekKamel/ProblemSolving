@@ -14,7 +14,7 @@ https://www.educative.io/courses/grokking-coding-interview-patterns-java/g2m3z3w
  */
 
 
-internal object CircularArrayLoop {
+object CircularArrayLoop {
     fun circularArrayLoop(nums: IntArray): Boolean {
         val size = nums.size
         // Iterate through each index of the array 'nums'.

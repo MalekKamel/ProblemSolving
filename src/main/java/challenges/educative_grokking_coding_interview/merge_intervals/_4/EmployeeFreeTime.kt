@@ -4,7 +4,7 @@ import challenges.educative_grokking_coding_interview.merge_intervals.Interval
 import java.util.*
 
 
-internal object EmployeeFreeTime {
+object EmployeeFreeTime {
     private fun employeeFreeTime(schedule: ArrayList<ArrayList<Interval>>): List<Interval> {
         val heap = PriorityQueue { a: IntArray, b: IntArray ->
             a[0] - b[0]

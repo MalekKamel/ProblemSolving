@@ -1,8 +1,8 @@
 package challenges.educative_grokking_coding_interview.fast_slow_pointers._3
 
-import challenges.educative_grokking_coding_interview.fast_slow_pointers.LinkedList
-import challenges.educative_grokking_coding_interview.fast_slow_pointers.LinkedListNode
-import challenges.educative_grokking_coding_interview.fast_slow_pointers.PrintList.printListWithForwardArrow
+import challenges.educative_grokking_coding_interview.LinkedList
+import challenges.educative_grokking_coding_interview.LinkedListNode
+import challenges.educative_grokking_coding_interview.PrintList.printListWithForwardArrow
 import challenges.util.PrintHyphens
 
 
@@ -13,7 +13,7 @@ If the number of nodes in the linked list is even, return the second middle node
 https://www.educative.io/courses/grokking-coding-interview-patterns-java/Y5B6zlNOYlA
  */
 
-internal object MiddleNode {
+object MiddleNode {
     fun middleNode(head: LinkedListNode?): LinkedListNode? {
         // Initially slow and fast pointers point to head
         var slow: LinkedListNode? = head
@@ -40,7 +40,7 @@ internal object MiddleNode {
         )
         for (i in input.indices) {
             print(i + 1)
-            val list: LinkedList<Int> = LinkedList<Int>()
+            val list = LinkedList()
             list.createLinkedList(input[i])
             print(".\tInput linked list:  ")
             printListWithForwardArrow(list.head)
