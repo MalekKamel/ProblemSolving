@@ -96,7 +96,7 @@ object ReverseLinkedList {
                     left[i], right[i]
                 )
             )
-            System.out.println(PrintHyphens.repeat("-", 100))
+            println(PrintHyphens.repeat("-", 100))
         }
     }
 }

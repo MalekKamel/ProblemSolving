@@ -68,7 +68,7 @@ object Reorder {
         // Displaying modified linked list
         print("   After folding: ")
         printListWithForwardArrow(obj1.head)
-        System.out.println(PrintHyphens.repeat("-", 100))
+        println(PrintHyphens.repeat("-", 100))
 
         // Declaring and creating a linked list
         val obj2 = LinkedList()
@@ -83,7 +83,7 @@ object Reorder {
         // Displaying modified linked list
         print("   After folding: ")
         printListWithForwardArrow(obj2.head)
-        System.out.println(PrintHyphens.repeat("-", 100))
+        println(PrintHyphens.repeat("-", 100))
 
         // Declaring and creating a linked list
         val obj3 = LinkedList()
@@ -98,7 +98,7 @@ object Reorder {
         // Displaying modified linked list
         print("   After folding: ")
         printListWithForwardArrow(obj3.head)
-        System.out.println(PrintHyphens.repeat("-", 100))
+        println(PrintHyphens.repeat("-", 100))
 
         // Declaring and creating a linked list
         val obj4 = LinkedList()
@@ -113,7 +113,7 @@ object Reorder {
         // Displaying modified linked list
         print("   After folding: ")
         printListWithForwardArrow(obj4.head)
-        System.out.println(PrintHyphens.repeat("-", 100))
+        println(PrintHyphens.repeat("-", 100))
 
         // Declaring and creating a linked list
         val obj5 = LinkedList()
@@ -128,6 +128,6 @@ object Reorder {
         // Displaying modified linked list
         print("   After folding: ")
         printListWithForwardArrow(obj5.head)
-        System.out.println(PrintHyphens.repeat("-", 100))
+        println(PrintHyphens.repeat("-", 100))
     }
 }

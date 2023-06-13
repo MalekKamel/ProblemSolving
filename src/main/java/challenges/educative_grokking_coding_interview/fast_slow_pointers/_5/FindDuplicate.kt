@@ -63,7 +63,7 @@ object FindDuplicate {
             print(i + 1)
             println(".\tnums = " + Arrays.toString(nums[i]))
             println("\tDuplicate number = " + findDuplicate(nums[i]))
-            System.out.println(PrintHyphens.repeat("-", 100))
+            println(PrintHyphens.repeat("-", 100))
         }
     }
 }

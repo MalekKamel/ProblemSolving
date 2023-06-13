@@ -19,7 +19,7 @@ class CallHandler {
      */
     private var employeeLevels: MutableList<List<Employee>> = ArrayList(LEVELS)
 
-    /* queues for each call�s rank */
+    /* queues for each calls rank */
     private var callQueues: List<MutableList<Call>> = ArrayList(LEVELS)
 
     /* Gets the first available employee who can handle this call. */

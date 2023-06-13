@@ -19,13 +19,13 @@ object InsertInterval {
         val output: MutableList<Interval> = ArrayList<Interval>()
         // Append all intervals that start before the new interval to the output list
         println("Let's start adding these intervals into our output list one by one, until we come across an overlapping interval.")
-        System.out.println(PrintHyphens.repeat("-", 100))
+        println(PrintHyphens.repeat("-", 100))
         while (i < n && existingIntervals[i].start < newStart) {
             output.add(existingIntervals[i])
             println("We can add " + (i + 1) + " intervals in our new list without merging any intervals yet:")
             println(display(output))
             i += 1
-            System.out.println(PrintHyphens.repeat("-", 100))
+            println(PrintHyphens.repeat("-", 100))
         }
         println()
     }

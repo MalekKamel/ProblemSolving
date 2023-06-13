@@ -31,7 +31,7 @@ object Tester {
             val p6 = QuestionG.hasWon(board)
             val p7 = QuestionH.hasWon(board)
 
-            //System.out.println(p + " " + p2);
+            //println(p + " " + p2);
             if (p1 != p2 || p2 != p3 || p3 != p4 || p4 != p5 || p5 != p6 || p6 != p7) {
                 println("$p1 $p2 $p3 $p4 $p5 $p6 $p7")
                 printMatrix(boardT)
@@ -59,7 +59,7 @@ object Tester {
             val p6 = QuestionG.hasWon(board)
             val p7 = QuestionH.hasWon(board)
 
-            //System.out.println(p + " " + p2);
+            //println(p + " " + p2);
 
             if (p3 != p4 || p4 != p5 || p5 != p6 || p6 != p7) {
                 println("$p3 $p4 $p5 $p6 $p7")
