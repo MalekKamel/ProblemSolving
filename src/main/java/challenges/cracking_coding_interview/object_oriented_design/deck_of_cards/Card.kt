@@ -29,6 +29,7 @@ abstract class Card(/* number or face that's on card - a number 2 through 10,
             Suit.Heart -> print("h")
             Suit.Diamond -> print("d")
             Suit.Spade -> print("s")
+            null -> TODO()
         }
         print(" ")
     }

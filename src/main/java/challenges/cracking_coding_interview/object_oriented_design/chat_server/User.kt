@@ -52,11 +52,7 @@ class User(val id: Int, val accountName: String, val fullName: String) {
     }
 
     fun removeAddRequest(req: AddRequest) {
-        if (req.toUser === this) {
-            receivedAddRequests.remove(req)
-        } else if (req.fromUser === this) {
-            sentAddRequests.remove(req)
-        }
+
     }
 
     fun requestAddUser(accountName: String?) {
