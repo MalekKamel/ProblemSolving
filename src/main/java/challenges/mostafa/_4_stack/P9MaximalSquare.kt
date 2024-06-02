@@ -1,43 +1,37 @@
 package challenges.mostafa._4_stack
 
-import java.util.Stack
-
 /**
-Given a rows x cols binary matrix filled with 0's and 1's, find the largest rectangle containing
+Given an m x n binary matrix filled with 0's and 1's, find the largest square containing
 only 1's and return its area.
 
+
+
 Example 1:
-Input: matrix = [
-["1","0","1","0","0"],
-["1","0","1","1","1"],
-["1","1","1","1","1"],
-["1","0","0","1","0"]]
-Output: 6
-Explanation: The maximal rectangle is shown in the above picture.
+Input: matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
+Output: 4
 
 Example 2:
+Input: matrix = [["0","1"],["1","0"]]
+Output: 1
+Example 3:
 
 Input: matrix = [["0"]]
 Output: 0
 
-Example 3:
-
-Input: matrix = [["1"]]
-Output: 1
-
 
 Constraints:
 
-rows == matrix.length
-cols == matrix[i].length
-1 <= row, cols <= 200
+m == matrix.length
+n == matrix[i].length
+1 <= m, n <= 300
 matrix[i][j] is '0' or '1'.
 
-https://leetcode.com/problems/maximal-rectangle/description/
+https://leetcode.com/problems/maximal-square/description/
  */
 
-internal object P7MaximalRectangle {
-    private fun maximalRectangle(matrix: Array<CharArray>): Int {
+internal object P9MaximalSquare {
+
+    private fun maximalSquare(matrix: Array<CharArray>): Int {
         if (matrix.isEmpty() || matrix[0].isEmpty()) return 0
 
         val rows = matrix.size
@@ -50,24 +44,25 @@ internal object P7MaximalRectangle {
         for (r in 0 until rows) {
             for (c in 0 until cols) {
                 heights[c] = if (matrix[r][c] == '1') heights[c] + 1 else 0
-
             }
 
-            maxArea = maxOf(maxArea, largestRectangleInHistogram(heights))
+            maxArea = maxOf(maxArea, largestSquareInHistogram(heights))
         }
 
         return maxArea
     }
 
-    private fun largestRectangleInHistogram(heights: IntArray): Int {
+    private fun largestSquareInHistogram(heights: IntArray): Int {
         val stack = ArrayDeque<Int>()
         var maxArea = 0
 
         heights.forEachIndexed { index, height ->
-            while (stack.isNotEmpty() && heights[stack.last()] > height) {
+            while (stack.isNotEmpty() && heights[stack.last()] >= height) {
                 val lastHeight = heights[stack.removeLast()]
                 val width = if (stack.isEmpty()) index else index - stack.last() - 1
-                maxArea = maxOf(maxArea, lastHeight * width)
+                val side = minOf(lastHeight, width)
+                val squareArea = side * side
+                maxArea = maxOf(maxArea, squareArea)
             }
             stack.addLast(index)
         }
@@ -75,7 +70,9 @@ internal object P7MaximalRectangle {
         while (stack.isNotEmpty()) {
             val lastHeight = heights[stack.removeLast()]
             val width = if (stack.isEmpty()) heights.size else heights.size - stack.last() - 1
-            maxArea = maxOf(maxArea, lastHeight * width)
+            val side = minOf(lastHeight, width)
+            val squareArea = side * side
+            maxArea = maxOf(maxArea, squareArea)
         }
 
         return maxArea
@@ -83,26 +80,23 @@ internal object P7MaximalRectangle {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        var matrix = arrayOf(
+        val matrix1 = arrayOf(
             charArrayOf('1', '0', '1', '0', '0'),
             charArrayOf('1', '0', '1', '1', '1'),
             charArrayOf('1', '1', '1', '1', '1'),
             charArrayOf('1', '0', '0', '1', '0')
         )
+        println(maximalSquare(matrix1)) // Output: 4
 
-        val result = maximalRectangle(matrix)
-        println("The largest rectangle containing only 1's has an area of $result")
+        val matrix2 = arrayOf(
+            charArrayOf('0', '1'),
+            charArrayOf('1', '0')
+        )
+        println(maximalSquare(matrix2)) // Output: 1
 
-        matrix = arrayOf(
+        val matrix3 = arrayOf(
             charArrayOf('0')
         )
-        val result2 = maximalRectangle(matrix)
-        println("The largest rectangle containing only 1's has an area of $result2")
-
-        matrix = arrayOf(
-            charArrayOf('1')
-        )
-        val result3 = maximalRectangle(matrix)
-        println("The largest rectangle containing only 1's has an area of $result3")
+        println(maximalSquare(matrix3)) // Output: 0
     }
 }
