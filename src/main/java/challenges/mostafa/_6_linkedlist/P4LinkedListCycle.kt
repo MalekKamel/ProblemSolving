@@ -41,6 +41,14 @@ https://leetcode.com/problems/linked-list-cycle/description/
 
 internal object P4LinkedListCycle {
 
+    /**
+    The time complexity of this solution is O(n), where n is the number of nodes in the linked list.
+    The slow and fast pointers will meet within the first loop through the cycle if a cycle exists.
+    If there is no cycle, the fast pointer will reach the end of the list in roughly n/2 steps.
+
+    The space complexity is O(1) since we only use a constant amount of extra space for the slow
+    and fast pointers, regardless of the size of the linked list.
+     */
     class ListNode(var `val`: Int) {
         var next: ListNode? = null
     }
