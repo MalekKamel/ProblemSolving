@@ -6,41 +6,56 @@ package challenges.mostafa._7_binarytree
 
 internal object TraverseTree {
 
-    // Define a node class for the binary tree
-    data class TreeNode(
-        var value: Int,
-        var left: TreeNode? = null,
-        var right: TreeNode? = null
-    )
-
-    // In-order traversal
-    private fun inorderTraversal(root: TreeNode?) {
-        if (root == null) return
-
-        inorderTraversal(root.left)
-        print("${root.value} ")
-        inorderTraversal(root.right)
+    class Node(var value: Int) {
+        var left: Node? = null
+        var right: Node? = null
     }
 
-    private fun reverseInorderTraversal(root: TreeNode?) {
-        if (root == null) return
+    // Inorder Traversal
+    private fun inorderTraversal(root: Node?) {
+        if (root != null) {
+            inorderTraversal(root.left)
+            print("${root.value} ")
+            inorderTraversal(root.right)
+        }
+    }
 
-        reverseInorderTraversal(root.right)
-        print("${root.value} ")
-        reverseInorderTraversal(root.left)
+    // Preorder Traversal
+    private fun preorderTraversal(root: Node?) {
+        if (root != null) {
+            print("${root.value} ")
+            preorderTraversal(root.left)
+            preorderTraversal(root.right)
+        }
+    }
+
+    // Postorder Traversal
+    private fun postorderTraversal(root: Node?) {
+        if (root != null) {
+            postorderTraversal(root.left)
+            postorderTraversal(root.right)
+            print("${root.value} ")
+        }
     }
 
     @JvmStatic
     fun main(args: Array<String>) {
-        val root = TreeNode(1)
-        root.left = TreeNode(2)
-        root.right = TreeNode(3)
-        root.left?.left = TreeNode(4)
-        root.left?.right = TreeNode(5)
+        // Create a Binary Search Tree
+        val root = Node(4)
+        root.left = Node(2)
+        root.right = Node(6)
+        root.left?.left = Node(1)
+        root.left?.right = Node(3)
+        root.right?.left = Node(5)
+        root.right?.right = Node(7)
 
-        println("In-order traversal:")
-        inorderTraversal(root)
-        println("\nReverse in-order traversal:")
-        reverseInorderTraversal(root)
+        // Traverse the Binary Search Tree
+        println("Inorder Traversal:")
+        inorderTraversal(root) // Output: 1 2 3 4 5 6 7
+        println("\nPreorder Traversal:")
+        preorderTraversal(root) // Output: 4 2 1 3 6 5 7
+        println("\nPostorder Traversal:")
+        postorderTraversal(root) // Output: 1 3 2 5 7 6 4
     }
+
 }
