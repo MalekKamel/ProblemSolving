@@ -19,7 +19,7 @@ internal object P1StaticSlidingWindow {
             for (j in i until i + k) {
                 currentSum += nums[j]
             }
-            best = max(best, currentSum)
+            best = maxOf(best, currentSum)
         }
         return best
     }
@@ -30,7 +30,7 @@ internal object P1StaticSlidingWindow {
         val prefixSum = Prefix.prefixSum(nums)
         for (i in 0..nums.size - k) {
             val currentSum = Prefix.rangeSum(i, i + k - 1, prefixSum)
-            best = max(best, currentSum)
+            best = maxOf(best, currentSum)
         }
         return best
     }
@@ -43,7 +43,7 @@ internal object P1StaticSlidingWindow {
 
         for (end in k until nums.size) {
             windowSum += nums[end] - nums[end - k]
-            best = max(windowSum, best)
+            best = maxOf(windowSum, best)
         }
         return best
     }

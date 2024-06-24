@@ -33,6 +33,26 @@ https://leetcode.com/problems/sliding-window-maximum/
 
 internal object P2SlidingWindowMax {
 
+    /**
+    The time complexity of the provided maxSlidingWindow function is O(n log k),
+    where n is the length of the input array nums and k is the size of the sliding window.
+
+    Here's a breakdown of the time complexity:
+
+    Initialization: The time complexity for initializing the result array and the PriorityQueue is O(1).
+    Loop through the input array:
+    The loop iterates through the nums array, which has a time complexity of O(n).
+    Inside the loop:
+    Removing elements from the queue: The time complexity for removing elements from
+    the queue is O(log k), as the queue is implemented using a priority queue.
+    Adding the current element to the queue: The time complexity for adding an element to
+    the queue is O(log k).
+    Updating the result array: The time complexity for updating the result array is O(1).
+    Combining these factors, the overall time complexity of the maxSlidingWindow function is
+    O(n * log k), which can be simplified to O(n log k).
+
+    The space complexity of the function is O(k), as the maximum size of the PriorityQueue is k.
+     */
     private fun maxSlidingWindow(nums: IntArray, k: Int): IntArray {
         val result = IntArray(nums.size - k + 1)
         val queue = PriorityQueue<Pair<Int, Int>>(compareBy { -it.first })
