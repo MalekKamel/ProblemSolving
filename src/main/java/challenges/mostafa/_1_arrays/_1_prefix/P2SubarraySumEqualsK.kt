@@ -66,20 +66,27 @@ internal object P2SubarraySumEqualsK {
     fun main(args: Array<String>) {
         val array = intArrayOf(1, 1, 1) // 2
         val k1 = 2
-        val k2 = 3
+
         val array2 = intArrayOf(1, 2, 3) // 2
+        val k2 = 3
+
+        val array3 = intArrayOf(3, 4, 7, 2, -3, 1, 4, 2) // 4
+        val k3 = 7
 
         println("First")
         println(subarraySum(array, k1))
         println(subarraySum(array2, k2))
+        println(subarraySum(array3, k3))
 
         println("Second")
         println(subarraySum2(array, k1))
         println(subarraySum2(array2, k2))
+        println(subarraySum2(array3, k3))
 
         println("Third")
         println(subarraySum3(array, k1))
         println(subarraySum3(array2, k2))
+        println(subarraySum3(array3, k3))
     }
 
 }

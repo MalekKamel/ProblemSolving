@@ -23,8 +23,8 @@ internal object P1MaxDiff {
         for (i in array.size - 2 downTo 0) {
             val currentElement = array[i]
             if (currentElement < maxSoFar)
-                maxDifference = max(maxDifference, maxSoFar - currentElement)
-            maxSoFar = max(maxSoFar, currentElement)
+                maxDifference = maxOf(maxDifference, maxSoFar - currentElement)
+            maxSoFar = maxOf(maxSoFar, currentElement)
         }
 
         return if (maxDifference == Int.MIN_VALUE) return -1 else maxDifference
@@ -34,7 +34,7 @@ internal object P1MaxDiff {
     fun main(args: Array<String>) {
         val array = intArrayOf(1000, 2, 3, 10, 6, 4, 8, 1)
         // expected: 8
-        print(findMaxDifference(array))
+        println(findMaxDifference(array))
     }
 
 }
