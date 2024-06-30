@@ -40,11 +40,10 @@ internal object P4MaxConsecutiveOnes {
                 zerosCount++
 
             while (zerosCount > k) {
-                if (nums[left] == 0)
-                    zerosCount--
+                if (nums[left] == 0) zerosCount--
                 left++
             }
-            maxConsecutiveOnes = max(maxConsecutiveOnes, right - left + 1)
+            maxConsecutiveOnes = maxOf(maxConsecutiveOnes, right - left + 1)
         }
 
         return maxConsecutiveOnes

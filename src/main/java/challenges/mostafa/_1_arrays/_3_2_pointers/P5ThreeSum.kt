@@ -39,6 +39,31 @@ https://leetcode.com/problems/3sum/description/
 
 internal object P5ThreeSum {
 
+
+    /**
+    The time complexity of the threeSum function is O(n^2), where n is the length
+    of the input array nums.
+
+    Here's the breakdown of the time complexity:
+
+    Sorting the array: nums.sort() has a time complexity of O(n log n).
+    Iterating through the array: The outer loop iterates n - 2 times, where n is the length
+    of the input array.
+    Two-pointer approach: The inner while loop has a time complexity of O(n), as the left and
+    right pointers move towards each other.
+    Handling duplicates: The additional while loops to skip duplicates have a time complexity
+    of O(n) in the worst case, where all elements are duplicates.
+    The overall time complexity of the function is the combination of these steps:
+
+    Sorting the array: O(n log n)
+    Outer loop: O(n - 2), which is O(n)
+    Inner loop: O(n)
+    Handling duplicates: O(n)
+    Therefore, the total time complexity of the threeSum function is O(n^2).
+
+    The space complexity of the function is O(1), as the function only uses a constant amount of
+    additional space to store the result list and the pointers.
+     */
     private fun threeSum(nums: IntArray): List<List<Int>> {
         // Sort the array in ascending order
         nums.sort()
@@ -47,9 +72,7 @@ internal object P5ThreeSum {
 
         for (i in 0 until nums.size - 2) {
             // Skip duplicates
-            if (i > 0 && nums[i] == nums[i - 1]) {
-                continue
-            }
+            if (i > 0 && nums[i] == nums[i - 1]) continue
 
             var left = i + 1
             var right = nums.size - 1

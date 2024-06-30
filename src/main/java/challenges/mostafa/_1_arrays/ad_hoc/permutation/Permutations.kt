@@ -14,8 +14,8 @@ internal object Permutations {
             val element = list[i]
             val remainingList = list.toMutableList().also { it.removeAt(i) }
             val subPermutations = permutationsRecursive(remainingList)
-            subPermutations.forEach {
-                result.add(listOf(element) + it)
+            for (permutation in subPermutations) {
+                result.add(listOf(element) + permutation)
             }
         }
         return result

@@ -35,7 +35,7 @@ https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/
 
 internal object P1TwoSum {
 
-    fun twoSum(numbers: IntArray, target: Int): IntArray {
+    private fun twoSum(numbers: IntArray, target: Int): IntArray {
         var left = 0
         var right = numbers.size - 1
 

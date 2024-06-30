@@ -80,8 +80,9 @@ internal object NextPermutation {
             i--
         }
 
+        // Finding the swap
+        // Find the smallest element larger than nums[i] from the right
         if (i >= 0) {
-            // Find the smallest element larger than nums[i] from the right
             var j = nums.size - 1
             while (j > i && nums[j] <= nums[i]) {
                 j--

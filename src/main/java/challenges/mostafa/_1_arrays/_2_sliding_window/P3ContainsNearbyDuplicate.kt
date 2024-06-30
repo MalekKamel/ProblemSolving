@@ -28,9 +28,7 @@ internal object P3ContainsNearbyDuplicate {
         for (i in nums.indices) {
             val num = nums[i]
             // i - map[num]!! => The distance
-            if (map.containsKey(num) && i - map[num]!! <= k) {
-                return true
-            }
+            if (map.containsKey(num) && i - map[num]!! <= k) return true
 
             map[num] = i
         }
@@ -44,15 +42,11 @@ internal object P3ContainsNearbyDuplicate {
         for (i in nums.indices) {
             val num = nums[i]
 
-            if (set.contains(num)) {
-                return true
-            }
+            if (set.contains(num)) return true
 
             set.add(num)
 
-            if (set.size > k) {
-                set.remove(nums[i - k])
-            }
+            if (set.size > k)  set.remove(nums[i - k])
         }
 
         return false
