@@ -53,11 +53,16 @@ internal object P7NumberOfMatchingSubsequences {
             // Use binary search to find the smallest index greater than prevIndex
             val index = indices.binarySearch(prevIndex + 1)
 
-            prevIndex = if (index < 0) {
-                val insertionPoint = -(index + 1)
-                if (insertionPoint >= indices.size) return false
-                indices[insertionPoint]
-            } else indices[index]
+            // We have found the exact index
+            if (index >= 0) {
+                prevIndex = indices[index]
+                continue
+            }
+
+            val insertionPoint = -(index + 1)
+            // The index is not found
+            if (insertionPoint >= indices.size) return false
+            prevIndex = indices[insertionPoint]
         }
 
         return true

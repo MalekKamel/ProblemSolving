@@ -34,7 +34,12 @@ internal object Solution {
         return validPalindromeHelper(s, 0, s.lastIndex, false)
     }
 
-    private fun validPalindromeHelper(s: String, left: Int, right: Int, deleted: Boolean): Boolean {
+    private fun validPalindromeHelper(
+        s: String,
+        left: Int,
+        right: Int,
+        deleted: Boolean
+    ): Boolean {
         if (left >= right) return true
 
         if (s[left] == s[right])

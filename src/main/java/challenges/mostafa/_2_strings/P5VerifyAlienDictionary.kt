@@ -46,7 +46,11 @@ internal object P5VerifyAlienDictionary {
         return true
     }
 
-    private fun isSmaller(a: String, b: String, indices: Map<Char, Int>): Boolean {
+    private fun isSmaller(
+        a: String,
+        b: String,
+        indices: Map<Char, Int>
+    ): Boolean {
         val len = minOf(a.length, b.length)
 
         for (i in 0 until len) {
