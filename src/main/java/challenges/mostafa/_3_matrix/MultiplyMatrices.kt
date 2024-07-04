@@ -52,11 +52,5 @@ internal object MultiplyMatrices {
         for (row in result) {
             println(row.contentToString())
         }
-
-        /*
-        [25.0, 28.0]
-        [57.0, 64.0]
-        [89.0, 100.0]
-         */
     }
 }

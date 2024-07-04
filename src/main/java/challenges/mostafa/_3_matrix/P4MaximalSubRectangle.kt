@@ -47,6 +47,24 @@ https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&
 
 internal object P4MaximalSubRectangle {
 
+    /**
+    Time Complexity
+
+    The time complexity of the given code, maximalRectangleSum, is O(m * n^2), where m is the number
+    of rows and n is the number of columns in the input matrix.
+
+    Here's a breakdown of the time complexity analysis:
+
+    The outer loop iterates over the columns c1 from 0 to n-1, which takes O(n) time.
+    Inside the outer loop, the code initializes a colSum array of size m, which takes O(m) time.
+    The inner loop iterates over the columns c2 from c1 to n-1, which takes O(n-c1) time, which
+    can be simplified to O(n) time.
+    Inside the inner loop, the code iterates over the rows r from 0 to m-1, which takes O(m) time.
+    Within the row iteration, the code performs constant-time operations, such as updating colSum,
+    calculating currSum, and updating maxSum.
+    Therefore, the overall time complexity of the maximalRectangleSum function is the product of
+    the time complexities of the outer and inner loops, which is O(n * (n * m)) = O(m * n^2).
+     */
     private fun maximalRectangleSum(matrix: Array<IntArray>): Int {
         if (matrix.isEmpty() || matrix[0].isEmpty()) return 0
 
@@ -85,11 +103,19 @@ internal object P4MaximalSubRectangle {
             intArrayOf(4, 4, 4, 4, -5),
             intArrayOf(4, 4, 4, 4, -5)
         )
-
         val maxSum = maximalRectangleSum(matrix)
         println("The maximal sub-rectangle sum is: $maxSum")
 
         val maxSum2 = maximalRectangleSum(matrix2)
         println("The maximal sub-rectangle sum is: $maxSum2")
+
+        val matrix3 = arrayOf(
+            intArrayOf(1, 2),
+            intArrayOf(3, 4),
+            intArrayOf(5, 6),
+        )
+
+        val maxSum3 = maximalRectangleSum(matrix3)
+        println("The maximal sub-rectangle sum is: $maxSum3")
     }
 }

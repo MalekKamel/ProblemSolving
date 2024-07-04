@@ -25,6 +25,30 @@ https://leetcode.ca/2016-10-06-311-Sparse-Matrix-Multiplication/#google_vignette
 
 internal object P5SparseMatrixMultiplication {
 
+    /**
+    The time complexity of the multiply function is O(m * n * p), where m is the number of rows
+    in the first matrix mat1, n is the number of columns in the first matrix mat1 (and the number
+    of rows in the second matrix mat2), and p is the number of columns in the second matrix mat2.
+
+    Here's a breakdown of the time complexity analysis:
+
+    The function starts by initializing the size of the input matrices and the result matrix,
+    which takes constant time, O(1).
+    The outer loop iterates over the rows r of the first matrix mat1, which takes O(m) time.
+    Inside the outer loop, the code iterates over the columns k of the first matrix mat1, which
+    takes O(n) time.
+    Within the inner loop, the code checks if the element mat1[r][k] is zero, and if it's not,
+    it iterates over the columns c of the second matrix mat2, which takes O(p) time.
+    Inside the innermost loop, the code performs a constant-time operation to update
+    the corresponding element in the result matrix.
+    The overall time complexity of the multiply function is the product of the time complexities
+    of the three nested loops, which is O(m * n * p).
+
+    The reason the time complexity is not O(m * n * p) is that the code includes an optimization
+    to skip the inner loop when the element mat1[r][k] is zero. This optimization can potentially
+    improve the performance of the function, especially when the input matrices are
+    sparse (i.e., have many zero elements).
+     */
     private fun multiply(mat1: Array<IntArray>, mat2: Array<IntArray>): Array<IntArray> {
         val rows1 = mat1.size
         val cols1 = mat1[0].size
