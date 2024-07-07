@@ -79,6 +79,50 @@ https://leetcode.com/problems/exclusive-time-of-functions/description/
 
 internal object P10ExclusiveTimeOfFunctions {
 
+    /**
+    The key aspects of this solution are:
+
+    1. Using a stack to keep track of the currently executing functions.
+    2. Updating the exclusive time of each function based on the difference between the current
+        and previous timestamps.
+    3. Adding 1 to the exclusive time when a function ends, to account for the full execution time.
+
+    Adding 1 to the exclusive time when a function ends is necessary to account for the full
+    execution time of the function.
+
+    Here's a more detailed explanation:
+    In the problem, the exclusive time of a function is defined as the total time a function
+    is the main active function. This means that the exclusive time of a function should include
+    the time from the start of the function to the end of the function, inclusive.
+    However, the way the timestamps are given in the log entries, the "end" timestamp represents
+    the last moment when the function was active. This means that if we simply took the difference
+    between the "end" timestamp and the previous "start" timestamp, we would be missing the last
+    unit of time when the function was active.
+    For example, consider the following log entries:
+
+    ```
+    0:start:0
+    0:end:1
+    1:start:2
+    1:end:3
+    ```
+
+    If we calculate the exclusive time for function 0 by taking the difference between the
+    "end" timestamp (1) and the previous "start" timestamp (0), we would get a value of 1, which
+    is not the full execution time of the function.
+
+    To account for this, we add 1 to the exclusive time when a function ends. This ensures that
+    the full execution time of the function is included in the exclusive time calculation.
+
+    In the example above, the exclusive time for function 0 would be calculated as:
+
+    ```
+    exclusive time for function 0 = (1 - 0) + 1 = 2
+    ```
+
+    This correctly captures the full execution time of the function, from the start timestamp
+    to the end timestamp, inclusive.
+     */
     private fun exclusiveTime(n: Int, logs: List<String>): IntArray {
         val result = IntArray(n) // Initialize the result array with n elements
         val stack = Stack<Int>() // Use Java Stack

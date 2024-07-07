@@ -50,7 +50,6 @@ internal object P7MaximalRectangle {
         for (r in 0 until rows) {
             for (c in 0 until cols) {
                 heights[c] = if (matrix[r][c] == '1') heights[c] + 1 else 0
-
             }
 
             maxArea = maxOf(maxArea, largestRectangleInHistogram(heights))
@@ -60,22 +59,22 @@ internal object P7MaximalRectangle {
     }
 
     private fun largestRectangleInHistogram(heights: IntArray): Int {
-        val stack = ArrayDeque<Int>()
+        val stack = Stack<Int>()
         var maxArea = 0
 
-        heights.forEachIndexed { index, height ->
-            while (stack.isNotEmpty() && heights[stack.last()] > height) {
-                val lastHeight = heights[stack.removeLast()]
-                val width = if (stack.isEmpty()) index else index - stack.last() - 1
-                maxArea = maxOf(maxArea, lastHeight * width)
+        for ((i, height) in heights.withIndex()) {
+            while (stack.isNotEmpty() && heights[stack.peek()] > height) {
+                val lastHeight = heights[stack.pop()]
+                val width = if (stack.isEmpty()) i else i - stack.peek() - 1
+                maxArea = maxOf(maxArea, width * lastHeight)
             }
-            stack.addLast(index)
+            stack.push(i)
         }
 
         while (stack.isNotEmpty()) {
-            val lastHeight = heights[stack.removeLast()]
-            val width = if (stack.isEmpty()) heights.size else heights.size - stack.last() - 1
-            maxArea = maxOf(maxArea, lastHeight * width)
+            val lastHeight = heights[stack.pop()]
+            val width = if (stack.isEmpty()) heights.size else heights.size - stack.peek() - 1
+            maxArea = maxOf(maxArea, width * lastHeight)
         }
 
         return maxArea

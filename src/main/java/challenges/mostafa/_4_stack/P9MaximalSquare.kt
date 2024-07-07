@@ -1,10 +1,10 @@
 package challenges.mostafa._4_stack
 
+import java.util.Stack
+
 /**
 Given an m x n binary matrix filled with 0's and 1's, find the largest square containing
 only 1's and return its area.
-
-
 
 Example 1:
 Input: matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
@@ -53,23 +53,23 @@ internal object P9MaximalSquare {
     }
 
     private fun largestSquareInHistogram(heights: IntArray): Int {
-        val stack = ArrayDeque<Int>()
+        val stack = Stack<Int>()
         var maxArea = 0
 
-        heights.forEachIndexed { index, height ->
-            while (stack.isNotEmpty() && heights[stack.last()] >= height) {
-                val lastHeight = heights[stack.removeLast()]
-                val width = if (stack.isEmpty()) index else index - stack.last() - 1
+        for ((i, height) in heights.withIndex()) {
+            while (stack.isNotEmpty() && heights[stack.peek()] > height) {
+                val lastHeight = heights[stack.pop()]
+                val width = if (stack.isEmpty()) i else i - stack.peek() - 1
                 val side = minOf(lastHeight, width)
                 val squareArea = side * side
                 maxArea = maxOf(maxArea, squareArea)
             }
-            stack.addLast(index)
+            stack.push(i)
         }
 
         while (stack.isNotEmpty()) {
-            val lastHeight = heights[stack.removeLast()]
-            val width = if (stack.isEmpty()) heights.size else heights.size - stack.last() - 1
+            val lastHeight = heights[stack.pop()]
+            val width = if (stack.isEmpty()) heights.size else heights.size - stack.peek() - 1
             val side = minOf(lastHeight, width)
             val squareArea = side * side
             maxArea = maxOf(maxArea, squareArea)

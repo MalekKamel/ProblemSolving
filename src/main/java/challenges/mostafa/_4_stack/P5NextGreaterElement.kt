@@ -57,3 +57,60 @@ internal object P5NextGreaterElement {
         println(result.contentToString()) // Output: [2, 3, 4, -1, 4]
     }
 }
+
+/**
+ Modulo Operator Usage
+
+ The modulo operator (%) in programming is used to find the remainder of a division operation.
+ Here are some common scenarios where the modulo operator can be useful:
+
+ 1. **Checking for even/odd numbers**: You can use the modulo operator to determine whether
+ a number is even or odd. If the remainder of a number divided by 2 is 0, the number is
+ even; otherwise, it's odd.
+
+ ```
+ if (number % 2 == 0) {
+ // number is even
+ } else {
+ // number is odd
+ }
+ ```
+
+ 2. **Implementing circular data structures**: The modulo operator can be used to wrap around
+ the end of a data structure, such as an array or a list, and start again from the beginning.
+ This is useful for implementing circular buffers, rotating displays, and other cyclic data structures.
+
+ ```
+ let index = (currentIndex + 1) % arrayLength;
+ ```
+
+ 3. **Formatting time and dates**: The modulo operator can be used to format time and date
+ values, such as converting 24-hour time to 12-hour time or calculating the day of the week.
+
+ ```
+ let hour = (totalHours % 12) || 12; // convert 24-hour time to 12-hour time
+ let dayOfWeek = (totalDays % 7); // calculate the day of the week (0 = Sunday, 1 = Monday, etc.)
+ ```
+
+ 4. **Implementing hash functions**: Hash functions often use the modulo operator to map
+ a large input domain to a smaller output range, ensuring that the output values are evenly distributed.
+
+ ```
+ let hashIndex = (hashCode(key) % bucketCount);
+ ```
+
+ 5. **Performing division with integer values**: The modulo operator can be used to perform
+ integer division, where the result is the quotient, and the remainder is the modulo.
+
+ ```
+ let quotient = Math.floor(dividend / divisor);
+ let remainder = dividend % divisor;
+ ```
+
+ 6. **Implementing game logic**: In game programming, the modulo operator is often used to
+ implement game mechanics, such as wrapping around the screen, handling player turns, or cycling
+ through a list of power-ups or items.
+
+ The modulo operator is a versatile tool in programming and can be used in a variety of scenarios
+ where you need to work with the remainder of a division operation.
+ */

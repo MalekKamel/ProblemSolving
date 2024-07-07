@@ -53,5 +53,9 @@ internal object P3DailyTemperatures {
         val temperatures = intArrayOf(73, 74, 75, 71, 69, 72, 76, 73)
         val answer = dailyTemperatures(temperatures)
         println(answer.contentToString()) // Output: [1, 1, 4, 2, 1, 1, 0, 0]
+
+        val temperatures2 = intArrayOf(5, 4, 3, 2, 1, 6)
+        val answer2 = dailyTemperatures(temperatures2)
+        println(answer2.contentToString()) // Output: [1, 1, 4, 2, 1, 1, 0, 0]
     }
 }

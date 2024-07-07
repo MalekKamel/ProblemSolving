@@ -3,9 +3,9 @@ package challenges.mostafa._4_stack
 import java.util.Stack
 
 /**
-Given a string containing just the characters '(' and ')', return the length of the longest valid (well-formed) parentheses
-substring
-.
+Given a string containing just the characters '(' and ')', return the length of the longest
+valid (well-formed) parentheses
+substring.
 
 Example 1:
 
@@ -32,6 +32,14 @@ https://leetcode.com/problems/longest-valid-parentheses/description/
 
 internal object P11LongestValidParentheses {
 
+    /**
+    The key aspects of this solution are:
+
+    1. Using a stack to keep track of the indices of the opening parentheses.
+    2. Updating the maxLength variable whenever a valid parentheses substring is found.
+    3. Pushing the current index onto the stack when a closing parenthesis is encountered
+        but there is no matching opening parenthesis on the stack.
+     */
     private fun longestValidParentheses(s: String): Int {
         if (s.isEmpty()) return 0
 

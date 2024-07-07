@@ -62,14 +62,14 @@ internal object P8LargestSubmatrixWithRearrangements {
     }
 
     private fun largestRectangleInHistogram(heights: IntArray): Int {
-        val sortedHeights = heights.sortedDescending().toIntArray()
+        val sortedHeights = heights.sortedDescending()
         var maxArea = 0
 
         // Calculate the maximum area for the current histogram
         for (i in sortedHeights.indices) {
             val height = sortedHeights[i]
             val width = i + 1
-            val area = height * width
+            val area = width * height
             maxArea = maxOf(maxArea, area)
         }
 

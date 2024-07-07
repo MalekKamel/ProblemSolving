@@ -1,5 +1,7 @@
 package challenges.mostafa._4_stack
 
+import java.util.Stack
+
 /**
 Given an array of integers heights representing the histogram's bar height where the width of
 each bar is 1, return the area of the largest rectangle in the histogram.
@@ -14,32 +16,33 @@ Example 2:
 Input: heights = [2,4]
 Output: 4
 
-
 Constraints:
 
 1 <= heights.length <= 10^5
 0 <= heights[i] <= 10^4
+
+https://leetcode.com/problems/largest-rectangle-in-histogram/description/
  */
 
 internal object P6LargestRectangleInHistogram {
 
     private fun largestRectangleArea(heights: IntArray): Int {
-        val stack = ArrayDeque<Int>()
+        val stack = Stack<Int>()
         var maxArea = 0
 
-        heights.forEachIndexed { index, height ->
-            while (stack.isNotEmpty() && heights[stack.last()] > height) {
-                val lastHeight = heights[stack.removeLast()]
-                val width = if (stack.isEmpty()) index else index - stack.last() - 1
-                maxArea = maxOf(maxArea, lastHeight * width)
+        for ((i, height) in heights.withIndex()) {
+            while (stack.isNotEmpty() && heights[stack.peek()] > height) {
+                val lastHeight = heights[stack.pop()]
+                val width = if (stack.isEmpty()) i else i - stack.peek() - 1
+                maxArea = maxOf(maxArea, width * lastHeight)
             }
-            stack.addLast(index)
+            stack.push(i)
         }
 
         while (stack.isNotEmpty()) {
-            val lastHeight = heights[stack.removeLast()]
-            val width = if (stack.isEmpty()) heights.size else heights.size - stack.last() - 1
-            maxArea = maxOf(maxArea, lastHeight * width)
+            val lastHeight = heights[stack.pop()]
+            val width = if (stack.isEmpty()) heights.size else heights.size - stack.peek() - 1
+            maxArea = maxOf(maxArea, width * lastHeight)
         }
 
         return maxArea
