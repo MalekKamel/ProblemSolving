@@ -11,6 +11,7 @@ Example 1:
 
 Input: nums = [3,2,1,5,6,4], k = 2
 Output: 5
+
 Example 2:
 
 Input: nums = [3,2,3,1,2,4,5,5,6], k = 4
@@ -66,5 +67,10 @@ internal object P1KthLargestElementInArray {
         val nums2 = intArrayOf(3, 2, 3, 1, 2, 4, 5, 5, 6)
         val k2 = 4
         println(findKthLargest(nums2, k2)) // Output: 4
+
+        // Example 3
+        val nums3 = intArrayOf(4, 2, 1, 3)
+        val k3 = 2
+        println(findKthLargest(nums3, k3)) // Output: 4
     }
 }

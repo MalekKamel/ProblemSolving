@@ -12,11 +12,36 @@ object ExamplesForPriorityQueue {
         priorityQueue.offer(4)
         priorityQueue.offer(2)
 
+        println("Min Heap")
         println(priorityQueue.poll()) // Output: 1
         println(priorityQueue.poll()) // Output: 2
         println(priorityQueue.poll()) // Output: 3
         println(priorityQueue.poll()) // Output: 4
 
+        // Custom Comparator:
+        val queue = PriorityQueue<Int>(compareBy { -it })
+        val queue2 = PriorityQueue<Int>(Comparator.reverseOrder())
+        println("Max Heap")
+        queue.offer(3)
+        queue.offer(1)
+        queue.offer(4)
+        queue.offer(2)
+
+        println(queue.poll()) // Output: 4
+        println(queue.poll()) // Output: 3
+        println(queue.poll()) // Output: 2
+        println(queue.poll()) // Output: 1
+
+        println("Max Heap")
+        queue2.offer(3)
+        queue2.offer(1)
+        queue2.offer(4)
+        queue2.offer(2)
+
+        println(queue2.poll()) // Output: 4
+        println(queue2.poll()) // Output: 3
+        println(queue2.poll()) // Output: 2
+        println(queue2.poll()) // Output: 1
 
         // Custom Comparator:
         val priorityQueue2 = PriorityQueue<String> { a, b -> b.length - a.length }
@@ -26,7 +51,6 @@ object ExamplesForPriorityQueue {
 
         println(priorityQueue2.poll()) // Output: "banana"
         println(priorityQueue2.poll()) // Output: "cherry"
-        println(priorityQueue2.poll()) // Output: "apple"
 
         // Initializing with a Collection:
         val numbers = listOf(3, 1, 4, 2)

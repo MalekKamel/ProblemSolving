@@ -8,6 +8,7 @@ there is no middle value, and the median is the mean of the two middle values.
 
 For example, for arr = [2,3,4], the median is 3.
 For example, for arr = [2,3], the median is (2 + 3) / 2 = 2.5.
+
 Implement the MedianFinder class:
 
 MedianFinder() initializes the MedianFinder object.
@@ -75,9 +76,8 @@ internal object P6FindMedianFromDataStream {
         private val largeHeap = PriorityQueue<Int>()
 
         fun addNum(num: Int) {
-            if (smallHeap.isEmpty() || num <= smallHeap.peek()) {
-                smallHeap.offer(num)
-            } else largeHeap.offer(num)
+            if (smallHeap.isEmpty() || num <= smallHeap.peek()) smallHeap.offer(num)
+            else largeHeap.offer(num)
             balance()
         }
 

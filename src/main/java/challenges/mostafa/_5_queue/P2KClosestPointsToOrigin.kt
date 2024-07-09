@@ -7,7 +7,7 @@ Given an array of points where points[i] = [xi, yi] represents a point on the X-
 and an integer k, return the k closest points to the origin (0, 0).
 
 The distance between two points on the X-Y plane is the Euclidean distance
-(i.e., √(x1 - x2)2 + (y1 - y2)2).
+(i.e., √(x1 - x2)&=^2 + (y1 - y2)^2).
 
 You may return the answer in any order. The answer is guaranteed to be
 unique (except for the order that it is in).
@@ -39,6 +39,32 @@ https://leetcode.com/problems/k-closest-points-to-origin/
 
 internal object P2KClosestPointsToOrigin {
 
+    /**
+    The formula `distance = x^2 + y^2` is used to calculate the Euclidean distance between
+    a point `(x, y)` and the origin `(0, 0)`.
+
+    The Euclidean distance between two points `(x1, y1)` and `(x2, y2)` is calculated as:
+
+    ```
+    √((x2 - x1)^2 + (y2 - y1)^2)
+    ```
+
+    In this case, since we are calculating the distance from the point `(x, y)` to the origin
+    `(0, 0)`, the formula simplifies to:
+
+    ```
+    √(x^2 + y^2)
+    ```
+
+    However, since we are only interested in finding the k closest points, we don't need
+    to calculate the square root. Instead, we can use the squared Euclidean distance, which
+    is `x^2 + y^2`. This is because the squared Euclidean distance preserves the relative order of
+    the distances, so the points with the smallest squared distances will also be the points with
+    the smallest actual Euclidean distances.
+
+    By using the squared Euclidean distance, we can avoid the computationally more expensive square
+    root operation, which makes the overall algorithm more efficient.
+     */
     private fun kClosest(points: Array<IntArray>, k: Int): Array<IntArray> {
         // Create a min-heap to store the (distance, x, y) tuples
         val minHeap = PriorityQueue<Triple<Int, Int, Int>> { a, b ->

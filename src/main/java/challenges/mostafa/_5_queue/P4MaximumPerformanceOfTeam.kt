@@ -48,32 +48,38 @@ efficiency.length == n
 1 <= speed[i] <= 10^5
 1 <= efficiency[i] <= 10^8
 
-
+https://leetcode.com/problems/maximum-performance-of-a-team/description/
  */
 
 internal object P4MaximumPerformanceOfTeam {
 
     data class Engineer(val speed: Int, val efficiency: Int)
 
+    /**
+    This algorithm has a time complexity of O(n log k), where n is the number of engineers and
+    k is the maximum number of engineers that can be selected. The space complexity is O(n)
+    for storing the Engineer objects and the speedHeap.
+     */
     private fun maxPerformance(
         n: Int,
         speed: IntArray,
         efficiency: IntArray,
         k: Int
     ): Int {
-        val engineers = (0 until n).map { Engineer(speed[it], efficiency[it]) }
-        val sortedEngineers = engineers.sortedByDescending { it.efficiency }
+        val engineers = (0 until n)
+            .map { Engineer(speed[it], efficiency[it]) }
+            .sortedByDescending { it.efficiency }
 
-        var totalSpeed = 0L
         var maxPerformance = 0L
+        var totalSpeed = 0L
         val speedHeap = PriorityQueue<Int>()
 
-        for (engineer in sortedEngineers) {
+        for (engineer in engineers) {
             if (speedHeap.size < k) {
                 speedHeap.offer(engineer.speed)
                 totalSpeed += engineer.speed
 
-            } else if (speedHeap.isNotEmpty() && speedHeap.peek() < engineer.speed) {
+            } else if (speedHeap.peek() < engineer.speed) {
                 totalSpeed -= speedHeap.poll()
                 speedHeap.offer(engineer.speed)
                 totalSpeed += engineer.speed
