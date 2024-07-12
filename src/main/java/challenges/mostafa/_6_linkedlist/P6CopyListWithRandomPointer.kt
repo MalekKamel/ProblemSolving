@@ -23,8 +23,6 @@ random_index: the index of the node (range from 0 to n-1) that the random pointe
 or null if it does not point to any node.
 Your code will only be given the head of the original linked list.
 
-
-
 Example 1:
 Input: head = [[7,null],[13,0],[11,4],[10,2],[1,0]]
 Output: [[7,null],[13,0],[11,4],[10,2],[1,0]]

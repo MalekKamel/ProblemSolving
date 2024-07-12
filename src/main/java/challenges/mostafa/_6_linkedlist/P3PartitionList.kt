@@ -33,6 +33,28 @@ internal object P3PartitionList {
             return `val`.toString()
         }
     }
+
+    /**
+    The time complexity is O(n), where n is the number of nodes
+    in the linked list.
+
+    The function iterates through the linked list once, and for each node, it performs
+    a constant-time operation to add it to either the "smaller" list or the "greater" list.
+    This includes updating the respective tail pointers and linking the two lists together at the end.
+
+    The key steps and their time complexities are as follows:
+
+    Initializing the smallerHead and greaterHead nodes: O(1) time.
+    Iterating through the linked list: O(n) time, where n is the number of nodes.
+    For each node:
+    Checking if the node value is less than x: O(1) time.
+    Appending the node to the appropriate list (smaller or greater): O(1) time.
+    Updating the respective tail pointers: O(1) time.
+    Linking the smaller and greater lists together: O(1) time.
+    Returning the smallerHead.next: O(1) time.
+    Therefore, the overall time complexity of the partition function is O(n), where n is
+    the number of nodes in the linked list.
+     */
     private fun partition(head: ListNode?, x: Int): ListNode? {
         val smallerHead = ListNode(0)
         val greaterHead = ListNode(0)
@@ -56,6 +78,7 @@ internal object P3PartitionList {
 
         return smallerHead.next
     }
+
     @JvmStatic
     fun main(args: Array<String>) {
         // Example 1

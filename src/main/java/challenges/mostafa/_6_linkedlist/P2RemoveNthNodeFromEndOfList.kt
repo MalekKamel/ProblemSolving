@@ -24,7 +24,6 @@ The number of nodes in the list is sz.
 0 <= Node.val <= 100
 1 <= n <= sz
 
-
 Follow up: Could you do this in one pass?
 
 https://leetcode.com/problems/remove-nth-node-from-end-of-list/submissions/1284006370/
@@ -51,9 +50,7 @@ internal object P2RemoveNthNodeFromEndOfList {
         }
 
         // If the fast pointer is null, it means we need to remove the head node
-        if (fast == null) {
-            return head.next
-        }
+        if (fast == null) return head.next
 
         // Move both pointers until the fast pointer reaches the end
         while (fast?.next != null) {
