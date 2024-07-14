@@ -46,6 +46,43 @@ internal object P9LowestCommonAncestorOfBinaryTree {
         }
     }
 
+    /**
+    The function `lowestCommonAncestor` takes three parameters:
+    1. `root`: the root node of a binary tree
+    2. `p`: a node in the binary tree
+    3. `q`: another node in the binary tree
+
+    The function is designed to find the lowest common ancestor (LCA) of the two nodes
+    `p` and `q` in the binary tree.
+
+    Here's how the function works:
+
+    1. **Base case**: If the `root` is `null`, or if the `root` is equal to either `p` or `q`,
+    the function simply returns the `root`. This handles the case where one of the nodes is
+    the root itself.
+
+    2. **Recursive calls**: The function recursively calls itself on the left and right subtrees
+    of the `root` node, passing the same `p` and `q` nodes as arguments.
+
+    3. **Left and right results**: The function stores the results of the left and right recursive
+    calls in the `left` and `right` variables, respectively.
+
+    4. **Finding the LCA**: If both `left` and `right` are not `null`, it means that the `p`
+    and `q` nodes are in different subtrees, and the current `root` node is the lowest common
+    ancestor. In this case, the function returns the `root`.
+
+    5. **Returning the result**: If only one of the `left` or `right` results is not `null`,
+    it means that both `p` and `q` are in the same subtree (either the left or right), and
+    the function returns the non-null result.
+
+    In summary, the function recursively traverses the binary tree, following the paths to both
+    `p` and `q` nodes. When it finds that the two nodes are in different subtrees, it returns
+    the current `root` node as the lowest common ancestor.
+
+    This algorithm has a time complexity of O(n), where n is the number of nodes in the binary tree,
+    as it visits each node exactly once in the worst case. The space complexity is O(h), where h
+    is the height of the tree, due to the recursive calls on the call stack.
+     */
     private fun lowestCommonAncestor(root: TreeNode?, p: TreeNode?, q: TreeNode?): TreeNode? {
         if (root == null || root == p || root == q) return root
 

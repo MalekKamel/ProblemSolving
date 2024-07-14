@@ -87,13 +87,21 @@ fun main(args: Array<String>) {
     val root = TreeNode(7)
     root.left = TreeNode(3)
     root.right = TreeNode(15)
+
+    root.left?.left = TreeNode(1)
+    root.left?.right = TreeNode(4)
+
     root.right?.left = TreeNode(9)
     root.right?.right = TreeNode(20)
 
     // Create a BSTIterator and perform the operations
     val bstIterator = P6BSTIterator(root)
 
+    println(bstIterator.next()) // Output: 1
     println(bstIterator.next()) // Output: 3
+    println(bstIterator.hasNext()) // Output: true
+    println(bstIterator.next()) // Output: 4
+    println(bstIterator.hasNext()) // Output: true
     println(bstIterator.next()) // Output: 7
     println(bstIterator.hasNext()) // Output: true
     println(bstIterator.next()) // Output: 9

@@ -4,7 +4,6 @@ package challenges.mostafa._7_binarytree
 Given the root of a binary tree, imagine yourself standing on the right side of it, return
 the values of the nodes you can see ordered from top to bottom.
 
-
 Example 1:
 
 Input: root = [1,2,3,null,5,null,4]
@@ -17,7 +16,6 @@ Example 3:
 
 Input: root = []
 Output: []
-
 
 Constraints:
 
@@ -34,11 +32,41 @@ internal object P2BinaryTreeRightSideView {
         var right: TreeNode? = null
     }
 
+    /**
+    Here's a breakdown of how the function works:
+
+    1. Initialize an empty mutable list called `result` to store the right side view of the tree.
+    2. If the input `root` is `null`, return the `result` list as is.
+    3. Create a mutable list called `queue` and add the `root` node to it.
+    4. Enter a loop that continues as long as the `queue` is not empty.
+    5. Inside the loop:
+    - Determine the size of the current level of the tree by storing the `queue.size` in the
+    `levelSize` variable.
+    - Initialize a `rightmostValue` variable to store the rightmost value of the current level.
+    - Iterate through the nodes in the current level (`for (i in 0 until levelSize)`):
+    - Remove the first node from the `queue` and store it in the `node` variable.
+    - Update the `rightmostValue` to be the value of the current `node`.
+    - If the `node` has a left child, add it to the `queue`.
+    - If the `node` has a right child, add it to the `queue`.
+    - After processing all the nodes in the current level, add the `rightmostValue` to the `result` list.
+    6. Return the `result` list, which now contains the right side view of the tree.
+
+    The key aspects of this algorithm are:
+    - It uses a breadth-first search (BFS) approach, traversing the tree level by level.
+    - For each level, it keeps track of the rightmost value, which represents the node that is
+    visible from the right side of the tree.
+    - The rightmost value is added to the `result` list after processing all the nodes in
+    the current level.
+    - The algorithm continues until all levels of the tree have been processed.
+
+    This function can be useful in scenarios where you need to visualize the tree from the right
+    side and obtain the values of the nodes that are visible from that perspective.
+     */
     private fun rightSideView(root: TreeNode?): List<Int> {
         val result = mutableListOf<Int>()
         if (root == null) return result
 
-        val queue: MutableList<TreeNode> = mutableListOf()
+        val queue = mutableListOf<TreeNode>()
         queue.add(root)
 
         while (queue.isNotEmpty()) {

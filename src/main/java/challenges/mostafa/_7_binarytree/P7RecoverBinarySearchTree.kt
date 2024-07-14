@@ -50,8 +50,7 @@ internal object P7RecoverBinarySearchTree {
             inorderTraversal(node.left)
 
             if (prevNode != null && prevNode!!.`val` > node.`val`) {
-                if (firstNode == null)
-                    firstNode = prevNode
+                if (firstNode == null) firstNode = prevNode
                 secondNode = node
             }
             prevNode = node

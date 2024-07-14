@@ -13,29 +13,26 @@ internal object TraverseTree {
 
     // Inorder Traversal
     private fun inorderTraversal(root: Node?) {
-        if (root != null) {
-            inorderTraversal(root.left)
-            print("${root.value} ")
-            inorderTraversal(root.right)
-        }
+        if (root == null) return
+        inorderTraversal(root.left)
+        print("${root.value} ")
+        inorderTraversal(root.right)
     }
 
     // Preorder Traversal
     private fun preorderTraversal(root: Node?) {
-        if (root != null) {
-            print("${root.value} ")
-            preorderTraversal(root.left)
-            preorderTraversal(root.right)
-        }
+        if (root == null) return
+        print("${root.value} ")
+        preorderTraversal(root.left)
+        preorderTraversal(root.right)
     }
 
     // Postorder Traversal
     private fun postorderTraversal(root: Node?) {
-        if (root != null) {
-            postorderTraversal(root.left)
-            postorderTraversal(root.right)
-            print("${root.value} ")
-        }
+        if (root == null) return
+        postorderTraversal(root.left)
+        postorderTraversal(root.right)
+        print("${root.value} ")
     }
 
     @JvmStatic
