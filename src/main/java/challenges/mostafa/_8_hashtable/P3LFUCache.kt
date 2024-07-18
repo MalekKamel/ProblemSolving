@@ -71,11 +71,13 @@ class LFUCache(private val capacity: Int) {
 
         val freq = keyToFreq[key]!!
         keyToFreq[key] = freq + 1
+
         freqToLRUKeys[freq]?.remove(key)
         if (freq == minFreq && freqToLRUKeys[freq]?.isEmpty() == true) {
             minFreq++
         }
         freqToLRUKeys.getOrPut(freq + 1) { LinkedHashSet() }.add(key)
+
         return keyToVal[key]!!
     }
 
