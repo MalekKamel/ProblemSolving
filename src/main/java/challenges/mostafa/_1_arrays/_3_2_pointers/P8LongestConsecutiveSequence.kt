@@ -27,6 +27,27 @@ https://leetcode.com/problems/longest-consecutive-sequence/
 
 internal object P8LongestConsecutiveSequence {
 
+    /**
+    The time complexity of the problem is O(n), where n is the length of the input array nums.
+
+    Here's the breakdown of the time complexity:
+
+    Creating the Set: Converting the input array nums to a MutableSet takes O(n) time, as we need
+    to iterate through the entire array to create the set.
+    Iterating through the array: The outer loop iterates through each element in the nums array,
+    which takes O(n) time.
+    Checking for the first element in the sequence: The if (num - 1 in numSet) continue statement
+    takes constant time O(1) to check if the previous element is in the set.
+    Finding the length of the consecutive sequence: The inner while loop continues as long as
+    the current number is in the set. In the worst case, the loop will iterate through the entire
+    range of consecutive numbers, which can be up to n elements. Therefore, the time complexity
+    of this part is O(n).
+    Updating the maximum length: The maxOf(maxLength, currentLength) operation takes constant
+    time O(1).
+    Combining all the time complexities, the overall time complexity of the longestConsecutive
+    function is O(n), as the most expensive operations are the creation of the set and the inner
+    while loop, both of which are linear in the size of the input array.
+     */
     private fun longestConsecutive(nums: IntArray): Int {
         val numSet = nums.toMutableSet()
         var maxLength = 0

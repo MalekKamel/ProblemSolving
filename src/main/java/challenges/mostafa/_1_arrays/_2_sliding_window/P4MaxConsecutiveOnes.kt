@@ -36,8 +36,7 @@ internal object P4MaxConsecutiveOnes {
         var zerosCount = 0
 
         for (right in nums.indices) {
-            if (nums[right] == 0)
-                zerosCount++
+            if (nums[right] == 0) zerosCount++
 
             while (zerosCount > k) {
                 if (nums[left] == 0) zerosCount--

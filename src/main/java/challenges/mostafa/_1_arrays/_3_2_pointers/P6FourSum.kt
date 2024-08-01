@@ -36,14 +36,10 @@ internal object P6FourSum {
 
         for (i in 0 until n - 3) {
 
-            if (i > 0 && nums[i] == nums[i - 1]) {
-                continue
-            }
+            if (i > 0 && nums[i] == nums[i - 1]) continue
 
             for (j in i + 1 until n - 2) {
-                if (j > i + 1 && nums[j] == nums[j - 1]) {
-                    continue
-                }
+                if (j > i + 1 && nums[j] == nums[j - 1]) continue
 
                 var left = j + 1
                 var right = n - 1

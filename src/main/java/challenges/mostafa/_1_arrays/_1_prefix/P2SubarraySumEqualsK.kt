@@ -47,6 +47,33 @@ internal object P2SubarraySumEqualsK {
     }
 
     // o(n)
+    /**
+    The solution checks if the hashmap prefixMap contains the key prefixSum - k.
+    This is because if there exists a subarray with sum prefixSum - k, then the subarray
+    with sum prefixSum (ending at the current index i) will have a sum of k.
+    If the key prefixSum - k exists in the hashmap, the count of such
+    subarrays (stored in the value of the hashmap) is added to the res variable.
+
+    The key aspects of this approach are:
+
+    1. **Prefix Sum**: The solution maintains a running prefix sum, which allows it to efficiently
+    compute the sum of any subarray by subtracting the prefix sum at the start of the subarray
+    from the prefix sum at the end of the subarray.
+
+    2. **Hashmap**: The hashmap `prefixMap` is used to keep track of the count of each prefix
+    sum encountered so far. This allows the solution to quickly check if there exists a subarray
+    with sum `prefixSum - k`, and update the result accordingly.
+
+    3. **Time Complexity**: The time complexity of this solution is O(n), where n is the length
+    of the input array `nums`. This is because the solution iterates through the array once, and
+    the hashmap operations (lookup and update) have an average time complexity of O(1).
+
+    4. **Space Complexity**: The space complexity is O(n), as the hashmap can store up to n unique
+    prefix sums in the worst case (when all elements in the array are distinct).
+
+    Overall, this solution is efficient and uses a clever combination of prefix sum and hashmap
+    to solve the problem in linear time and space.
+     */
     private fun subarraySum3(nums: IntArray, k: Int): Int {
         var res = 0
         var prefixSum = 0
