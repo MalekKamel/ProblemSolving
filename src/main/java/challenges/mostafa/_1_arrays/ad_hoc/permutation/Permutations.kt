@@ -23,7 +23,7 @@ internal object Permutations {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        var array = listOf(1, 2, 3)
+        val array = listOf(1, 2, 3)
 
         println(permutationsRecursive(array))
     }
