@@ -1,7 +1,5 @@
 package challenges.mostafa._1_arrays._1_prefix
 
-import kotlin.math.max
-
 /**
 Given an array of integers, find the maximum difference between two
 elements such that the larger number appears after the smaller number.
@@ -17,17 +15,17 @@ https://leetcode.com/problems/maximum-difference-between-increasing-elements/
 internal object P1MaxDiff {
 
     private fun findMaxDifference(array: IntArray): Int {
-        var maxDifference = Int.MIN_VALUE
-        var maxSoFar = array[array.size - 1]
+        var maxDiff = Int.MIN_VALUE
+        var maxNum = array[array.size - 1]
 
         for (i in array.size - 2 downTo 0) {
             val currentElement = array[i]
-            if (currentElement < maxSoFar)
-                maxDifference = maxOf(maxDifference, maxSoFar - currentElement)
-            maxSoFar = maxOf(maxSoFar, currentElement)
+            if (currentElement < maxNum)
+                maxDiff = maxOf(maxDiff, maxNum - currentElement)
+            maxNum = maxOf(maxNum, currentElement)
         }
 
-        return if (maxDifference == Int.MIN_VALUE) return -1 else maxDifference
+        return if (maxDiff == Int.MIN_VALUE) return -1 else maxDiff
     }
 
     @JvmStatic
