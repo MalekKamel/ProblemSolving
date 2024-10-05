@@ -4,8 +4,7 @@ import challenges.mostafa._1_arrays._1_prefix.Prefix
 import kotlin.math.max
 
 /**
-Given an integer array of length N and K, find the maximum some of K consecutive elements inside the array.
-
+Given an integer array of length N and K, find the maximum sum of K consecutive elements inside the array.
  */
 
 internal object P1StaticSlidingWindow {
