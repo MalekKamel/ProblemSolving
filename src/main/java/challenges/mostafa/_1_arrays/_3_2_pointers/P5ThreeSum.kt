@@ -69,13 +69,14 @@ internal object P5ThreeSum {
         nums.sort()
 
         val result = mutableListOf<List<Int>>()
+        val n = nums.size
 
-        for (i in 0 until nums.size - 2) {
+        for (i in 0 until n - 2) {
             // Skip duplicates
             if (i > 0 && nums[i] == nums[i - 1]) continue
 
             var left = i + 1
-            var right = nums.size - 1
+            var right = n - 1
 
             while (left < right) {
                 val sum = nums[i] + nums[left] + nums[right]
