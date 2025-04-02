@@ -1,9 +1,9 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.25'
 }
 
-group 'org.example'
+group 'challenges'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -16,11 +16,11 @@ dependencies {
 }
 compileKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_21
     }
 }
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_21
     }
 }
