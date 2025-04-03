@@ -10,6 +10,9 @@ elements such that the larger number appears after the smaller number.
 ○ {2, 5, 15, 6, 4} ⇒ (2, 15) ⇒ 13
 
 https://leetcode.com/problems/maximum-difference-between-increasing-elements/
+
+My Notes:
+It's more accurately described as a "tracking maximum" or "right-to-left traversal" approach.
  */
 
 internal object P1MaxDiff {
