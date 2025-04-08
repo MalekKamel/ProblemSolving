@@ -26,28 +26,92 @@ https://leetcode.ca/2016-10-06-311-Sparse-Matrix-Multiplication/#google_vignette
 internal object P5SparseMatrixMultiplication {
 
     /**
-    The time complexity of the multiply function is O(m * n * p), where m is the number of rows
-    in the first matrix mat1, n is the number of columns in the first matrix mat1 (and the number
-    of rows in the second matrix mat2), and p is the number of columns in the second matrix mat2.
-
-    Here's a breakdown of the time complexity analysis:
-
-    The function starts by initializing the size of the input matrices and the result matrix,
-    which takes constant time, O(1).
-    The outer loop iterates over the rows r of the first matrix mat1, which takes O(m) time.
-    Inside the outer loop, the code iterates over the columns k of the first matrix mat1, which
-    takes O(n) time.
-    Within the inner loop, the code checks if the element mat1[r][k] is zero, and if it's not,
-    it iterates over the columns c of the second matrix mat2, which takes O(p) time.
-    Inside the innermost loop, the code performs a constant-time operation to update
-    the corresponding element in the result matrix.
-    The overall time complexity of the multiply function is the product of the time complexities
-    of the three nested loops, which is O(m * n * p).
-
-    The reason the time complexity is not O(m * n * p) is that the code includes an optimization
-    to skip the inner loop when the element mat1[r][k] is zero. This optimization can potentially
-    improve the performance of the function, especially when the input matrices are
-    sparse (i.e., have many zero elements).
+     * 1.  **Problem Explanation:**
+     *     The problem asks us to multiply two given matrices, `mat1` and `mat2`. We are told that
+     *     `mat1` has dimensions $m \times k$ and `mat2` has dimensions $k \times n$. The result of
+     *     their multiplication will be a matrix of size $m \times n$. Since the matrices can be
+     *     sparse (contain many zero elements), we need to consider an efficient approach that
+     *     avoids unnecessary calculations involving zeros.
+     *
+     * 2.  **Pattern Identification and Rationale:**
+     *     The core operation is matrix multiplication. A naive approach would involve three nested
+     *     loops, resulting in a time complexity of $O(m * k * n)$. However, given that the matrices
+     *     can be sparse, we can optimize this by only considering the non-zero elements.
+     *
+     *     The relevant pattern here is an **optimization for sparse matrix multiplication**. The idea
+     *     is to iterate through the non-zero elements of the first matrix and, for each non-zero element,
+     *     find the corresponding non-zero elements in the second matrix that contribute to the product.
+     *     This avoids multiplying by zero and performing unnecessary additions.
+     *
+     *     This approach is suitable because it leverages the sparsity of the matrices. By focusing only
+     *     on non-zero entries, we can potentially reduce the number of computations significantly, especially
+     *     when the matrices have a high proportion of zero elements.
+     *
+     * 3.  **Solution Breakdown:**
+     *     The solution can be broken down into the following steps:
+     *
+     *     a.  **Initialization:**
+     *         Create a result matrix of size $m \times n$, initialized with zeros.
+     *
+     *     b.  **Preprocessing (Optional but Recommended for Efficiency):**
+     *         To efficiently access the non-zero elements and their indices, we can preprocess both input
+     *         matrices.
+     *         * For `mat1`, for each row $i$, store a list of pairs, where each pair contains the column
+     *         index $j$ and the value `mat1[i][j]` for all non-zero entries.
+     *         * Similarly, for `mat2`, for each row $j$ (which corresponds to the column index in `mat1`),
+     *         store a list of pairs, where each pair contains the column index $l$ and the value `mat2[j][l]` for all non-zero entries.
+     *
+     *     c.  **Multiplication:**
+     *         Iterate through each row $i$ of `mat1` (from 0 to $m-1$).
+     *         For each non-zero element in the $i$-th row of `mat1` at column $j$ with value
+     *         `value1` (obtained from our preprocessed structure), we know that this element will
+     *         be multiplied by the elements in the $j$-th row of `mat2`.
+     *         Iterate through the non-zero elements in the $j$-th row of `mat2` at column $l$ with
+     *         value `value2` (obtained from our preprocessed structure).
+     *         For each such pair of non-zero elements, the product `value1 * value2` contributes to
+     *         the element at `result[i][l]`. Add this product to `result[i][l]`.
+     *
+     *     d.  **Return Result:**
+     *         After iterating through all relevant non-zero element combinations, the `result` matrix
+     *         will contain the product of `mat1` and `mat2`. Return this matrix.
+     *
+     * 4.  **Time Complexity:**
+     *     Let $nz1$ be the number of non-zero elements in `mat1` and $nz2$ be the number of non-zero
+     *     elements in `mat2`. In the worst case, where both matrices are dense, $nz1 = m * k$ and $nz2 = k
+     *     * n$, and the time complexity would be $O(m * k * n)$. However, with the optimization for
+     *     sparse matrices, the time complexity becomes proportional to the number of multiplications
+     *     performed. For each non-zero element in `mat1` at $(i, j)$, we iterate through the non-zero
+     *     elements in the $j$-th row of `mat2`.
+     *
+     *     In the preprocessed structure, for each non-zero element in `mat1[i][j]`, we iterate through
+     *     the non-zero elements in `mat2[j][l]`. The number of operations is roughly proportional to the sum
+     *     over all $j$ of (number of non-zero in row $i$ of `mat1`) $\times$ (number of non-zero in row $j$ of `mat2`).
+     *     In the best case (very sparse matrices), this can be significantly better than $O(m * k * n)$.
+     *
+     *     The preprocessing step takes $O(m * k + k * n)$ time to identify and store the non-zero elements.
+     *     The multiplication step's complexity depends on the number of non-zero entries. Let's consider
+     *     the complexity in terms of the number of non-zero elements. For each non-zero element in `mat1`,
+     *     we might iterate through some non-zero elements in the corresponding row of `mat2`. A loose upper
+     *     bound could be $O(m * (\text{max non-zero in a row of mat1}) * (\text{max non-zero in a row of mat2}))$.
+     *     A more precise bound is $\sum_{i=0}^{m-1} (\text{number of non-zero in row } i \text{ of mat1})
+     *     \times (\text{average number of non-zero in corresponding columns of mat2})$.
+     *
+     *     In the worst case (dense matrices), the complexity remains $O(m * k * n)$. However, for sparse
+     *     matrices, this approach is generally much more efficient.
+     *
+     * 5.  **Efficient Implementation:**
+     *     The Kotlin implementation above follows the outlined steps. It first preprocesses `mat1`
+     *     and `mat2` to store the non-zero elements along with their column/row indices. Then, it iterates
+     *     through the non-zero elements of `mat1` and multiplies them with the corresponding non-zero elements
+     *     in `mat2` to compute the entries of the `result` matrix.
+     *
+     *     The use of `MutableList<Pair<Int, Int>>` to store non-zero elements allows for efficient iteration
+     *     over these elements. The nested loops ensure that only the necessary multiplications are performed,
+     *     leading to an optimized solution for sparse matrices. The time complexity will be better than
+     *     the naive $O(m * k * n)$ when the input matrices are sparse. The space complexity
+     *     is $O(nz1 + nz2 + m * n)$ in the worst case (dense output matrix), where $nz1$ and $nz2$ are
+     *     the number of non-zero elements in `mat1` and `mat2`, respectively, due to the storage of
+     *     non-zero elements and the result matrix.
      */
     private fun multiply(mat1: Array<IntArray>, mat2: Array<IntArray>): Array<IntArray> {
         val rows1 = mat1.size

@@ -32,40 +32,44 @@ https://leetcode.com/problems/number-of-matching-subsequences/description/
 
 internal object P7NumberOfMatchingSubsequences {
 
+    /**
+     *  1. Problem Explanation
+     *  We need to determine how many words in the given array 'words' are subsequences of the string 's'.
+     *  A subsequence is a sequence that can be derived from another sequence by deleting some
+     *  or no elements without changing the order of the remaining elements.
+     *
+     *  2. Pattern Identification and Rationale
+     *  The pattern here is a straightforward string comparison with subsequence checking.
+     *  We can iterate through each word in the 'words' array and check if it's a subsequence of 's'.
+     *  We can efficiently perform subsequence checking by using two pointers, one for 's' and one
+     *  for the current word.
+     *  This approach avoids unnecessary string manipulations and provides a relatively efficient
+     *  solution.
+     *
+     *  3. Solution Breakdown
+     *  - Initialize a counter to track the number of matching subsequences.
+     *  - Iterate through each word in the 'words' array.
+     *  - For each word, use two pointers to check if it's a subsequence of 's'.
+     *  - If the word is a subsequence, increment the counter.
+     *  - Return the final counter value.
+     */
     private fun numMatchingSubseq(s: String, words: Array<String>): Int {
-        val charIndexMap = mutableMapOf<Char, MutableList<Int>>()
-
-        // Store the indices of each character in the string s
-        for ((i, char) in s.withIndex()) {
-            charIndexMap.computeIfAbsent(char) { mutableListOf() }.add(i)
+        var count = 0
+        for (word in words) {
+            if (isSubsequence(word, s)) {
+                count++
+            }
         }
-
-        return words.count { isSubsequence(it, charIndexMap) }
+        return count
     }
 
-    // Helper function to check if word is a subsequence of s
-    private fun isSubsequence(word: String, charIndexMap: Map<Char, MutableList<Int>>): Boolean {
-        var prevIndex = -1
-
-        // Check each character in the word
-        for (char in word) {
-            val indices = charIndexMap[char] ?: return false
-            // Use binary search to find the smallest index greater than prevIndex
-            val index = indices.binarySearch(prevIndex + 1)
-
-            // We have found the exact index
-            if (index >= 0) {
-                prevIndex = indices[index]
-                continue
-            }
-
-            val insertionPoint = -(index + 1)
-            // The index is not found
-            if (insertionPoint >= indices.size) return false
-            prevIndex = indices[insertionPoint]
+    private fun isSubsequence(s: String, t: String): Boolean {
+        var sIndex = 0
+        for (c in t) {
+            if (sIndex >= s.length) return true
+            if (s[sIndex] == c) sIndex++
         }
-
-        return true
+        return sIndex == s.length
     }
 
     @JvmStatic

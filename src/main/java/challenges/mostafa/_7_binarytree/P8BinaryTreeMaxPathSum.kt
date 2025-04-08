@@ -38,23 +38,31 @@ internal object P8BinaryTreeMaxPathSum {
         }
     }
 
+    private var maxPathSum: Int = Int.MIN_VALUE
+
     private fun maxPathSum(root: TreeNode?): Int {
-        var maxSum = Int.MIN_VALUE
+        maxPathSum = Int.MIN_VALUE
+        findMaxPathSum(root)
+        return maxPathSum
+    }
 
-        fun maxPathSumUtil(node: TreeNode?): Int {
-            if (node == null) return 0
-
-            val leftMaxSum = maxPathSumUtil(node.left)
-            val rightMaxSum = maxPathSumUtil(node.right)
-
-            val currentMaxSum = node.`val` + maxOf(0, leftMaxSum) + maxOf(0, rightMaxSum)
-            maxSum = maxOf(maxSum, currentMaxSum)
-
-            return currentMaxSum
+    private fun findMaxPathSum(node: TreeNode?): Int {
+        if (node == null) {
+            return 0
         }
 
-        maxPathSumUtil(root)
-        return maxSum
+        // Calculate the maximum path sum in the left and right subtrees
+        val leftMax = maxOf(0, findMaxPathSum(node.left))
+        val rightMax = maxOf(0, findMaxPathSum(node.right))
+
+        // The maximum path sum that passes through the current node
+        val currentMax = node.`val` + leftMax + rightMax
+
+        // Update the overall maximum path sum if the current path is larger
+        maxPathSum = maxOf(maxPathSum, currentMax)
+
+        // The maximum path sum that can be extended from the current node to its parent
+        return node.`val` + maxOf(leftMax, rightMax)
     }
 
     @JvmStatic

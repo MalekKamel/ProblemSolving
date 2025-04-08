@@ -1,7 +1,8 @@
 package challenges.mostafa._3_matrix
 
 /**
-
+Learning Video:
+https://www.khanacademy.org/math/precalculus/x9e81a4f98389efdf:matrices/x9e81a4f98389efdf:multiplying-matrices-by-matrices/v/matrix-multiplication-intro
  */
 
 internal object MultiplyMatrices {

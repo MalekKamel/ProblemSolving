@@ -38,7 +38,6 @@ Constraints:
 There will be at least one element in the data structure before calling findMedian.
 At most 5 * 104 calls will be made to addNum and findMedian.
 
-
 Follow up:
 
 If all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
@@ -72,27 +71,88 @@ internal object P6FindMedianFromDataStream {
      */
 
     class MedianFinder {
-        private val smallHeap = PriorityQueue<Int>(reverseOrder())
-        private val largeHeap = PriorityQueue<Int>()
+
+        private val minHeap: PriorityQueue<Int> = PriorityQueue() // Stores the larger half of the numbers
+        private val maxHeap: PriorityQueue<Int> = PriorityQueue(compareByDescending { it }) // Stores the smaller half of the numbers
+
+        /**
+         * 1. Problem Explanation
+         * The problem requires us to implement a `MedianFinder` class that supports two main operations:
+         * - `addNum(num)`: Adds a new integer to an internal data structure.
+         * - `findMedian()`: Returns the median of all the numbers added so far. If the count of numbers
+         * is even, the median is the average of the two middle numbers; otherwise, it's the single middle number.
+         */
+
+        /**
+         * 2. Pattern Identification and Rationale
+         * The most suitable pattern for efficiently finding the median of a continuously growing data
+         * stream is using two heaps: a min-heap and a max-heap.
+         *
+         * Rationale:
+         * - The max-heap will store the smaller half of the numbers encountered so far, with the largest
+         * element of this half at the root.
+         * - The min-heap will store the larger half of the numbers, with the smallest element of this
+         * half at the root.
+         * - By maintaining the balance between the sizes of these two heaps (the sizes should be equal
+         * or the max-heap can have one more element), we can easily determine the median.
+         * - The top of the max-heap will be the largest element of the smaller half, and the top of
+         * the min-heap will be the smallest element of the larger half.
+         * - Adding a new number involves comparing it with the tops of the heaps and placing it in
+         * the appropriate heap, followed by a balancing step to maintain the size property.
+         * - Finding the median then becomes a constant-time operation (O(1)) by looking at the top
+         * elements of the heaps.
+         *
+         * Advantages:
+         * - Efficient insertion of new numbers (O(log n) time complexity due to heap operations).
+         * - Efficient retrieval of the median (O(1) time complexity).
+         * - Space complexity is O(n) to store all the numbers.
+         */
+
+        /**
+         * 3. Solution Breakdown
+         *
+         * Step 1: `addNum(num: Int)`
+         * - If the max-heap is empty or the new number is less than or equal to the top of the max-heap,
+         * add the number to the max-heap.
+         * - Otherwise, add the number to the min-heap.
+         * - Call the `balance()` function to ensure the heaps maintain the desired size property.
+         *
+         * Step 2: `balance()`
+         * - If the size difference between the max-heap and the min-heap is greater than 1 (i.e., `maxHeap.size - minHeap.size > 1`),
+         * move the root of the max-heap to the min-heap.
+         * - If the size difference between the min-heap and the max-heap is greater than 1 (i.e., `minHeap.size - maxHeap.size > 1`),
+         * move the root of the min-heap to the max-heap.
+         * - This ensures that the sizes of the two heaps are either equal or the max-heap has one more element.
+         *
+         * Step 3: `findMedian(): Double`
+         * - If the total number of elements added so far is even (i.e., `maxHeap.size == minHeap.size`),
+         * the median is the average of the top elements of the max-heap and the min-heap.
+         * - If the total number of elements added so far is odd (which implies `maxHeap.size > minHeap.size`
+         * after balancing), the median is the top element of the max-heap.
+         */
 
         fun addNum(num: Int) {
-            if (smallHeap.isEmpty() || num <= smallHeap.peek()) smallHeap.offer(num)
-            else largeHeap.offer(num)
+            if (maxHeap.isEmpty() || num <= maxHeap.peek()) {
+                maxHeap.offer(num)
+            } else {
+                minHeap.offer(num)
+            }
             balance()
         }
 
         private fun balance() {
-            if (smallHeap.size > largeHeap.size + 1)
-                largeHeap.offer(smallHeap.poll())
-            else if (largeHeap.size > smallHeap.size)
-                smallHeap.offer(largeHeap.poll())
+            if (maxHeap.size - minHeap.size > 1) {
+                minHeap.offer(maxHeap.poll())
+            } else if (minHeap.size - maxHeap.size > 1) {
+                maxHeap.offer(minHeap.poll())
+            }
         }
 
         fun findMedian(): Double {
-            return if (smallHeap.size == largeHeap.size) {
-                (smallHeap.peek().toDouble() + largeHeap.peek().toDouble()) / 2
+            return if (maxHeap.size == minHeap.size) {
+                (maxHeap.peek() + minHeap.peek()).toDouble() / 2.0
             } else {
-                smallHeap.peek().toDouble()
+                maxHeap.peek().toDouble()
             }
         }
     }

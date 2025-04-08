@@ -28,22 +28,16 @@ https://leetcode.com/problems/kth-largest-element-in-an-array/description/
 internal object P1KthLargestElementInArray {
 
     /**
-    The time complexity of the solution using a max-heap is O(n log k), where n is the length
-    of the input array nums.
+     * Time Complexity
+     * The time complexity of this solution is O(N log k), where N is the number of elements in the input
+     * array `nums`,
+     * and k is the given integer. This is because we iterate through each of the N elements, and for
+     * each element,
+     * we perform at most one insertion and one deletion operation on the min-heap, both of which
+     * take O(log k) time since the heap size is at most k.
 
-    Here's the breakdown of the time complexity:
-
-    Constructing the max-heap: We iterate through the nums array and add each element to
-    the max-heap. Adding an element to a heap takes O(log k) time, as we need to maintain
-    the heap property. We do this n times, so the total time for this step is O(n log k).
-    Returning the kth largest element: Once the max-heap is constructed, we can simply
-    return the root of the heap, which is the kth largest element. This operation takes O(1) time.
-    Therefore, the overall time complexity of the solution is O(n log k).
-
-    This is because the dominant part of the algorithm is the heap construction, which
-    takes O(n log k) time.
-
-    The space complexity is O(k), as we only need to store the k largest elements in the max-heap.
+     * The space complexity is O(k) because we maintain a min-heap of size k to store the k largest
+     * elements.
      */
     private fun findKthLargest(nums: IntArray, k: Int): Int {
         val minHeap = PriorityQueue<Int>()
