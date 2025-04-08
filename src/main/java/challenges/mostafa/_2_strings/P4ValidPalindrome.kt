@@ -61,6 +61,26 @@ internal object Solution {
 
 internal object Solution2 {
 
+    /**
+     * 1. Problem Explanation
+     * We need to determine if a given string can become a palindrome by removing at most one character.
+     * A palindrome is a string that reads the same forwards and backward.
+     *
+     * 2. Pattern Identification and Rationale
+     * We can use a two-pointer approach to check for palindromes efficiently.
+     * If we encounter a mismatch, we have two options: either remove the left character or
+     * the right character.
+     * We then check if either of the resulting substrings is a palindrome.
+     * This approach avoids generating all possible substrings, leading to a more efficient solution.
+     *
+     * 3. Solution Breakdown
+     * - Initialize two pointers, left and right, pointing to the start and end of the string, respectively.
+     * - Iterate while left < right:
+     *   - If s[left] == s[right], move both pointers inward.
+     *   - If s[left] != s[right], check if removing s[left] or s[right] results in a palindrome.
+     *   - Return true if either of the resulting substrings is a palindrome, or if the original
+     *   string is a palindrome.
+     */
     private fun validPalindrome(s: String): Boolean {
         var left = 0
         var right = s.lastIndex

@@ -28,8 +28,10 @@ internal object PermutationCycles {
 
         for (i in 0 until n) {
             if (visited[i]) continue
+
             var current = i
             val cycle = mutableListOf<Int>()
+
             while (!visited[current]) {
                 visited[current] = true
                 cycle.add(current)

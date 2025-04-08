@@ -18,7 +18,8 @@ package challenges.codility._2_arrays
  *
  * fun solution(A: IntArray): Int
  *
- * that, given an array A consisting of N integers fulfilling the above conditions, returns the value of the unpaired element.
+ * that, given an array A consisting of N integers fulfilling the above conditions, returns
+ * the value of the unpaired element.
  *
  * For example, given array A such that:
  *

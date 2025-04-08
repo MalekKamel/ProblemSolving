@@ -103,30 +103,46 @@ internal object P6GroupShiftedStrings {
     of character differences and the values are the mutable lists of strings.
      */
     private fun groupStrings(strings: List<String>): List<List<String>> {
+        // 1. Initialize a mutable map to store groups of strings.
+        // The keys are lists of integer differences, and the values are lists of strings.
         val groups = mutableMapOf<List<Int>, MutableList<String>>()
 
+        // 2. Iterate through each string in the input list.
         for (string in strings) {
+            // 3. Calculate the differences between consecutive characters in the current string.
             val differences = calculateDifferences(string)
 
+            // 4. Check if a group with the calculated differences already exists in the map.
             if (differences in groups) {
+                // 5. If the group exists, add the current string to that group.
                 groups[differences]?.add(string)
             } else {
+                // 6. If the group doesn't exist, create a new group with the calculated differences
+                // and add the current string to it.
                 groups[differences] = mutableListOf(string)
             }
         }
 
+        // 7. Return the values of the map as a list of lists, which represents the grouped strings.
         return groups.values.toList()
     }
 
     private fun calculateDifferences(string: String): List<Int> {
+        // 1. Initialize a mutable list to store the differences between consecutive characters.
         val differences = mutableListOf<Int>()
 
+        // 2. Iterate through the string, starting from the second character (index 1).
         for (i in 1 until string.length) {
+            // 3. Calculate the difference between the current character and the previous character.
+            // Add 26 to handle negative differences (wrapping around the alphabet).
+            // Take the modulo 26 to ensure the difference is within the range [0, 25].
             val sum = string[i] - string[i - 1] + 26
             val diff = sum % 26
+            // 4. Add the calculated difference to the list.
             differences.add(diff)
         }
 
+        // 5. Return the list of differences.
         return differences
     }
 

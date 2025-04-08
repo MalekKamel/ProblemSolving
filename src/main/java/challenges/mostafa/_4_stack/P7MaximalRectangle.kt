@@ -59,25 +59,7 @@ internal object P7MaximalRectangle {
     }
 
     private fun largestRectangleInHistogram(heights: IntArray): Int {
-        val stack = Stack<Int>()
-        var maxArea = 0
-
-        for ((i, height) in heights.withIndex()) {
-            while (stack.isNotEmpty() && heights[stack.peek()] > height) {
-                val lastHeight = heights[stack.pop()]
-                val width = if (stack.isEmpty()) i else i - stack.peek() - 1
-                maxArea = maxOf(maxArea, width * lastHeight)
-            }
-            stack.push(i)
-        }
-
-        while (stack.isNotEmpty()) {
-            val lastHeight = heights[stack.pop()]
-            val width = if (stack.isEmpty()) heights.size else heights.size - stack.peek() - 1
-            maxArea = maxOf(maxArea, width * lastHeight)
-        }
-
-        return maxArea
+        return P6LargestRectangleInHistogram.largestRectangleArea(heights)
     }
 
     @JvmStatic

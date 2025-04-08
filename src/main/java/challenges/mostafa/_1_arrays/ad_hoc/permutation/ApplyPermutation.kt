@@ -12,8 +12,11 @@ internal object ApplyPermutation {
         val n = array.size
         val result = IntArray(n)
 
+        // i is the fromIndex
         for (i in 0 until n) {
-            result[permutation[i]] = array[i]
+            val value= array[i]
+            val toIndex = permutation[i]
+            result[toIndex] = value
         }
 
         return result
