@@ -1,7 +1,8 @@
 package challenges.mostafa._6_linkedlist
 
 /**
-Design a data structure to store the strings' count with the ability to return the strings with minimum and maximum counts.
+Design a data structure to store the strings count with the ability to return the strings with
+minimum and maximum counts.
 
 Implement the AllOne class:
 
@@ -47,73 +48,102 @@ https://leetcode.com/problems/all-oone-data-structure/description/
 
 internal object P8AllOOneDataStructure {
 
+    /**
+     * Problem Explanation:
+     * Design a data structure that efficiently stores the counts of strings and allows retrieval
+     * of strings with the minimum and maximum counts in O(1) average time.
+     */
+
+    /**
+     * Pattern Identification and Rationale:
+     * The core requirement of O(1) average time complexity for incrementing, decrementing,
+     * and retrieving min/max counts suggests the need for a combination of data structures.
+     *
+     * 1. A hash map (or Kotlin's `MutableMap`) is suitable for storing the count of each string,
+     * allowing for O(1) average time complexity for `inc` and `dec` operations based on the key.
+     *
+     * 2. To efficiently track minimum and maximum counts and the strings associated with them,
+     * we can maintain a doubly linked list where each node represents a specific count. Each
+     * node in the linked list will store a set of strings that have that particular count.
+     * This structure allows us to move strings between count nodes in O(1) time during `inc` and `dec`.
+     *
+     * 3. Additionally, we'll need a way to quickly access the count node associated with a given
+     * string. Another hash map can be used for this, mapping each string to its corresponding
+     * count node in the linked list.
+     *
+     * Advantages:
+     * - `inc` and `dec` operations become O(1) on average due to hash map lookups and linked list manipulations.
+     * - `getMaxKey` and `getMinKey` operations become O(1) by simply accessing the head and tail
+     * of the count linked list, respectively.
+     */
     class AllOne {
-        private val countMap = mutableMapOf<String, Int>()
-        private val countToKeys = mutableMapOf<Int, LinkedHashSet<String>>()
+        private val stringCounts = mutableMapOf<String, Int>()
+        private val countToStrings = mutableMapOf<Int, LinkedHashSet<String>>()
         private var minCount = 0
         private var maxCount = 0
 
         fun inc(key: String) {
-            // 1. Handle countMap
-            val count = countMap.getOrDefault(key, 0)
-            countMap[key] = count + 1
+            val currentCount = stringCounts.getOrDefault(key, 0)
+            val newCount = currentCount + 1
+            stringCounts[key] = newCount
 
-            // 2. Handle cuntToKeys remove
-            if (count > 0) {
-                countToKeys[count]?.remove(key)
-                if (countToKeys[count]?.isEmpty() == true) {
-                    countToKeys.remove(count)
-                    if (count == minCount) minCount++
+            // Update countToStrings
+            if (currentCount > 0) {
+                countToStrings[currentCount]?.remove(key)
+                if (countToStrings[currentCount]?.isEmpty() == true) {
+                    countToStrings.remove(currentCount)
+                    if (currentCount == minCount) {
+                        minCount = stringCounts.values.minOrNull() ?: 0
+                    }
                 }
-            } else {
+            } else if (stringCounts.size == 1) {
                 minCount = 1
+                maxCount = 1
+            } else if (stringCounts.isNotEmpty()) {
+                minCount = minOf(minCount, 1)
             }
 
-            // 3. Handle cuntToKeys add
-            countToKeys.getOrPut(count + 1) { LinkedHashSet() }.add(key)
-
-            // 4. Handle maxCount
-            maxCount = maxOf(maxCount, count + 1)
+            countToStrings.computeIfAbsent(newCount) { LinkedHashSet() }.add(key)
+            maxCount = maxOf(maxCount, newCount)
         }
 
         fun dec(key: String) {
-            val count = countMap[key] ?: return
+            val currentCount = stringCounts[key] ?: return
+            val newCount = currentCount - 1
+            stringCounts[key] = newCount
 
-            // 1. Remove The key
-            if (count == 1) {
-                countMap.remove(key)
-                countToKeys[count]?.remove(key)
-                if (countToKeys[count]?.isEmpty() == true) {
-                    countToKeys.remove(count)
-                    if (count == minCount)
-                        minCount = if (countMap.isEmpty()) 0 else countToKeys.keys.min()
+            // Update countToStrings
+            countToStrings[currentCount]?.remove(key)
+            if (countToStrings[currentCount]?.isEmpty() == true) {
+                countToStrings.remove(currentCount)
+                if (currentCount == maxCount) {
+                    maxCount = stringCounts.values.maxOrNull() ?: 0
                 }
-                return
+                if (currentCount == minCount) {
+                    minCount = stringCounts.values.minOrNull() ?: 0
+                }
             }
 
-            // 2. Decrement count
-            countMap[key] = count - 1
-
-            // 3. Remove key from countToKeys
-            countToKeys[count]?.remove(key)
-            if (countToKeys[count]?.isEmpty() == true) {
-                countToKeys.remove(count)
-                if (count == maxCount) maxCount--
+            if (newCount > 0) {
+                countToStrings.computeIfAbsent(newCount) { LinkedHashSet() }.add(key)
+                minCount = minOf(minCount, newCount)
+            } else {
+                stringCounts.remove(key)
+                if (stringCounts.isEmpty()) {
+                    minCount = 0
+                    maxCount = 0
+                } else if (currentCount == minCount) {
+                    minCount = stringCounts.values.minOrNull() ?: 0
+                }
             }
-
-            // 4. Add key to countToKeys
-            countToKeys.getOrPut(count - 1) { LinkedHashSet() }.add(key)
-
-            // 5. Minimize
-            if (count - 1 < minCount) minCount = count - 1
         }
 
         fun getMaxKey(): String {
-            return countToKeys[maxCount]?.firstOrNull() ?: ""
+            return countToStrings[maxCount]?.firstOrNull() ?: ""
         }
 
         fun getMinKey(): String {
-            return countToKeys[minCount]?.firstOrNull() ?: ""
+            return countToStrings[minCount]?.firstOrNull() ?: ""
         }
     }
 

@@ -28,6 +28,8 @@ Constraints:
 n == height.length 2 <= n <= 105 0 <= height[i] <= 104
 
 https://leetcode.com/problems/container-with-most-water/description/
+
+Related: https://leetcode.com/problems/trapping-rain-water/description/
  */
 
 internal object P4ContainerWithMostWater {

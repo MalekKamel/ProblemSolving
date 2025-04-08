@@ -16,6 +16,7 @@ Example 1:
 Input: arr = [2,1,4,7,3,2,5]
 Output: 5
 Explanation: The largest mountain is [1,4,7,3,2] which has length 5.
+
 Example 2:
 
 Input: arr = [2,2,2]
@@ -24,8 +25,8 @@ Explanation: There is no mountain.
 
 Constraints:
 
-1 <= arr.length <= 104
-0 <= arr[i] <= 104
+1 <= arr.length <= 10^4
+0 <= arr[i] <= 10^4
 
 Follow up:
 
@@ -40,9 +41,8 @@ internal object P3LongestMountain {
     private fun longestMountain(arr: IntArray): Int {
         var maxLength = 0
         val n = arr.size
-        var i = 1
 
-        while (i < n - 1) {
+        for (i in 1 until n - 1) {
             var left = i - 1
             var right = i + 1
 
@@ -58,7 +58,6 @@ internal object P3LongestMountain {
 
                 maxLength = maxOf(maxLength, right - left + 1)
             }
-            i++
         }
 
         return maxLength

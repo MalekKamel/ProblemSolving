@@ -59,7 +59,7 @@ internal object P2MinStack {
         }
 
         fun pop() {
-            stack.removeAt(stack.lastIndex)
+            stack.removeLast()
         }
 
         fun top(): Int {

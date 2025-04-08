@@ -19,49 +19,77 @@ internal object P5InsertIntoCyclicSortedList {
 
     class Node(var value: Int, var next: Node? = null)
 
+    /**
+     * Problem Explanation:
+     * The problem asks us to insert a new value into a sorted cyclic linked list while maintaining
+     * its sorted order. The key challenges are:
+     * The list is cyclic (last node points to first node)
+     * We only have access to a single node, not necessarily the head/smallest value
+     * The list must remain sorted after insertion
+     * We need to handle edge cases like empty list or single node list
+     * We need to find the correct insertion position considering the cyclic nature
+     *
+     * Pattern Identification and Rationale:
+     * This problem uses the Two-Pointer Pattern with a modified approach:
+     * We need to traverse the cyclic list to find the correct insertion point
+     * The insertion point could be between two nodes or at the "wrap around" point
+     * Two-pointer helps us keep track of previous and current nodes for insertion
+     * This pattern is suitable because:
+     * It allows us to maintain the list's cyclic nature
+     * We can compare adjacent values to find the correct insertion position
+     * It handles the "wrap around" case efficiently
+     */
     private fun insertValueInSortedCyclicList(node: Node?, valueToInsert: Int): Node {
+        // Case 1: Empty list
         if (node == null) {
-            // Create a new single cyclic list
             val newNode = Node(valueToInsert)
             newNode.next = newNode
             return newNode
         }
 
-        var current = node!!
+        // Case 2: Single node
+        if (node.next == node) {
+            val newNode = Node(valueToInsert)
+            node.next = newNode
+            newNode.next = node
+            return node
+        }
 
+        var current: Node = node
         do {
-            val prev = current
+            // Case 3: Regular Insertion
+            // - Checks if valueToInsert fits between current and next node values
+            // - Example: In list 1 -> 3 -> 5, inserting 2 goes between 1 and 3
+            if (valueToInsert >= current.value && valueToInsert <= current.next!!.value) {
+                insertBetween(current, current.next!!, valueToInsert)
+                return node
+            }
+
+            // Case 4: Wrap Around Insertion
+            // Handles insertion at the cycle point where the list "wraps around"
+            // Example: In list 3 -> 5 -> 1, inserting 6 or 0 at the wrap point
+            // Condition checks:
+            // current.value > current.next!!.value: Identifies the wrap point
+            // valueToInsert >= current.value || valueToInsert <= current.next!!.value: Value belongs
+            // at wrap point
+            if (current.value > current.next!!.value &&
+                (valueToInsert >= current.value || valueToInsert <= current.next!!.value)) {
+                insertBetween(current, current.next!!, valueToInsert)
+                return node
+            }
+
             current = current.next!!
-
-            // Case 1: Current value is equal to valueToInsert
-            if (current.value == valueToInsert) {
-                // Insert the new node between prev and current
-                val newNode = Node(valueToInsert)
-                prev.next = newNode
-                newNode.next = current
-                return node
-            }
-
-            // Case 2: valueToInsert is between prev and current values
-            if (prev.value <= valueToInsert && valueToInsert <= current.value) {
-                // Insert the new node between prev and current
-                val newNode = Node(valueToInsert)
-                prev.next = newNode
-                newNode.next = current
-                return node
-            }
-
-            // Case 3: We have reached the end of the list and valueToInsert is greater than the last node's value
-            if (current == node && valueToInsert > prev.value) {
-                // Insert the new node at the end of the list
-                val newNode = Node(valueToInsert)
-                prev.next = newNode
-                newNode.next = current
-                return node
-            }
         } while (current != node)
 
+        // If we haven't inserted yet, insert after the current node
+        insertBetween(current, current.next!!, valueToInsert)
         return node
+    }
+
+    private fun insertBetween(prev: Node, curr: Node, value: Int) {
+        val newNode = Node(value)
+        prev.next = newNode
+        newNode.next = curr
     }
 
     @JvmStatic
