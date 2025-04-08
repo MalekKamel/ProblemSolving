@@ -19,6 +19,7 @@ Explanation: The first two points satisfy the condition |xi - xj| <= 1 and if we
 the equation we get 3 + 0 + |1 - 2| = 4. Third and fourth points also satisfy the condition
 and give a value of 10 + -10 + |5 - 6| = 1.
 No other pairs satisfy the condition, so we return the max of 4 and 1.
+
 Example 2:
 
 Input: points = [[0,0],[3,0],[9,2]], k = 3
@@ -41,137 +42,71 @@ https://leetcode.com/problems/max-value-of-equation/description/
 internal object P5MaxValueOfEquation {
 
     /**
-    The equation `y - deque.first().first + x + deque.first().second` is used to calculate
-    the value of the expression `y - x + k` for the current point `(x, y)` and the first point
-    in the `deque`.
+     *  1. Problem Explanation
+     *  The problem asks us to find the maximum value of the equation yi + yj + |xi - xj|
+     *  for a pair of points (xi, yi) and (xj, yj) in a given array of 2D points.
+     *  The array of points is sorted by their x-values (xi < xj for i < j).
+     *  We are also given an integer k, and the pair of points must satisfy the condition |xi - xj| <= k.
 
-    Here's a breakdown of the equation:
+     *  2. Pattern Identification and Rationale
+     *  Since we need to find the maximum value among pairs of points that satisfy a certain condition,
+     *  a brute-force approach would involve checking all possible pairs (i, j) where i < j and |xi - xj| <= k,
+     *  and then calculating the equation's value. However, with up to 10^5 points, this O(n^2) approach
+     *  would likely be too slow.
 
-    1. `deque.first().first` represents the x-value of the first point in the `deque`.
-    2. `deque.first().second` represents the y-value of the first point in the `deque`.
-    3. `y - deque.first().first` calculates the difference between the y-value of the current point
-    and the x-value of the first point in the `deque`. This part of the equation corresponds to
-    the `y - x` term in the original equation `y - x + k`.
-    4. `x + deque.first().second` calculates the sum of the x-value of the current point and the
-    y-value of the first point in the `deque`. This part of the equation corresponds to the `k` term
-    in the original equation `y - x + k`.
+     *  We can observe that for a fixed j, we are looking for an i < j such that xj - xi <= k (since xi < xj),
+     *  which means xi >= xj - k. We want to maximize yi + yj + (xj - xi) because xj > xi.
+     *  Rearranging this, we want to maximize (yi - xi) + yj + xj. For a fixed j, yj + xj is constant.
+     *  Therefore, we need to find an i < j within the x-distance constraint that maximizes yi - xi.
 
-    By combining these two parts, the equation `y - deque.first().first + x + deque.first().second`
-    calculates the value of the expression `y - x + k` for the current point and the first point
-    in the `deque`.
+     *  This suggests that we can iterate through the points with index j, and for each j, we need to efficiently
+     *  find the maximum value of yi - xi among all i < j such that xj - xi <= k.
+     *  A priority queue (max heap) can be used to maintain the maximum values of yi - xi encountered so far
+     *  within the relevant window.
 
-    The reason this equation is used is that the function is trying to find the maximum value
-    of the expression `y - x + k` over all pairs of points in the `points` array, where the absolute
-    difference between the x-values of the two points is less than or equal to `k`. By maintaining
-    the `deque` and updating the `maxValue` variable based on this equation, the function can
-    efficiently find the maximum value that satisfies the given constraint.
+     *  3. Solution Breakdown
+     *  a. Initialize a variable `maxValue` to negative infinity to store the maximum value found so far.
+     *  b. Initialize a priority queue `pq` to store pairs of (yi - xi, xi). The priority queue will be ordered
+     *     based on the first element (yi - xi) in descending order.
+     *  c. Iterate through the `points` array with index `j` from 0 to `points.size - 1`.
+     *  d. For each point `points[j] = [xj, yj]`:
+     *     i. Remove points from the priority queue whose x-coordinate `xi` is less than `xj - k`. This ensures
+     *        that we only consider points that satisfy the condition |xi - xj| <= k (since xi < xj, this simplifies to xj - xi <= k).
+     *     ii. If the priority queue is not empty, it means there is at least one point `points[i]` (where i < j)
+     *         that satisfies the x-distance constraint. Get the maximum value of `yi - xi` from the top of the priority queue.
+     *     iii. Calculate the current value of the equation: `(yi - xi) + yj + xj`.
+     *     iv. Update `maxValue` with the maximum of its current value and the calculated value.
+     *     v. Add the current point's `(yj - xj, xj)` to the priority queue. This makes the current point available
+     *        for future iterations where it might serve as the 'i' in the pair.
+     *  e. After iterating through all the points, return `maxValue`.
 
-    The equation `y - x + k` is used to find the optimal solution when you have two conflicting
-    objectives that need to be balanced.
-
-    The key elements of the equation are:
-
-    1. `y` - This represents the "positive" objective, such as maximizing something desirable
-    (e.g., square footage, product quality, shipping speed).
-
-    2. `x` - This represents the "negative" objective, such as minimizing something undesirable
-    (e.g., cost, distance, delivery time).
-
-    3. `k` - This represents an additional constraint or requirement that must be satisfied.
-
-    The logic behind the equation is as follows:
-
-    1. Subtracting `x` from `y` creates a trade-off between the two objectives. This allows you
-    to find the best balance between maximizing the positive objective and minimizing the negative
-    objective.
-
-    2. Adding `k` to the result incorporates the additional constraint or requirement into
-    the equation. This ensures that the optimal solution not only balances the two main objectives,
-    but also satisfies the supplementary constraint.
-
-    By using this equation, you can find the solution that maximizes the positive objective (`y`)
-    while minimizing the negative objective (`x`), and still meeting the additional constraint (`k`).
-
-    The specific use cases can vary, but the underlying principle is the same - finding the optimal
-    balance between competing objectives and constraints. This equation is particularly useful in
-    scenarios where you need to make a decision that involves multiple, sometimes conflicting, factors.
-
-    In these examples, the equation is used to:
-    1. Find the house that maximizes square footage while minimizing cost and staying within
-    a distance constraint.
-    2. Find the delivery option that minimizes shipping cost while staying within a delivery
-    time constraint.
-
-    The `y - x + k` equation provides a structured way to analyze and optimize these types of
-    multi-faceted decision-making problems.
-
-    Here's another example of the usage of the equation `y - x + k`:
-
-    Imagine you are a real estate agent helping a client find the perfect new home. Your client
-    has a specific budget, and they want to find the house that will give them the most square
-    footage for their money, but they are only willing to look at houses that are within
-    a certain distance from their current location.
-
-    In this scenario, the `y` value represents the square footage of the house, the `x` value
-    represents the price of the house, and `k` represents the maximum allowed distance (in miles)
-    from the client's current location.
-
-    For example, let's say you have the following properties available:
-
-    ```
-    House 1: (x=$300,000, y=2,000 sq ft, distance=5 miles)
-    House 2: (x=$350,000, y=2,500 sq ft, distance=2 miles)
-    House 3: (x=$400,000, y=3,000 sq ft, distance=7 miles)
-    House 4: (x=$450,000, y=3,500 sq ft, distance=3 miles)
-    House 5: (x=$500,000, y=4,000 sq ft, distance=6 miles)
-    ```
-
-    Your client has a budget of $400,000 and is only willing to look at houses within a 4-mile
-    radius of their current location (i.e., `k=4`).
-
-    In this case, you would calculate the expression `y - x + k` for each house that satisfies
-    the `|xi - xj| <= k` constraint, and find the maximum value:
-
-    - House 1 (x=$300,000, y=2,000 sq ft, distance=5 miles): `2,000 - 300,000 + 4 = -298,000`
-        (excluded because distance > 4 miles)
-    - House 2 (x=$350,000, y=2,500 sq ft, distance=2 miles): `2,500 - 350,000 + 4 = -347,500`
-    - House 3 (x=$400,000, y=3,000 sq ft, distance=7 miles): `3,000 - 400,000 + 4 = -397,000`
-        (excluded because distance > 4 miles)
-    - House 4 (x=$450,000, y=3,500 sq ft, distance=3 miles): `3,500 - 450,000 + 4 = -446,500`
-    - House 5 (x=$500,000, y=4,000 sq ft, distance=6 miles): `4,000 - 500,000 + 4 = -496,000`
-        (excluded because distance > 4 miles)
-
-    The maximum value of the expression `y - x + k` is -347,500, which corresponds to
-    House 2 (x=$350,000, y=2,500 sq ft, distance=2 miles). This means that the house that will
-    give your client the most square footage for their $400,000 budget, while being within a 4-mile
-    radius, is House 2.
-
-    This example shows how the `y - x + k` equation can be used to find the optimal solution in
-    a real estate scenario, where the goal is to maximize the square footage of a property while
-    considering the client's budget and location constraints.
+     *  4. Time Complexity
+     *  - Iterating through the points takes O(n) time.
+     *  - For each point, we perform at most one addition to and one removal from the priority queue.
+     *  - Priority queue operations (insertion and deletion of the maximum element) take O(log n) time in the worst case.
+     *  - Therefore, the overall time complexity of this solution is O(n log n).
      */
-    private fun findMaxValueOfEquation(points: Array<IntArray>, k: Int): Int {
-        val deque = ArrayDeque<Pair<Int, Int>>()
+    private  fun findMaxValueOfEquation(points: Array<IntArray>, k: Int): Int {
+        val pq = java.util.PriorityQueue<Pair<Int, Int>> { a, b -> b.first - a.first }
         var maxValue = Int.MIN_VALUE
 
-        for ((x, y) in points) {
-            // Remove the points from the front of the deque whose x-value difference with
-            // the current point is greater than k. This ensures that we only consider
-            // points within the constraint |xi - xj| <= k.
-            while (deque.isNotEmpty() && x - deque.first().first > k) {
-                deque.removeFirst()
+        for (j in points.indices) {
+            val xj = points[j][0]
+            val yj = points[j][1]
+
+            // Remove points from the priority queue that are outside the k-distance window
+            while (pq.isNotEmpty() && xj - pq.peek().second > k) {
+                pq.poll()
             }
 
-            // Update the maximum value if the deque is not empty
-            if (deque.isNotEmpty())
-                maxValue = maxOf(maxValue, y - deque.first().first + x + deque.first().second)
-
-            // Remove points from the deque whose y-value minus x-value is less than the current point's y-value minus x-value
-            while (deque.isNotEmpty() && deque.last().second - deque.last().first < y - x) {
-                deque.removeLast()
+            // If the priority queue is not empty, calculate the current equation value
+            if (pq.isNotEmpty()) {
+                val yiMinusXi = pq.peek().first
+                maxValue = maxOf(maxValue, yiMinusXi + yj + xj)
             }
 
-            deque.addLast(x to y)
+            // Add the current point's (yj - xj, xj) to the priority queue
+            pq.offer(yj - xj to xj)
         }
 
         return maxValue

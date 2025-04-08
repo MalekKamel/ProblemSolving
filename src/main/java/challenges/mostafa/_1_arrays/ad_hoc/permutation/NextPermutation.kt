@@ -22,15 +22,14 @@ Given an array of integers nums, find the next permutation of nums.
 The replacement must be in place and use only constant extra memory.
 
 Example 1:
-
 Input: nums = [1,2,3]
 Output: [1,3,2]
-Example 2:
 
+Example 2:
 Input: nums = [3,2,1]
 Output: [1,2,3]
-Example 3:
 
+Example 3:
 Input: nums = [1,1,5]
 Output: [1,5,1]
 
@@ -45,37 +44,97 @@ https://leetcode.com/problems/next-permutation/description/
 
 internal object NextPermutation {
     /**
-    Let's break down how to find the next bigger permutation of a number, using an example
-    like [1, 2, 3]:
+    1. Problem Explanation:
 
-    1. Finding the Dip:
+    The problem asks us to find the next lexicographically greater permutation of a given array of
+    integers. Lexicographical order is similar to alphabetical order but applied to sequences of
+    numbers. If we consider all possible permutations of the array sorted in lexicographical order,
+    we need to find the permutation that comes immediately after the given one. If the given
+    permutation is the last one in lexicographical order (i.e., the array is sorted in descending order),
+    we need to rearrange it to the first (smallest) permutation, which is the array sorted in
+    ascending order. The modification must be done in place using only constant extra memory.
 
-    Imagine the numbers as digits in a number. We want to find the point where the digits
-    start decreasing as we move from right to left. In [1, 2, 3],
-    this happens at the '2' because '3' is bigger.
+    2. Pattern Identification and Rationale:
 
-    2. Finding the Swap:
+    The pattern to solve this problem relies on understanding how lexicographical order works. To
+    find the next greater permutation, we aim to make the smallest possible change to the rightmost
+    part of the array that results in a larger permutation.
 
-    After the 'dip' ('2'), we look for the smallest digit to its right that's still bigger than it.
-    In our case, that's '3'.
-    We swap the '2' and the '3', giving us [1, 3, 2].
+    The algorithm follows these steps:
 
-    3. Making it the Smallest:
+    Identify the pivot: We scan the array from right to left to find the first element nums[i] that
+    is smaller than the element to its right nums[i+1]. This element nums[i] is our potential pivot.
+    This indicates a point where we can potentially increase the number. If no such element exists,
+    it means the array is in descending order, and we need to reverse the entire array to get
+    the smallest permutation.
 
-    To get the smallest possible increase in our permutation, we need to make sure the digits
-    after the swap point ('3' in our example) are in ascending order.
-    We reverse the digits after '3', which are already in descending order,
-    to put them in ascending order.
-    That's it! We've found the next permutation: [1, 3, 2].
+    Find the swap element: If a pivot is found at index i (meaning i >= 0), we then scan the subarray
+    to the right of i (from right to left) to find the smallest element nums[j] that is greater
+    than nums[i].
 
-    Think of it like this: We're trying to find the next biggest number we can make
-    with the same digits. We find the 'dip' to see where the number starts getting smaller,
-    swap it with the next biggest digit to increase the value, and then rearrange
-    the rest to be the smallest possible.
+    Swap: We swap the pivot element nums[i] with the found element nums[j]. This ensures that the prefix
+    of the array up to index i is now lexicographically larger.
+
+    Reverse the suffix: Finally, to make the resulting permutation the next lexicographically greater
+    one, we need to make the suffix of the array starting from index i+1 as small as possible. Since
+    we swapped with the smallest element greater than nums[i] in the suffix, the remaining elements
+    in the suffix (from i+1 to the end) are in descending order (or non-increasing). To make this
+    suffix the smallest, we reverse it.
+
+    3. Solution Breakdown:
+
+    Find the first decreasing element from the right (index i):
+
+    The code initializes a pointer i to the second-to-last element of the array (nums.size - 2).
+    It iterates backwards (while i is greater than or equal to 0) as long as the current
+    element nums[i] is greater than or equal to the element to its right nums[i + 1].
+    After this loop, i will either be the index of the first decreasing element from the right,
+    or it will be -1 if the array is in descending order (no such element exists).
+    Find the smallest element larger than nums[i] from the right (index j) and Swap:
+
+    The code checks if a decreasing element was found (if (i >= 0)).
+    If i is non-negative:
+    It initializes another pointer j to the last element of the array (nums.size - 1).
+    It iterates backwards (while j is greater than i) as long as the element at nums[j] is less than
+    or equal to the element at nums[i]. This loop finds the smallest element in the suffix that is
+    still greater than nums[i].
+    It then calls the swap function to exchange the elements at indices i and j.
+    Reverse the suffix starting at index i + 1:
+
+    After potentially performing the swap (or if no swap was needed because the array was in
+    descending order, in which case i would be -1), the code calls the reverse function with
+    the starting index i + 1.
+    If i was -1 (descending order), i + 1 will be 0, and the entire array will be reversed,
+    resulting in the smallest permutation (ascending order).
+    If i was a valid index, the reverse function will reverse the portion of the array to the
+    right of the swapped element, ensuring the suffix is in ascending order.
+    Helper Functions:
+
+    swap(nums: IntArray, i: Int, j: Int): This function takes the array and two indices i and j as
+    input and swaps the elements at these indices using a temporary variable.
+
+    reverse(nums: IntArray, start: Int): This function takes the array and a starting index start
+    as input. It reverses the portion of the array from the start index to the end of the array using
+    two pointers, i starting at start and j starting at the last element. It swaps elements at these
+    pointers and moves them towards the middle until they meet or cross.
+
+    4. Efficient Implementation:
+
+    The provided Kotlin code is efficient and adheres to the problem constraints:
+
+    Time Complexity: The nextPermutation function involves at most three linear scans of a portion of
+    the array: one to find the decreasing element (pivot), one to find the element to swap with, and
+    one to reverse the suffix. Each of these operations takes O(n) time in the worst case, where n
+    is the length of the array. Therefore, the overall time complexity is O(n).
+
+    Space Complexity: The algorithm operates directly on the input array (nums) and uses only
+    a constant amount of extra memory for variables like i, j, and temp in the swap function.
+    Thus, the space complexity is O(1), satisfying the "constant extra memory" requirement.
      */
     private fun nextPermutation(nums: IntArray) {
         // Find the first decreasing element from the right
-        var i = nums.size - 2
+        val n = nums.size
+        var i = n - 2
         while (i >= 0 && nums[i] >= nums[i + 1]) {
             i--
         }
@@ -83,7 +142,7 @@ internal object NextPermutation {
         // Finding the swap
         // Find the smallest element larger than nums[i] from the right
         if (i >= 0) {
-            var j = nums.size - 1
+            var j = n - 1
             while (j > i && nums[j] <= nums[i]) {
                 j--
             }

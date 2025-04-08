@@ -17,7 +17,8 @@ Example 2:
 
 Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
 Output: 5
-Explanation: The LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition.
+Explanation: The LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to
+the LCA definition.
 
 Example 3:
 
@@ -46,6 +47,43 @@ internal object P9LowestCommonAncestorOfBinaryTree {
         }
     }
 
+    /**
+     * 1. Problem Explanation
+     * The problem asks us to find the lowest common ancestor (LCA) of two given nodes, p and q, in a binary tree.
+     * The LCA is defined as the lowest node in the tree that has both p and q as descendants (including
+     * the case where a node is a descendant of itself).
+     *
+     * 2. Pattern Identification and Rationale
+     * The most suitable pattern for this problem is a recursive approach. We can traverse the tree and
+     * check for the presence of the target nodes p and q in the subtrees.
+     * The recursion allows us to explore the tree structure efficiently.
+     *
+     * Advantages of recursion:
+     * - It naturally fits the tree structure, as each node can be seen as the root of a smaller subtree.
+     * - It allows us to propagate information (whether p or q is found in a subtree) up the call stack.
+     * - The base cases (reaching a null node or finding one of the target nodes) are straightforward to define.
+     *
+     * 3. Solution Breakdown
+     * The core idea is to traverse the tree recursively. For each node, we check the following:
+     * - If the current node is null, it cannot contain p or q, so we return null.
+     * - If the current node is either p or q, then this node is a potential ancestor. We return this node
+     * because if the other target node is in its subtree, this node is the LCA. If the other target node
+     * is not in its subtree, then this node itself is the LCA (as a node can be a descendant of itself).
+     * - Recursively call the function for the left and right subtrees of the current node to find p and
+     * q in those subtrees.
+     * - If both the left and right recursive calls return a non-null node, it means p is in one subtree
+     * and q is in the other. Therefore, the current node is the LCA.
+     * - If only one of the recursive calls returns a non-null node, it means either p or q (or both) are
+     * in that subtree. The non-null node returned by the recursive call is the LCA in this case.
+     * - If both recursive calls return null, it means neither p nor q are in the subtrees of the current
+     * node, so we return null.
+     *
+     * 4. Time Complexity
+     * The time complexity of this recursive solution is O(N), where N is the number of nodes in the binary tree.
+     * In the worst case, we might visit every node in the tree.
+     *
+     * 5. Efficient Implementation
+     */
     /**
     The function `lowestCommonAncestor` takes three parameters:
     1. `root`: the root node of a binary tree

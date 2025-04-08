@@ -53,6 +53,85 @@ internal object P6CopyListWithRandomPointer {
         var random: Node? = null
     )
 
+    /**
+     * Understanding the Problem: Deep Copy with Random Pointers
+     *
+     * The challenge here isn't just to copy the val and next pointers of the linked list. Each node
+     * also has a random pointer that can point to any node in the original list (including itself or null).
+     * A deep copy means creating entirely new nodes with the same values and ensuring that the random
+     * pointers in the copied list point to the corresponding nodes in the newly created copied list.
+     *
+     * The Algorithm: Three Passes
+     *
+     * The code cleverly solves this problem in three distinct passes through the original linked list:
+     *
+     * 1. First Pass: Creating and Inserting Copied Nodes
+     *
+     * var current = node: We initialize a pointer current to the head of the original list.
+     * while (current != null): We iterate through each node in the original list.
+     * val copiedNode = Node(current.val): For each original node, we create a new node (copiedNode)
+     * with the same value.
+     * copiedNode.next = current.next: We set the next pointer of the copiedNode to point to the node
+     * that was originally after the current node.
+     * current.next = copiedNode: We then insert the copiedNode immediately after the current original node.
+     * current = copiedNode.next: We advance the current pointer to the next original node (which is
+     * now two steps ahead because of the insertion).
+     * After the first pass, the list structure will look like this (if the original list was A -> B -> C):
+     *
+     * A -> A' -> B -> B' -> C -> C'
+     *
+     * where A', B', and C' are the newly created copied nodes. The random pointers are not yet set in
+     * the copied nodes.
+     *
+     * 2. Second Pass: Setting the Random Pointers of Copied Nodes
+     *
+     * current = node: We reset the current pointer to the head of the original list.
+     * while (current != null): We iterate through the original list again.
+     * current.next?.random = current.random?.next: This is the crucial step for setting the random
+     * pointers in the copied nodes. Let's break it down:
+     * current.next: This refers to the copied node that was inserted after the current original node.
+     * current.next?.random: We are trying to set the random pointer of this copied node. The ?. is for
+     * safe navigation in case current.next is null (though it shouldn't be in this phase).
+     * current.random: This refers to the random pointer of the original node.
+     * current.random?.next: If the original node's random pointer is not null, this points to the node
+     * that comes after the node pointed to by the original's random pointer. Because of our first pass,
+     * the node immediately after any original node is its copy. Therefore, current.random?.next will
+     * point to the corresponding copied node in the new list.
+     * current = current.next?.next: We advance the current pointer to the next original node (skipping
+     * the copied node in between).
+     * After the second pass, the random pointers of the copied nodes are correctly set to point to
+     * the corresponding copied nodes in the new structure.
+     *
+     * 3. Third Pass: Separating the Original and Copied Lists
+     *
+     * current = node: We reset the current pointer to the head of the original list.
+     * val dummyHead = Node(0): We create a dummy head node for the copied list. This simplifies the process
+     * of building the new list.
+     * var copiedCurrent = dummyHead: We initialize a pointer copiedCurrent to the dummy head, which
+     * we'll use to traverse and build the copied list.
+     * while (current != null): We iterate through the modified original list.
+     * copiedCurrent.next = current.next: We link the next pointer of the current node in the copied
+     * list (copiedCurrent) to the copied node that is currently after the current original node.
+     * copiedCurrent = copiedCurrent.next!!: We move copiedCurrent to the newly linked copied node.
+     * The !! is used because we know copiedCurrent.next is not null in this context.
+     * current.next = copiedCurrent.next: We restore the next pointer of the current original node
+     * to point to the node that comes after the copied node (which was the next original node).
+     * current = current.next: We advance the current pointer to the next original node.
+     * After the third pass:
+     *
+     * The original list is restored to its original next pointer structure.
+     *
+     * The copiedCurrent pointer (starting from dummyHead) has built a completely new linked list
+     * containing the copies of the original nodes, with their random pointers correctly set to the corresponding
+     * nodes in the new list.
+     *
+     * return dummyHead.next: Finally, we return the next of the dummy head, which is the actual head of
+     * the deep-copied linked list.
+     */
+    /**
+     * Time Complexity: O(n) where n is the number of nodes
+     * We make three passes through the list, each taking O(n)
+     */
     private fun copyRandomList(node: Node?): Node? {
         if (node == null) return null
 
@@ -77,10 +156,10 @@ internal object P6CopyListWithRandomPointer {
         val dummyHead = Node(0)
         var copiedCurrent = dummyHead
         while (current != null) {
-            copiedCurrent.next = current.next
-            copiedCurrent = copiedCurrent.next!!
-            current.next = copiedCurrent.next
-            current = current.next
+            copiedCurrent.next = current.next // The copied node
+            copiedCurrent = copiedCurrent.next!! // The copied node
+            current.next = copiedCurrent.next // The original node
+            current = current.next // The original node
         }
 
         return dummyHead.next

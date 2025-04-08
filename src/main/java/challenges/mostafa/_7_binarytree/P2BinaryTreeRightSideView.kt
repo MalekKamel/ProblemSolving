@@ -1,5 +1,8 @@
 package challenges.mostafa._7_binarytree
 
+import java.util.LinkedList
+import java.util.Queue
+
 /**
 Given the root of a binary tree, imagine yourself standing on the right side of it, return
 the values of the nodes you can see ordered from top to bottom.
@@ -33,55 +36,59 @@ internal object P2BinaryTreeRightSideView {
     }
 
     /**
-    Here's a breakdown of how the function works:
+     * 1. Problem Explanation
+     * The problem asks us to find the nodes visible from the right side of a binary tree.
+     * When we look from the right, for each level of the tree, we will only be able to see
+     * the rightmost node. We need to return these visible nodes in a top-to-bottom order.
 
-    1. Initialize an empty mutable list called `result` to store the right side view of the tree.
-    2. If the input `root` is `null`, return the `result` list as is.
-    3. Create a mutable list called `queue` and add the `root` node to it.
-    4. Enter a loop that continues as long as the `queue` is not empty.
-    5. Inside the loop:
-    - Determine the size of the current level of the tree by storing the `queue.size` in the
-    `levelSize` variable.
-    - Initialize a `rightmostValue` variable to store the rightmost value of the current level.
-    - Iterate through the nodes in the current level (`for (i in 0 until levelSize)`):
-    - Remove the first node from the `queue` and store it in the `node` variable.
-    - Update the `rightmostValue` to be the value of the current `node`.
-    - If the `node` has a left child, add it to the `queue`.
-    - If the `node` has a right child, add it to the `queue`.
-    - After processing all the nodes in the current level, add the `rightmostValue` to the `result` list.
-    6. Return the `result` list, which now contains the right side view of the tree.
+     * 2. Pattern Identification and Rationale
+     * The problem requires us to traverse the tree level by level to identify the rightmost
+     * node at each level. Breadth-First Search (BFS) or Level Order Traversal is a suitable
+     * algorithm for this. BFS allows us to visit all nodes at the same level before moving
+     * to the next level. By keeping track of the nodes at each level, we can easily identify
+     * the last (rightmost) node encountered at that level.
 
-    The key aspects of this algorithm are:
-    - It uses a breadth-first search (BFS) approach, traversing the tree level by level.
-    - For each level, it keeps track of the rightmost value, which represents the node that is
-    visible from the right side of the tree.
-    - The rightmost value is added to the `result` list after processing all the nodes in
-    the current level.
-    - The algorithm continues until all levels of the tree have been processed.
-
-    This function can be useful in scenarios where you need to visualize the tree from the right
-    side and obtain the values of the nodes that are visible from that perspective.
+     * 3. Solution Breakdown
+     * Step 1: Initialize an empty list to store the right side view nodes.
+     * Step 2: Handle the base case where the root is null. In this case, the right side view is empty.
+     * Step 3: Use a queue to perform BFS. Add the root node to the queue.
+     * Step 4: While the queue is not empty, process all nodes at the current level.
+     *    a. Get the number of nodes at the current level.
+     *    b. Iterate through all the nodes at the current level.
+     *    c. For each node, dequeue it.
+     *    d. If it's the last node at the current level (i.e., the last one dequeued), add its value to the result list.
+     *    e. Enqueue the left child (if it exists).
+     *    f. Enqueue the right child (if it exists).
+     *    g. Repeat steps b-f for each node in the current level.
+     * Step 5: Return the list of right side view nodes.
+     *
+     * 4. Time Complexity
+     * The time complexity of this solution is O(N), where N is the number of nodes in the binary tree.
+     * This is because each node is visited and processed exactly once during the BFS traversal.
      */
     private fun rightSideView(root: TreeNode?): List<Int> {
         val result = mutableListOf<Int>()
-        if (root == null) return result
+        if (root == null) {
+            return result
+        }
 
-        val queue = mutableListOf<TreeNode>()
-        queue.add(root)
+        val queue: Queue<TreeNode> = LinkedList()
+        queue.offer(root)
 
         while (queue.isNotEmpty()) {
             val levelSize = queue.size
-            var rightmostValue = 0
-
             for (i in 0 until levelSize) {
-                val node = queue.removeAt(0)
-                rightmostValue = node.`val`
-
-                node.left?.let { queue.add(it) }
-                node.right?.let { queue.add(it) }
+                val node = queue.poll()
+                if (i == levelSize - 1) {
+                    result.add(node.`val`)
+                }
+                if (node.left != null) {
+                    queue.offer(node.left)
+                }
+                if (node.right != null) {
+                    queue.offer(node.right)
+                }
             }
-
-            result.add(rightmostValue)
         }
 
         return result

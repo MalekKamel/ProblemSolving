@@ -124,14 +124,14 @@ class RandomizedSet {
         if (!set.contains(value)) return false
 
         // Find the index of the value in the list
-        val index = list.indexOf(value)
+        val indexToRemove = list.indexOf(value)
+        val lastElement = list.last()
 
         // Swap the last element in the list with the element at the index
-        val lastElement = list.last()
-        list[index] = lastElement
+        list[indexToRemove] = lastElement
+        // Remove the last element (which is now at the index of the element to be removed)
         list.removeLast()
 
-        // Remove the value from the set
         set.remove(value)
         return true
     }

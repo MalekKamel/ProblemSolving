@@ -43,6 +43,71 @@ https://leetcode.com/problems/lru-cache/submissions/1294597231/
  */
 
 
+/**
+ * Problem Explanation:
+ * (Same as before) The goal is to implement an LRU cache with O(1) average time complexity for get
+ * and put operations, evicting the least recently used item when the capacity is exceeded.
+ *
+ * Pattern Identification and Rationale:
+ * This solution cleverly utilizes the properties of LinkedHashMap. A LinkedHashMap in Kotlin (and Java)
+ * maintains the order of its entries. By default, it orders entries based on insertion order. However,
+ * it can also be configured to order entries by access order. In this implementation, while it's not
+ * explicitly configured for access order during initialization, the get operation cleverly manipulates
+ * the insertion order to achieve the LRU behavior.
+ *
+ * HashMap for O(1) average lookup: LinkedHashMap extends HashMap, so it provides O(1) average time
+ * complexity for key lookups (containsKey).
+ * Maintaining Order for LRU: By removing and re-inserting the key in the get operation, we move it
+ * to the end of the insertion order, effectively marking it as the most recently used. In the put operation,
+ * if the key exists, removing and re-inserting updates its position. When the capacity is exceeded,
+ * the first element in the insertion order is the least recently used and can be easily removed.
+ *
+ * Solution Breakdown:
+ *
+ * LRUCache(capacity: Int):
+ *
+ * Initializes a LinkedHashMap with the given capacity. By default, LinkedHashMap maintains insertion order.
+ * get(key: Int): Int:
+ *
+ * Checks if the key exists in the cache. If not, returns -1.
+ * If the key exists:
+ * Retrieves the value associated with the key.
+ * Removes the key from the cache.
+ * Re-inserts the key with its value. Because LinkedHashMap maintains insertion order, this effectively
+ * moves the accessed key to the end of the order, marking it as recently used.
+ * Returns the retrieved value.
+ * put(key: Int, value: Int):
+ *
+ * If the key already exists in the cache, it's removed.
+ * The key-value pair is then inserted into the cache. This will place it at the end of the insertion
+ * order, making it the most recently used.
+ * If the size of the cache exceeds the capacity, the first entry in the insertion order (which is the least
+ * recently used due to our get and put logic) is removed using cache.keys.first().
+ * Time Complexity:
+ *
+ * get(key: Int):
+ *
+ * containsKey: O(1) average.
+ * cache[key]!!: O(1) average.
+ * remove(key): O(1) average.
+ * cache[key] = value: O(1) average.
+ * Overall, get has an average time complexity of O(1).
+ * put(key: Int, value: Int):
+ *
+ * containsKey: O(1) average.
+ * remove(key): O(1) average.
+ * cache[key] = value: O(1) average.
+ * cache.size: O(1).
+ * cache.keys.first(): While technically it iterates to find the first key, in practice, for LinkedHashMap,
+ * it's often optimized to be close to O(1).
+ * cache.remove(...): O(1) average.
+ * Overall, put has an average time complexity of O(1).
+ * Efficient Implementation:
+ * This implementation is highly efficient and readable due to its direct use of LinkedHashMap. It avoids
+ * the need for explicit doubly linked list management, making the code cleaner and less prone to pointer
+ * manipulation errors. LinkedHashMap is specifically designed for scenarios like LRU caches, providing
+ * the necessary ordering and efficient operations.
+ */
 class LRUCache(private val capacity: Int) {
     private val cache = LinkedHashMap<Int, Int>()
 

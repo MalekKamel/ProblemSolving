@@ -6,7 +6,7 @@ object ExamplesForPriorityQueue {
     @JvmStatic
     fun main(args: Array<String>) {
         // Basic Usage:
-        var priorityQueue = PriorityQueue<Int>()
+        val priorityQueue = PriorityQueue<Int>()
         priorityQueue.offer(3)
         priorityQueue.offer(1)
         priorityQueue.offer(4)
@@ -47,10 +47,11 @@ object ExamplesForPriorityQueue {
         val priorityQueue2 = PriorityQueue<String> { a, b -> b.length - a.length }
         priorityQueue2.offer("apple")
         priorityQueue2.offer("banana")
-        priorityQueue2.offer("cherry")
+        priorityQueue2.offer("cher")
 
         println(priorityQueue2.poll()) // Output: "banana"
         println(priorityQueue2.poll()) // Output: "cherry"
+        println(priorityQueue2.poll()) // Output: "apple"
 
         // Initializing with a Collection:
         val numbers = listOf(3, 1, 4, 2)

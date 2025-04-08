@@ -56,7 +56,7 @@ internal object P2IsSubsequence {
     private fun isSubsequenceFollowUp(s: String, t: String): Boolean {
         var sIndex = 0
         for (c in t) {
-            if (sIndex >= s.length) return false
+            if (sIndex >= s.length) return true
             if (s[sIndex] == c) sIndex++
         }
         return sIndex == s.length

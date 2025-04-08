@@ -67,9 +67,42 @@ At most 50000 calls will be made to showFirstUnique and add.
 https://leetcode.ca/all/1429.html
  */
 
+/**
+ * Problem Explanation: Your code implicitly understands the problem of finding the first unique element
+ * in a queue-like structure with add operations.
+ *
+ * Pattern Identification and Rationale: You've correctly identified the need to maintain the order of
+ * elements (hence the queue) and track the frequency of each element (hence the uniqueMap). This aligns
+ * with the core requirements.
+ *
+ * Solution Breakdown:
+ *
+ * Initialization (init): You iterate through the initial array and call add for each element, which is
+ * a correct way to populate your data structures.
+ * showFirstUnique(): This is where the main efficiency concern lies. In the worst case, to find the first
+ * unique element, you might have to iterate through the entire queue using queue.first() and queue.removeFirst()
+ * until you find a unique element or the queue becomes empty. Removing from the beginning of a MutableList
+ * (which is backed by an ArrayList) takes O(N) time on average because all subsequent elements need to be shifted.
+ * add(value): Adding to the end of a MutableList is typically O(1) on average. Updating the uniqueMap is
+ * also O(1) on average.
+ * Time Complexity:
+ *
+ * FirstUnique(nums): O(N) due to the initial iteration and calls to add.
+ * showFirstUnique(): O(N) in the worst case, where N is the number of elements in the queue. This is because
+ * you might have to remove and check every element from the front until you find a unique one or the queue is empty.
+ * add(value): O(1) on average.
+ * Efficient Implementation (Considerations):
+ *
+ * Efficiency of showFirstUnique(): The repeated removal from the front of the MutableList in showFirstUnique()
+ * is the bottleneck. As mentioned, removeFirst() on an ArrayList-backed MutableList is O(N).
+ * Alternative for Queue: Using java.util.LinkedList for the queue would make removeFirst() an O(1) operation.
+ * Maintaining Order of Unique Elements: You're relying on the order within the queue to determine the "first"
+ * unique element. However, as you remove non-unique elements from the front, the indices of the remaining elements
+ * shift, which is handled correctly but contributes to the O(N) complexity of showFirstUnique().
+ */
 class FirstUnique(nums: IntArray) {
     private val queue = nums.toMutableList()
-    private val uniqueMap = mutableMapOf<Int, Int>()
+    private val map = mutableMapOf<Int, Int>()
 
     init {
         for (num in nums) {
@@ -80,18 +113,18 @@ class FirstUnique(nums: IntArray) {
     fun showFirstUnique(): Int {
         while (queue.isNotEmpty()) {
             val first = queue.first()
-            if (uniqueMap[first] == 1) return first
+            if (map[first] == 1) return first
             queue.removeFirst()
         }
         return -1
     }
 
     fun add(value: Int) {
-        if (uniqueMap.containsKey(value)) {
-            uniqueMap[value] = uniqueMap[value]!! + 1
+        if (map.containsKey(value)) {
+            map[value] = map[value]!! + 1
             return
         }
-        uniqueMap[value] = 1
+        map[value] = 1
         queue.add(value)
     }
 }

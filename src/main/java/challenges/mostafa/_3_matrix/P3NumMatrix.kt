@@ -39,6 +39,8 @@ n == matrix[i].length
 At most 104 calls will be made to sumRegion.
 
 https://leetcode.com/problems/range-sum-query-2d-immutable/description/
+
+ Solution Video: https://www.youtube.com/watch?v=KE8MQuwE2yA
  */
 
 class NumMatrix(matrix: Array<IntArray>) {

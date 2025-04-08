@@ -57,11 +57,24 @@ internal object P4LinkedListCycle {
         var fast = head.next
 
         while (slow != fast) {
+            // fast?.next == null: This checks if the fast pointer is at the last node. If it is,
+            // and there's no cycle, the next step for fast would be null, and the loop would terminate
+            // in the next iteration.
+            //
+            // fast.next?.next == null: This checks if the fast pointer is at the second-to-last node.
+            // If it is, the next step for fast would be the last node, and the step after that would be null.
+            // This condition is important because fast moves two steps at a time. If there's no cycle,
+            // fast will eventually reach a point where it (or the node after it) is null.
+            //
+            // In either of these cases, we know there's no cycle, so we return false.
             if (fast?.next == null || fast.next?.next == null) return false
             slow = slow?.next
             fast = fast.next?.next
         }
 
+        // If the while loop terminates because slow == fast, it means that the fast pointer has
+        // eventually caught up to the slow pointer. This can only happen if there is a cycle in
+        // the linked list. Therefore, in this case, the function returns true.
         return true
     }
 

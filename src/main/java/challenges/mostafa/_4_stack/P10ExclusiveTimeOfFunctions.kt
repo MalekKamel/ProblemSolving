@@ -80,6 +80,74 @@ https://leetcode.com/problems/exclusive-time-of-functions/description/
 internal object P10ExclusiveTimeOfFunctions {
 
     /**
+     * 1. Problem Explanation
+     * The problem asks us to calculate the exclusive execution time for each of n functions running
+     * on a single-threaded CPU.
+     * We are given a log of function calls, where each log entry indicates the function ID, whether
+     * it started or ended, and the timestamp.
+     * The exclusive time of a function is the total time the CPU spends executing that function,
+     * excluding any time spent in functions it calls.
+     * We need to return an array of size n, where the i-th element is the exclusive time of
+     * the function with ID i.
+     */
+
+    /**
+     * 2. Pattern Identification and Rationale
+     * The problem involves tracking the execution of functions based on start and end events and
+     * maintaining a call stack.
+     * This suggests using a stack data structure to keep track of the currently executing function(s).
+     * As we process the logs chronologically, when a function starts, we push its ID onto the stack.
+     * When a function ends, we pop its ID from the stack.
+     * To calculate the exclusive time, we need to know the duration of each function's execution.
+     * This duration is the difference between the end timestamp and the start timestamp (inclusive
+     * of the start time but exclusive of the end time in the log format, so we'll need to adjust).
+     * While a function is executing, if another function is called (a new 'start' log appears),
+     * the execution of the current function is paused, and the new function starts executing.
+     * The time spent in the newly called function should not be counted towards the exclusive
+     * time of the calling function.
+     * Therefore, we need to keep track of the start time of the currently running function and,
+     * when a new function starts or an existing function ends, calculate the execution time of
+     * the function that was running.
+     * The stack will help us identify the currently running function. When a function starts, we record
+     * its start time. When a function ends, we calculate the duration it ran by comparing its end time
+     * with its start time.
+     * We also need to handle the case where a function call is interrupted by another function call.
+     * In this scenario, when the inner function ends, the outer function resumes. We need to account
+     * for the time the outer function was paused.
+     * A suitable approach is to iterate through the logs, maintain a stack of currently executing function IDs,
+     * and keep track of the start time of the function at the top of the stack. When a function ends,
+     * we calculate its execution time and add it to the total exclusive time for that function.
+     * We also need to account for the time the calling function was paused.
+     */
+
+    /**
+     * 3. Solution Breakdown
+     * Step 1: Initialize an array `result` of size `n` to store the exclusive time for each function,
+     * initialized to 0.
+     * Step 2: Initialize a stack `callStack` to store the IDs of the currently executing functions.
+     * Step 3: Initialize a variable `previousTimestamp` to keep track of the timestamp of the previous
+     * log entry. This will help in calculating the execution time. Initialize it to 0 (or -1 if the first log is a 'start').
+     * Step 4: Iterate through the `logs` list. For each log entry:
+     * a. Parse the log entry to extract the `functionId`, `type` ("start" or "end"), and `timestamp`.
+     * Convert the timestamp to an integer.
+     * b. If the log type is "start":
+     * i. If the `callStack` is not empty, it means a function was running before this one started.
+     * The time elapsed between the previous log's timestamp (plus one, as the current start happens
+     * at the beginning of the current timestamp) and the current timestamp is the execution time
+     * of the function at the top of the stack. Add this duration to the `result` for that function ID.
+     * ii. Push the current `functionId` onto the `callStack`.
+     * iii. Update `previousTimestamp` to the current `timestamp`.
+     * c. If the log type is "end":
+     * i. Pop the top `functionId` from the `callStack`. This is the function that just ended.
+     * ii. The execution time of this function is the difference between the current `timestamp` and
+     * the `previousTimestamp` (inclusive, so `timestamp - previousTimestamp + 1`). Add this duration
+     * to the `result` for this `functionId`.
+     * iii. Update `previousTimestamp` to the current `timestamp`.
+     * Step 5: After processing all the logs, the `result` array will contain the exclusive time for
+     * each function. Return this array.
+     */
+
+    /**
     The key aspects of this solution are:
 
     1. Using a stack to keep track of the currently executing functions.
@@ -132,18 +200,18 @@ internal object P10ExclusiveTimeOfFunctions {
             val parts = log.split(":") // Split the log entry into its parts
             val functionId = parts[0].toInt()
             val state = parts[1]
-            val timestamp = parts[2].toInt()
+            val currentTimestamp = parts[2].toInt()
 
             when (state) {
                 "start" -> {
                     if (stack.isNotEmpty())
-                        result[stack.peek()] += timestamp - prevTimestamp
+                        result[stack.peek()] += currentTimestamp - prevTimestamp
                     stack.push(functionId)
-                    prevTimestamp = timestamp
+                    prevTimestamp = currentTimestamp
                 }
                 "end" -> {
-                    result[stack.pop()] += timestamp - prevTimestamp + 1
-                    prevTimestamp = timestamp + 1
+                    result[stack.pop()] += currentTimestamp - prevTimestamp + 1
+                    prevTimestamp = currentTimestamp + 1
                 }
             }
         }

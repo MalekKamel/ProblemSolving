@@ -61,45 +61,55 @@ https://leetcode.com/problems/lfu-cache/description/
  */
 
 class LFUCache(private val capacity: Int) {
-    private val keyToVal = mutableMapOf<Int, Int>()
-    private val keyToFreq = mutableMapOf<Int, Int>()
-    private val freqToLRUKeys = mutableMapOf<Int, LinkedHashSet<Int>>()
+    private val cache = mutableMapOf<Int, Int>()
+    private val frequencies = mutableMapOf<Int, Int>()
+    private val frequencyLists = mutableMapOf<Int, LinkedHashSet<Int>>()
     private var minFreq = 0
 
     fun get(key: Int): Int {
-        if (!keyToVal.containsKey(key)) return -1
+        if (!cache.containsKey(key)) return -1
 
-        val freq = keyToFreq[key]!!
-        keyToFreq[key] = freq + 1
+        // Increment frequency
+        val currentFreq = frequencies[key]!!
+        frequencies[key] = currentFreq + 1
 
-        freqToLRUKeys[freq]?.remove(key)
-        if (freq == minFreq && freqToLRUKeys[freq]?.isEmpty() == true) {
+        // Remove key from current frequency list
+        frequencyLists[currentFreq]?.remove(key)
+
+        // Increment minFreq if needed
+        if (currentFreq == minFreq && frequencyLists[currentFreq]?.isEmpty() == true) {
             minFreq++
         }
-        freqToLRUKeys.getOrPut(freq + 1) { LinkedHashSet() }.add(key)
 
-        return keyToVal[key]!!
+        // Add the new key to the next frequency list
+        frequencyLists.getOrPut(currentFreq + 1) { LinkedHashSet() }.add(key)
+
+        return cache[key]!!
     }
 
     fun put(key: Int, value: Int) {
         if (capacity <= 0) return
 
-        if (keyToVal.containsKey(key)) {
-            keyToVal[key] = value
+        // If the key already exists, update its value
+        if (cache.containsKey(key)) {
+            cache[key] = value
+            // Get to apply the logic for get
             get(key)
             return
         }
 
-        if (keyToVal.size >= capacity) {
-            val evict = freqToLRUKeys[minFreq]?.firstOrNull()
-            freqToLRUKeys[minFreq]?.remove(evict)
-            keyToVal.remove(evict)
-            keyToFreq.remove(evict)
+        // if the cache is full, remove the least frequently used key
+        if (cache.size >= capacity) {
+            val evictKey = frequencyLists[minFreq]?.firstOrNull()
+            frequencyLists[minFreq]?.remove(evictKey)
+            cache.remove(evictKey)
+            frequencies.remove(evictKey)
         }
 
-        keyToVal[key] = value
-        keyToFreq[key] = 1
-        freqToLRUKeys.getOrPut(1) { LinkedHashSet() }.add(key)
+        // Update data structures
+        cache[key] = value
+        frequencies[key] = 1
+        frequencyLists.getOrPut(1) { LinkedHashSet() }.add(key)
         minFreq = 1
     }
 }

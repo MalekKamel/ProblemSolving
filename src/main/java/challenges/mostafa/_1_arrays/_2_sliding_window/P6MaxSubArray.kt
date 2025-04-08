@@ -40,7 +40,7 @@ internal object P6MaxSubArray {
         var currentSum = nums[0]
 
         for (i in 1 until nums.size) {
-            currentSum = maxOf(nums[i], currentSum + nums[i])
+            currentSum = maxOf(nums[i], nums[i] + currentSum)
             maxSum = maxOf(maxSum, currentSum)
         }
 
